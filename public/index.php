@@ -9,7 +9,6 @@ $db = new Db();
 $allRows = $db->getAllRows();
 
 
-
 ?>
 
 <!doctype html>
@@ -53,23 +52,23 @@ $allRows = $db->getAllRows();
 <!--    </nav>-->
 <!--</header>-->
 <main class="container-fluid">
-<!--    <section>-->
-<!--        <div class="text-center mt-1 mb-1">-->
-<!--            <h1 class="fw-bold text-primary">Вступна інформація про родинне дерево</h1>-->
-<!--            <p class="fw-bold text-primary">Візуалізація родинного дерева</p>-->
-<!--            <p class="fw-bold text-primary">Можливість натискати на членів сім'ї для перегляду деталей.</p>-->
-<!--            <div class="text-center mt-2 mb-1">-->
-<!--                <label for="exampleDataList" class="form-label">Пошук</label>-->
-<!--                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">-->
-<!--                <datalist id="datalistOptions">-->
-<!--                    <option value="San Francisco">-->
-<!--                    <option value="New York">-->
-<!--                    <option value="Seattle">-->
-<!--                    <option value="Los Angeles">-->
-<!--                    <option value="Chicago">-->
-<!--                </datalist>-->
-<!--            </div>-->
-<!--    </section>-->
+    <!--    <section>-->
+    <!--        <div class="text-center mt-1 mb-1">-->
+    <!--            <h1 class="fw-bold text-primary">Вступна інформація про родинне дерево</h1>-->
+    <!--            <p class="fw-bold text-primary">Візуалізація родинного дерева</p>-->
+    <!--            <p class="fw-bold text-primary">Можливість натискати на членів сім'ї для перегляду деталей.</p>-->
+    <!--            <div class="text-center mt-2 mb-1">-->
+    <!--                <label for="exampleDataList" class="form-label">Пошук</label>-->
+    <!--                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">-->
+    <!--                <datalist id="datalistOptions">-->
+    <!--                    <option value="San Francisco">-->
+    <!--                    <option value="New York">-->
+    <!--                    <option value="Seattle">-->
+    <!--                    <option value="Los Angeles">-->
+    <!--                    <option value="Chicago">-->
+    <!--                </datalist>-->
+    <!--            </div>-->
+    <!--    </section>-->
     <!------------------FORM ---------------------->
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -78,11 +77,11 @@ $allRows = $db->getAllRows();
 
                 <form class="d-block p-2" action="/?action=create" method="POST">
                     <!--photo -->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="photo" class="form-label">Фото</label>-->
-<!--                        <input class="form-control" type="file" id="photo">-->
-<!--                    </div>-->
-            <!--description to photo -->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="photo" class="form-label">Фото</label>-->
+                    <!--                        <input class="form-control" type="file" id="photo">-->
+                    <!--                    </div>-->
+                    <!--description to photo -->
                     <div class="mb-3">
                         <label for="photo_description" class="form-label">Опис до фотографії</label>
                         <textarea class="form-control" name="file_description" id="photo_description" rows="3"
@@ -96,7 +95,8 @@ $allRows = $db->getAllRows();
                     <!--Maiden name  -->
                     <div class="mb-3">
                         <label for="maiden_name" class="form-label">Дівоче</label>
-                        <input class="form-control" name="maiden_name" type="text" id="maiden_name" placeholder="Дівоче">
+                        <input class="form-control" name="maiden_name" type="text" id="maiden_name"
+                               placeholder="Дівоче">
                     </div>
                     <!--name  -->
                     <div class="mb-3">
@@ -109,19 +109,20 @@ $allRows = $db->getAllRows();
                         <input class="form-control" name="fatherly" type="text" id="fatherly" placeholder="По-батькові">
                     </div>
                     <!--The Birthday date -->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="birth_date" class="form-label">Дата народження</label>-->
-<!--                        <input class="form-control" type="text" id="birth_date" placeholder="YYYY-MM-DD">-->
-<!--                    </div>-->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="birth_date" class="form-label">Дата народження</label>-->
+                    <!--                        <input class="form-control" type="text" id="birth_date" placeholder="YYYY-MM-DD">-->
+                    <!--                    </div>-->
                     <!--The Death date -->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="death_date" class="form-label">Дата смерті</label>-->
-<!--                        <input class="form-control" type="text" id="death_date" placeholder="YYYY-MM-DD">-->
-<!--                    </div>-->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="death_date" class="form-label">Дата смерті</label>-->
+                    <!--                        <input class="form-control" type="text" id="death_date" placeholder="YYYY-MM-DD">-->
+                    <!--                    </div>-->
                     <!--about person -->
                     <div class="mb-3">
                         <label for="history" class="form-label">Історія</label>
-                        <textarea class="form-control" name="history" id="history" rows="3" placeholder="Трохи історії..."></textarea>
+                        <textarea class="form-control" name="history" id="history" rows="3"
+                                  placeholder="Трохи історії..."></textarea>
                     </div>
                     <div class="mb-4">
                         <button type="submit" class="btn btn-primary">Зберегти</button>
@@ -129,40 +130,41 @@ $allRows = $db->getAllRows();
                 </form>
             </div>
         </div>
+
+        <!------------------LIST RELATIVES ---------------------->
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <!--            <th scope="col">Фото</th>-->
+                        <th scope="col">Опис до фотографії</th>
+                        <th scope="col">Прізвище</th>
+                        <th scope="col">Дівоче</th>
+                        <th scope="col">Імʼя</th>
+                        <th scope="col">По-батькові</th>
+                        <!--            <th scope="col">Дата народження</th>-->
+                        <!--            <th scope="col">Дата смерті</th>-->
+                        <th scope="col">Історія</th>
+                    </tr>
+                    </thead>
+                    <tbody id="list-container">
+                    <?php foreach ($allRows as $row) : ?>
+                        <tr>
+                            <td><?= $row["file_description"] ?></td>
+                            <td><?= $row["surname"] ?></td>
+                            <td><?= $row["maiden_name"] ?></td>
+                            <td><?= $row["name"] ?></td>
+                            <td><?= $row["fatherly"] ?></td>
+                            <td><?= $row["history"] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <!------------------LIST RELATIVES ---------------------->
-    <table class="table">
-        <thead>
-        <tr>
-<!--            <th scope="col">Фото</th>-->
-            <th scope="col">Опис до фотографії</th>
-            <th scope="col">Прізвище</th>
-            <th scope="col">Дівоче</th>
-            <th scope="col">Імʼя</th>
-            <th scope="col">По-батькові</th>
-<!--            <th scope="col">Дата народження</th>-->
-<!--            <th scope="col">Дата смерті</th>-->
-            <th scope="col">Історія</th>
-        </tr>
-        </thead>
-        <tbody id="list-container">
-        <?php foreach ($allRows as $row) :?>
-
-        <tr>
-            <td><?=$row["file_description"] ?></td>
-            <td><?=$row["surname"] ?></td>
-            <td><?=$row["maiden_name"] ?></td>
-            <td><?=$row["name"] ?></td>
-            <td><?=$row["fatherly"] ?></td>
-            <td><?=$row["history"] ?></td>
-        </tr>
-        <?php endforeach; ?>
-
-        </tbody>
-    </table>
-
 </main>
-
 
 
 </body>
