@@ -19,7 +19,7 @@ class Controller
         }
     }
 
-    public function actionCreate()
+    public function actionCreate()  // создание записи в БД
     {
         if($_POST) {
             $photo_description = $_POST['file_description'] ?? '';

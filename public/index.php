@@ -72,7 +72,7 @@ $allRows = $db->getAllRows();
     <!------------------FORM ---------------------->
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-6">
+            <div class="col-xl-6 col-lg-6 mt-5 mb-5">
                 <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма додавання члена сімʼї</h1>
 
                 <form class="d-block p-2" action="/?action=create" method="POST">
@@ -124,8 +124,8 @@ $allRows = $db->getAllRows();
                         <textarea class="form-control" name="history" id="history" rows="3"
                                   placeholder="Трохи історії..."></textarea>
                     </div>
-                    <div class="mb-4">
-                        <button type="submit" class="btn btn-primary">Зберегти</button>
+                    <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                        <button type="submit" class="btn btn-outline-primary btn-lg">Зберегти</button>
                     </div>
                 </form>
             </div>
@@ -133,8 +133,8 @@ $allRows = $db->getAllRows();
 
         <!------------------LIST RELATIVES ---------------------->
         <div class="row">
-            <div class="col-md-12">
-                <table class="table">
+            <div class="">
+                <table class="table table-bordered">
                     <thead>
                     <tr>
                         <!--            <th scope="col">Фото</th>-->
@@ -146,6 +146,8 @@ $allRows = $db->getAllRows();
                         <!--            <th scope="col">Дата народження</th>-->
                         <!--            <th scope="col">Дата смерті</th>-->
                         <th scope="col">Історія</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody id="list-container">
@@ -157,6 +159,16 @@ $allRows = $db->getAllRows();
                             <td><?= $row["name"] ?></td>
                             <td><?= $row["fatherly"] ?></td>
                             <td><?= $row["history"] ?></td>
+                            <td>
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <a href="/">Update</a>
+                                </button>
+                            </td>
+                            <td>
+                                <form action="/">
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
