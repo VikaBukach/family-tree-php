@@ -14,7 +14,7 @@ class Controller
 
     public function runAction($actionName)
     {
-        if(method_exists($this, 'action', $actionName)){
+        if(method_exists($this, 'action' . $actionName)){
             return $this->{'action' . $actionName}();
         }
     }
@@ -35,6 +35,19 @@ class Controller
         }
     }
 
+    public function actionUpdate()
+    {
+        if ($_POST) {
+            $photo_description = $_POST['file_description'];
+            $surname = $_POST['surname'];
+            $maiden_name = $_POST['maiden_name'];
+            $name = $_POST['name'];
+            $fatherly = $_POST['fatherly'];
+            $history = $_POST['history'];
+            $id = $_POST['id'];
 
-
+            $this->db->updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $history);
+        }
+    }
 }
+

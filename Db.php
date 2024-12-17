@@ -49,16 +49,24 @@ class Db
             ':id' => $id,
         ]);
 
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $data;
-
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateRow()
-    {  //оновлення запису
+    function updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $history)
+    {
+        $sql = "UPDATE family_members SET file_description =:file_description, surname =:surname, maiden_name =:maiden_name, name =:name, fatherly =:fatherly, history =:history WHERE id =:id"; //оновлення запису
+        $stmt = $this->connection->prepare($sql);
 
-
+        $stmt->execute([
+            ':id'=> $id,
+            ':file_description'=> $photo_description,
+            ':surname'=> $surname,
+            ':maiden_name'=> $maiden_name,
+            ':name'=> $name,
+            ':fatherly'=> $fatherly,
+            ':history'=> $history,
+        ]);
+        header('Location: /');
     }
 
 

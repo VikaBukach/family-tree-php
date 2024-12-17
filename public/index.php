@@ -4,9 +4,10 @@ require_once '../Controller.php';
 require_once '../Db.php';
 
 $controller = new Controller();
-$controller->actionCreate();
+$controller->runAction($_GET['action'] ?? '');
 $db = new Db();
 $allRows = $db->getAllRows();
+
 
 
 ?>
@@ -161,7 +162,7 @@ $allRows = $db->getAllRows();
                             <td><?= $row["history"] ?></td>
                             <td>
                                 <button type="button" class="btn btn-outline-secondary">
-                                    <a href="/edit.php?id=<?= $row['id'] ?>">Рудагувати</a>
+                                    <a href="/edit.php?id=<?= $row['id'] ?>">Редагувати</a>
                                 </button>
                             </td>
                             <td>
