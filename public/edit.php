@@ -62,14 +62,14 @@ $member = $db->getRowById($id);
                     <input class="form-control" value="<?= $member['fatherly']; ?>" name="fatherly" type="text" id="fatherly" placeholder="По-батькові">
                 </div>
                 <!--The Birthday date -->
-                <!--                    <div class="mb-3">-->
-                <!--                        <label for="birth_date" class="form-label">Дата народження</label>-->
-                <!--                        <input class="form-control" type="text" id="birth_date" placeholder="YYYY-MM-DD">-->
-                <!--                    </div>-->
+                                    <div class="mb-3">
+                                        <label for="birth_date" class="form-label">Дата народження</label>
+                                        <input class="form-control" value="<?= $member['birth_date']; ?>" name="birth_date" type="data" id="birth_date">
+                                    </div>
                 <!--The Death date -->
                 <!--                    <div class="mb-3">-->
                 <!--                        <label for="death_date" class="form-label">Дата смерті</label>-->
-                <!--                        <input class="form-control" type="text" id="death_date" placeholder="YYYY-MM-DD">-->
+                <!--                        <input class="form-control" type="text" id="death_date" placeholder="дд-мм-рррр">-->
                 <!--                    </div>-->
                 <!--about person -->
                 <div class="mb-3">

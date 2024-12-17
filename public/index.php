@@ -27,7 +27,7 @@ $allRows = $db->getAllRows();
 </head>
 <body>
 
-<!--<header>-->
+<header>
 <!--    <nav class="bg-gray-800">-->
 <!--        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">-->
 <!--            <div class="relative flex h-16 items-center justify-between">-->
@@ -36,8 +36,8 @@ $allRows = $db->getAllRows();
 <!---->
 <!--                    <div class="hidden sm:ml-6 sm:block">-->
 <!--                        <div class="flex space-x-4">-->
-<!--
-                          <a href="" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"-->
+<!---->
+<!--                          <a href="" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"-->
 <!--                               aria-current="page">До дерева</a>-->
 <!--                            <a href="#"-->
 <!--                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список-->
@@ -51,7 +51,7 @@ $allRows = $db->getAllRows();
 <!--        </div>-->
 <!--        </div>-->
 <!--    </nav>-->
-<!--</header>-->
+</header>
 <main class="container-fluid">
     <!--    <section>-->
     <!--        <div class="text-center mt-1 mb-1">-->
@@ -110,15 +110,15 @@ $allRows = $db->getAllRows();
                         <input class="form-control" name="fatherly" type="text" id="fatherly" placeholder="По-батькові">
                     </div>
                     <!--The Birthday date -->
-                    <!--                    <div class="mb-3">-->
-                    <!--                        <label for="birth_date" class="form-label">Дата народження</label>-->
-                    <!--                        <input class="form-control" type="text" id="birth_date" placeholder="YYYY-MM-DD">-->
-                    <!--                    </div>-->
+                                        <div class="mb-3">
+                                            <label for="birth_date" class="form-label">Дата народження</label>
+                                            <input class="form-control" name="birth_date" type="date" id="birth_date">
+                                        </div>
                     <!--The Death date -->
-                    <!--                    <div class="mb-3">-->
-                    <!--                        <label for="death_date" class="form-label">Дата смерті</label>-->
-                    <!--                        <input class="form-control" type="text" id="death_date" placeholder="YYYY-MM-DD">-->
-                    <!--                    </div>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <label for="death_date" class="form-label">Дата смерті</label>-->
+<!--                                            <input class="form-control" type="text" id="death_date" placeholder="дд-мм-рррр">-->
+<!--                                        </div>-->
                     <!--about person -->
                     <div class="mb-3">
                         <label for="history" class="form-label">Історія</label>
@@ -144,7 +144,7 @@ $allRows = $db->getAllRows();
                         <th scope="col">Дівоче</th>
                         <th scope="col">Імʼя</th>
                         <th scope="col">По-батькові</th>
-                        <!--            <th scope="col">Дата народження</th>-->
+                        <th scope="col">Дата народження</th>
                         <!--            <th scope="col">Дата смерті</th>-->
                         <th scope="col">Історія</th>
                         <th scope="col"></th>
@@ -159,6 +159,7 @@ $allRows = $db->getAllRows();
                             <td><?= $row["maiden_name"] ?></td>
                             <td><?= $row["name"] ?></td>
                             <td><?= $row["fatherly"] ?></td>
+                            <td><?= $row["birth_date"] ?></td>
                             <td><?= $row["history"] ?></td>
                             <td>
                                 <button type="button" class="btn btn-outline-secondary">

@@ -27,9 +27,10 @@ class Controller
             $maiden_name = $_POST['maiden_name'] ?? '';
             $name = $_POST['name'] ?? '';
             $fatherly = $_POST['fatherly'] ?? '';
+            $birth_date = new DateTime($_POST['birth_date'] ?? '');
             $history = $_POST['history'] ?? '';
 
-            $this->db->createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $history);
+            $this->db->createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history);
 
             header('Location: /');
         }
@@ -43,10 +44,11 @@ class Controller
             $maiden_name = $_POST['maiden_name'];
             $name = $_POST['name'];
             $fatherly = $_POST['fatherly'];
+            $birth_date= new DateTime($_POST['birth_date']);
             $history = $_POST['history'];
             $id = $_POST['id'];
 
-            $this->db->updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $history);
+            $this->db->updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history);
         }
     }
 }

@@ -18,17 +18,22 @@ class Db
         }
     }
 
-    public function createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $history) // добавление записи в БД
+    public function createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history) // добавление записи в БД
     {
-        $sql = "INSERT INTO family_members (file_description, surname, maiden_name, name, fatherly, history) VALUES (:file_description, :surname, :maiden_name, :name, :fatherly, :history)";
+        $sql = "INSERT INTO family_members (file_path, file_description, surname, maiden_name, name, fatherly, birth_date,
+                                              history, created_at)
+        VALUES (:file_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT)";
+
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
+            ':file_path' => null,
             ':file_description' => $photo_description,
             ':surname' => $surname,
             ':maiden_name' => $maiden_name,
             ':name' => $name,
             ':fatherly' => $fatherly,
+            ':birth_date' => $birth_date->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
             ':history' => $history
         ]);
     }
@@ -52,9 +57,9 @@ class Db
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $history)
+    function updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history)
     {
-        $sql = "UPDATE family_members SET file_description =:file_description, surname =:surname, maiden_name =:maiden_name, name =:name, fatherly =:fatherly, history =:history WHERE id =:id"; //оновлення запису
+        $sql = "UPDATE family_members SET file_description =:file_description, surname =:surname, maiden_name =:maiden_name, name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history WHERE id =:id"; //оновлення запису
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
@@ -64,6 +69,7 @@ class Db
             ':maiden_name'=> $maiden_name,
             ':name'=> $name,
             ':fatherly'=> $fatherly,
+            ':birth_date'=> $birth_date,
             ':history'=> $history,
         ]);
         header('Location: /');
