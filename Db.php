@@ -41,21 +41,22 @@ class Db
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function editRow($id) //отримання даних для редагування, отримання конкретного запису з БД для подальшого внесення змін.
+    function getRowById($id) //отримання даних для редагування, отримання конкретного запису з БД для подальшого внесення змін.
     {
         $sql = "SELECT * FROM family_members WHERE id=:id";
-        $stmt = $this->connection->query($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->execute([
-            ':id' => $id
+            ':id' => $id,
         ]);
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $data;
 
+        return $data;
 
     }
 
-    function updateRow(){  //оновлення запису
+    function updateRow()
+    {  //оновлення запису
 
 
     }

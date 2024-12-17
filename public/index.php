@@ -161,12 +161,12 @@ $allRows = $db->getAllRows();
                             <td><?= $row["history"] ?></td>
                             <td>
                                 <button type="button" class="btn btn-outline-secondary">
-                                    <a href="/">Update</a>
+                                    <a href="/edit.php?id=<?= $row['id'] ?>">Рудагувати</a>
                                 </button>
                             </td>
                             <td>
                                 <form action="/">
-                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                    <button type="submit" class="btn btn-outline-danger">Видалити запис</button>
                                 </form>
                             </td>
                         </tr>
