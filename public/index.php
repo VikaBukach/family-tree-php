@@ -80,11 +80,11 @@ $controller->actionCreate();
 <!--                        <input class="form-control" type="file" id="photo">-->
 <!--                    </div>-->
             <!--description to photo -->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="photo_description" class="form-label">Опис до фотографії</label>-->
-<!--                        <textarea class="form-control" id="photo_description" rows="3"-->
-<!--                                  placeholder="Опис до фотографії"></textarea>-->
-<!--                    </div>-->
+                    <div class="mb-3">
+                        <label for="photo_description" class="form-label">Опис до фотографії</label>
+                        <textarea class="form-control" name="file_description" id="photo_description" rows="3"
+                                  placeholder="Опис до фотографії"></textarea>
+                    </div>
                     <!--Surname -->
                     <div class="mb-3">
                         <label for="surname" class="form-label">Прізвище</label>
@@ -132,7 +132,7 @@ $controller->actionCreate();
         <thead>
         <tr>
 <!--            <th scope="col">Фото</th>-->
-<!--            <th scope="col">Опис до фотографії</th>-->
+            <th scope="col">Опис до фотографії</th>
             <th scope="col">Прізвище</th>
             <th scope="col">Дівоче</th>
             <th scope="col">Імʼя</th>
@@ -144,13 +144,14 @@ $controller->actionCreate();
         </thead>
         <tbody id="list-container">
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-
+            <td>Photo</td>
+            <td>Descript</td>
+            <td>Bukach</td>
+            <td>Viktoriia</td>
+            <td>Viktorivna</td>
+            <td>10.05.1987</td>
+            <td>-</td>
+            <td>Good woman</td>
         </tr>
 
 <!--            <tr>-->

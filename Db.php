@@ -18,59 +18,21 @@ class Db
         }
     }
 
-    public function createFamilyMembersTable()
+    public function createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $history)
     {
-        $sql = "create table family_members
-    (
-    id int auto_increment primary key,
-    surname          varchar(55)                         null,
-    maiden_name      varchar(55)                         null,
-    name             varchar(55)                         null,
-    fatherly         varchar(55)                         null,
-    history          text                                null,
-    created_at       timestamp default CURRENT_TIMESTAMP null
-)";
-
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-    }
-
-//    public function createFamilyMembersTable()
-//    {
-//        $sql = "create table family_members
-//    (
-//        id               int auto_increment
-//        primary key,
-//    file_path        varchar(255)                        null,
-//    file_description varchar(255)                        null,
-//    surname          varchar(55)                         null,
-//    maiden_name      varchar(55)                         null,
-//    name             varchar(55)                         null,
-//    fatherly         varchar(55)                         null,
-//    birth_date       date                                null,
-//    death_date       date                                null,
-//    history          text                                null,
-//    created_at       timestamp default CURRENT_TIMESTAMP null
-//)";
-//
-//        $stmt = $this->connection->prepare($sql);
-//        $stmt->execute();
-//    }
-
-    public function createRow($data)
-    {
-        $sql = "INSERT INTO family_members(surname, maiden_name, name, fatherly, history) VALUES (:surname, :maiden_name, :name, :fatherly, :history)";
+        $sql = "INSERT family_members (file_description, surname, maiden_name, name, fatherly, history) VALUES (:file_description, :surname, :maiden_name, :name, :fatherly, :history)";
         $stmt = $this->connection->prepare($sql);
 
-        $dataInsert = [
-            ':surname' => $data['surname'],
-            ':maiden_name' => $data['maiden_name'],
-            ':name' => $data['name'],
-            ':fatherly' => $data['fatherly'],
-            ':history' => $data['history'],
-        ];
+        $stmt->execute([
+            ':file_description' => $photo_description,
+            ':surname' => $surname,
+            ':maiden_name' => $maiden_name,
+            ':name' => $name,
+            ':fatherly' => $fatherly,
+            ':history' => $history
+        ]);
 
-        $stmt->execute($dataInsert);
+
     }
 
 
