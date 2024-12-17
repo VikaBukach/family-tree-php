@@ -59,7 +59,8 @@ class Db
 
     function updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history)
     {
-        $sql = "UPDATE family_members SET file_description =:file_description, surname =:surname, maiden_name =:maiden_name, name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history WHERE id =:id"; //оновлення запису
+        $sql = "UPDATE family_members SET file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
+                          name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history WHERE id =:id"; //оновлення запису
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
@@ -69,7 +70,7 @@ class Db
             ':maiden_name'=> $maiden_name,
             ':name'=> $name,
             ':fatherly'=> $fatherly,
-            ':birth_date'=> $birth_date,
+            ':birth_date'=> $birth_date->format('Y-m-d'),
             ':history'=> $history,
         ]);
         header('Location: /');

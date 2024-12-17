@@ -44,7 +44,7 @@ class Controller
             $maiden_name = $_POST['maiden_name'];
             $name = $_POST['name'];
             $fatherly = $_POST['fatherly'];
-            $birth_date= new DateTime($_POST['birth_date']);
+            $birth_date= new DateTime($_POST['birth_date'] ?? '');
             $history = $_POST['history'];
             $id = $_POST['id'];
 

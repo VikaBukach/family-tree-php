@@ -43,29 +43,34 @@ $member = $db->getRowById($id);
                 <!--Surname -->
                 <div class="mb-3">
                     <label for="surname" class="form-label">Прізвище</label>
-                    <input class="form-control" value="<?= $member['surname']; ?>" name="surname" type="text" id="surname" placeholder="Прізвище">
+                    <input class="form-control" value="<?= $member['surname']; ?>" name="surname" type="text"
+                           id="surname" placeholder="Прізвище">
                 </div>
                 <!--Maiden name  -->
                 <div class="mb-3">
                     <label for="maiden_name" class="form-label">Дівоче</label>
-                    <input class="form-control" value="<?= $member['maiden_name']; ?>" name="maiden_name" type="text" id="maiden_name"
+                    <input class="form-control" value="<?= $member['maiden_name']; ?>" name="maiden_name" type="text"
+                           id="maiden_name"
                            placeholder="Дівоче">
                 </div>
                 <!--name  -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Імʼя</label>
-                    <input class="form-control" value="<?= $member['name']; ?>" name="name" type="text" id="name" placeholder="Імʼя">
+                    <input class="form-control" value="<?= $member['name']; ?>" name="name" type="text" id="name"
+                           placeholder="Імʼя">
                 </div>
                 <!-- fatherly -->
                 <div class="mb-3">
                     <label for="fatherly" class="form-label">По-батькові</label>
-                    <input class="form-control" value="<?= $member['fatherly']; ?>" name="fatherly" type="text" id="fatherly" placeholder="По-батькові">
+                    <input class="form-control" value="<?= $member['fatherly']; ?>" name="fatherly" type="text"
+                           id="fatherly" placeholder="По-батькові">
                 </div>
                 <!--The Birthday date -->
-                                    <div class="mb-3">
-                                        <label for="birth_date" class="form-label">Дата народження</label>
-                                        <input class="form-control" value="<?= $member['birth_date']; ?>" name="birth_date" type="data" id="birth_date">
-                                    </div>
+                <div class="mb-3">
+                    <label for="birth_date" class="form-label">Дата народження</label>
+                    <input class="form-control" value="<?= $member['birth_date']; ?>" name="birth_date"  type="date"
+                           id="birth_date">
+                </div>
                 <!--The Death date -->
                 <!--                    <div class="mb-3">-->
                 <!--                        <label for="death_date" class="form-label">Дата смерті</label>-->
@@ -79,7 +84,7 @@ $member = $db->getRowById($id);
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">
                     <a class="btn btn-outline-primary btn-lg" href="/">
-                    <button type="submit">Оновити</button>
+                        <button type="submit">Оновити</button>
                     </a>
                 </div>
                 <a class="d-grid gap-2 col-6 mx-auto mt-3" href="/">
