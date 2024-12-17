@@ -1,9 +1,12 @@
 <?php
 
 require_once '../Controller.php';
+require_once '../Db.php';
 
 $controller = new Controller();
 $controller->actionCreate();
+$db = new Db();
+$allRows = $db->getAllRows();
 
 
 
@@ -143,28 +146,17 @@ $controller->actionCreate();
         </tr>
         </thead>
         <tbody id="list-container">
-        <tr>
-            <td>Photo</td>
-            <td>Descript</td>
-            <td>Bukach</td>
-            <td>Viktoriia</td>
-            <td>Viktorivna</td>
-            <td>10.05.1987</td>
-            <td>-</td>
-            <td>Good woman</td>
-        </tr>
+        <?php foreach ($allRows as $row) :?>
 
-<!--            <tr>-->
-<!--                <td>--><?php //=$dataMember['file_path']?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['file_description']?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['surname']?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['maiden_name']?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['name'] ?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['fatherly'] ?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['birth_date'] ?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['death_date'] ?><!--</td>-->
-<!--                <td>--><?php //=$dataMember['history'] ?><!--</td>-->
-<!--            </tr>-->
+        <tr>
+            <td><?=$row["file_description"] ?></td>
+            <td><?=$row["surname"] ?></td>
+            <td><?=$row["maiden_name"] ?></td>
+            <td><?=$row["name"] ?></td>
+            <td><?=$row["fatherly"] ?></td>
+            <td><?=$row["history"] ?></td>
+        </tr>
+        <?php endforeach; ?>
 
         </tbody>
     </table>

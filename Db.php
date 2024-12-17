@@ -31,8 +31,14 @@ class Db
             ':fatherly' => $fatherly,
             ':history' => $history
         ]);
+    }
 
+    function getAllRows()
+    {
+        $sql = "SELECT * FROM  family_members";
+        $stmt = $this->connection->query($sql);
 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
