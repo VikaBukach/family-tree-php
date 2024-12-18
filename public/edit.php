@@ -27,12 +27,25 @@ $member = $db->getRowById($id);
     <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма редагування члена сімʼї</h1>
-            <form class="d-block p-2" action="/?action=update" method="POST">
+            <form class="d-block p-2" action="/?action=update" method="POST" enctype="multipart/form-data">
                 <!--photo -->
-                <!--                    <div class="mb-3">-->
-                <!--                        <label for="avatar_path" class="form-label">Фото</label>-->
-                <!--                        <input class="form-control" name="avatar_path" type="file" id="avatar_path">-->
-                <!--                    </div>-->
+                <div class="mb-3">
+                    <label for="avatar" class="form-label">Поточна фотографія:</label>
+
+                    <?php if (!empty($member['avatar_path'])): ?>
+                        <img src="<?= htmlspecialchars($member['avatar_path']) ?>" alt="Avatar"
+                             style="width: 100px; height: 100px; object-fit: cover;">
+                    <?php else: ?>
+                        <span>фотографія відсутня</span>
+                    <?php endif; ?>
+
+                    <input type="hidden" name="current_avatar" value="<?= htmlspecialchars($member['avatar_path']) ?>">
+                    <label class="form-label">Завантажити нову фотографію:</label>
+                    <input type="file" class="form-control" name="avatar" id="avatar"
+                           accept="image/png, image/jpeg">
+                    <input type="hidden" name="avatar_path" value="<?= $member['avatar_path']; ?>">
+                </div>
+
                 <!--description to photo -->
                 <div class="mb-3">
                     <input type="hidden" name="id" value="<?= $member['id']; ?>">
@@ -68,7 +81,7 @@ $member = $db->getRowById($id);
                 <!--The Birthday date -->
                 <div class="mb-3">
                     <label for="birth_date" class="form-label">Дата народження</label>
-                    <input class="form-control" value="<?= $member['birth_date']; ?>" name="birth_date"  type="date"
+                    <input class="form-control" value="<?= $member['birth_date']; ?>" name="birth_date" type="date"
                            id="birth_date">
                 </div>
                 <!--The Death date -->

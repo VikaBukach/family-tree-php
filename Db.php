@@ -58,14 +58,15 @@ class Db
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history)
+    function updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history)
     {
-        $sql = "UPDATE family_members SET file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
+        $sql = "UPDATE family_members SET avatar_path=:avatar_path, file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
                           name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history WHERE id =:id"; //оновлення запису
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
             ':id'=> $id,
+            ':avatar_path'=> $avatar_path,
             ':file_description' => $photo_description,
             ':surname' => $surname,
             ':maiden_name' => $maiden_name,
