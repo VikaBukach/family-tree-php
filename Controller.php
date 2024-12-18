@@ -51,5 +51,14 @@ class Controller
             $this->db->updateRow($id, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history);
         }
     }
+
+    public function actionDelete()
+    {
+        if($_POST){
+            $id = $_POST['id'];
+        }
+
+        $this->db->deleteRow($id);
+    }
 }
 

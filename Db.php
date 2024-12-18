@@ -75,5 +75,15 @@ class Db
         header('Location: /');
     }
 
+    function deleteRow($id)
+    {
+        $sql = "DELETE FROM family_members WHERE id=:id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([':id'=> $id]);
+
+//        header('Location: /');
+
+    }
+
 
 }

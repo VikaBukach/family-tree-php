@@ -166,7 +166,8 @@ $allRows = $db->getAllRows();
                                 </button>
                             </td>
                             <td>
-                                <form action="/">
+                                <form action="/?action=delete" method="POST">
+                                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
                                     <button type="submit" class="btn btn-outline-danger">Видалити запис</button>
                                 </form>
                             </td>
