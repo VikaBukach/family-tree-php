@@ -20,14 +20,13 @@ class Db
 
     public function createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history) // добавление записи в БД
     {
-        $sql = "INSERT INTO family_members (file_path, file_description, surname, maiden_name, name, fatherly, birth_date,
+        $sql = "INSERT INTO family_members (file_description, surname, maiden_name, name, fatherly, birth_date,
                                               history, created_at)
-        VALUES (:file_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT)";
+        VALUES (:file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT)";
 
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
-            ':file_path' => null,
             ':file_description' => $photo_description,
             ':surname' => $surname,
             ':maiden_name' => $maiden_name,
@@ -65,13 +64,13 @@ class Db
 
         $stmt->execute([
             ':id'=> $id,
-            ':file_description'=> $photo_description,
-            ':surname'=> $surname,
-            ':maiden_name'=> $maiden_name,
-            ':name'=> $name,
-            ':fatherly'=> $fatherly,
-            ':birth_date'=> $birth_date->format('Y-m-d'),
-            ':history'=> $history,
+            ':file_description' => $photo_description,
+            ':surname' => $surname,
+            ':maiden_name' => $maiden_name,
+            ':name' => $name,
+            ':fatherly' => $fatherly,
+            ':birth_date' => $birth_date->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
+            ':history' => $history
         ]);
         header('Location: /');
     }

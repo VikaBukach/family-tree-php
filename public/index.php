@@ -9,7 +9,6 @@ $db = new Db();
 $allRows = $db->getAllRows();
 
 
-
 ?>
 
 <!doctype html>
@@ -28,29 +27,29 @@ $allRows = $db->getAllRows();
 <body>
 
 <header>
-<!--    <nav class="bg-gray-800">-->
-<!--        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">-->
-<!--            <div class="relative flex h-16 items-center justify-between">-->
-<!---->
-<!--                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">-->
-<!---->
-<!--                    <div class="hidden sm:ml-6 sm:block">-->
-<!--                        <div class="flex space-x-4">-->
-<!---->
-<!--                          <a href="" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"-->
-<!--                               aria-current="page">До дерева</a>-->
-<!--                            <a href="#"-->
-<!--                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список-->
-<!--                                членів родини-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!---->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        </div>-->
-<!--    </nav>-->
+    <!--    <nav class="bg-gray-800">-->
+    <!--        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">-->
+    <!--            <div class="relative flex h-16 items-center justify-between">-->
+    <!---->
+    <!--                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">-->
+    <!---->
+    <!--                    <div class="hidden sm:ml-6 sm:block">-->
+    <!--                        <div class="flex space-x-4">-->
+    <!---->
+    <!--                          <a href="" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"-->
+    <!--                               aria-current="page">До дерева</a>-->
+    <!--                            <a href="#"-->
+    <!--                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список-->
+    <!--                                членів родини-->
+    <!--                            </a>-->
+    <!--                        </div>-->
+    <!---->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        </div>-->
+    <!--    </nav>-->
 </header>
 <main class="container-fluid">
     <!--    <section>-->
@@ -78,10 +77,10 @@ $allRows = $db->getAllRows();
 
                 <form class="d-block p-2" action="/?action=create" method="POST">
                     <!--photo -->
-                    <!--                    <div class="mb-3">-->
-                    <!--                        <label for="photo" class="form-label">Фото</label>-->
-                    <!--                        <input class="form-control" type="file" id="photo">-->
-                    <!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="file_path" class="form-label">Фото</label>-->
+<!--                        <input class="form-control" name="file_path" type="file" id="file_path">-->
+<!--                    </div>-->
                     <!--description to photo -->
                     <div class="mb-3">
                         <label for="photo_description" class="form-label">Опис до фотографії</label>
@@ -110,15 +109,15 @@ $allRows = $db->getAllRows();
                         <input class="form-control" name="fatherly" type="text" id="fatherly" placeholder="По-батькові">
                     </div>
                     <!--The Birthday date -->
-                                        <div class="mb-3">
-                                            <label for="birth_date" class="form-label">Дата народження</label>
-                                            <input class="form-control" name="birth_date" type="date" id="birth_date">
-                                        </div>
+                    <div class="mb-3">
+                        <label for="birth_date" class="form-label">Дата народження</label>
+                        <input class="form-control" name="birth_date" type="date" id="birth_date">
+                    </div>
                     <!--The Death date -->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="death_date" class="form-label">Дата смерті</label>-->
-<!--                                            <input class="form-control" type="text" id="death_date" placeholder="дд-мм-рррр">-->
-<!--                                        </div>-->
+                    <!--                                        <div class="mb-3">-->
+                    <!--                                            <label for="death_date" class="form-label">Дата смерті</label>-->
+                    <!--                                            <input class="form-control" type="text" id="death_date" placeholder="дд-мм-рррр">-->
+                    <!--                                        </div>-->
                     <!--about person -->
                     <div class="mb-3">
                         <label for="history" class="form-label">Історія</label>

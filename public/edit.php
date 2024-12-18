@@ -82,16 +82,13 @@ $member = $db->getRowById($id);
                     <textarea class="form-control" name="history" id="history" rows="3"
                               placeholder="Трохи історії..."><?= $member['history']; ?></textarea>
                 </div>
-                <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                    <a class="btn btn-outline-primary btn-lg" href="/">
-                        <button type="submit">Оновити</button>
-                    </a>
+                <div class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg">
+                    <input type="submit"></input>
                 </div>
-                <a class="d-grid gap-2 col-6 mx-auto mt-3" href="/">
-                    <button type="submit" class="btn btn-outline-primary btn-lg">Повернутись до списку</button>
-                </a>
-
             </form>
+            <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
+                Повернутись до списку
+            </a>
         </div>
     </div>
 </div>
