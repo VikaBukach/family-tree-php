@@ -19,9 +19,24 @@ class Controller
         }
     }
 
-    public function actionCreate()  // создание записи в БД
+    public function actionCreate()
     {
         if($_POST) {
+            // Обробка аватара
+            $avatar_path = '';
+            if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+
+                $uploadDir = __DIR__ . '/public/img/'; // Директорія для збереження аватарів
+                $fileName = uniqid() . '-' . basename($_FILES['avatar']['name']);
+                $filePath = $uploadDir . $fileName;
+
+                if (move_uploaded_file($_FILES['avatar']['tmp_name'], $filePath)) {
+                    $avatar_path = '/public/img/' . $fileName; // Шлях до аватара
+                }
+            }
+
+//            $avatar_path = $_POST['avatar_path'];
+
             $photo_description = $_POST['file_description'] ?? '';
             $surname = $_POST['surname'] ?? '';
             $maiden_name = $_POST['maiden_name'] ?? '';
@@ -30,7 +45,7 @@ class Controller
             $birth_date = new DateTime($_POST['birth_date'] ?? '');
             $history = $_POST['history'] ?? '';
 
-            $this->db->createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history);
+            $this->db->createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history);
 
             header('Location: /');
         }

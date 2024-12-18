@@ -74,13 +74,19 @@ $allRows = $db->getAllRows();
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-6 mt-5 mb-5">
                 <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма додавання члена сімʼї</h1>
-
-                <form class="d-block p-2" action="/?action=create" method="POST">
+                <form class="d-block p-2" action="/?action=create" method="POST" enctype="multipart/form-data">
                     <!--photo -->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="file_path" class="form-label">Фото</label>-->
-<!--                        <input class="form-control" name="file_path" type="file" id="file_path">-->
-<!--                    </div>-->
+
+                    <div class="mb-3">
+                        <!--                        <input type="hidden" name="user_id" value="1"> -->
+                        <label for="avatar" class="form-label">Завантажити фото:</label>
+
+                        <input type="file" class="form-control" name="avatar" id="avatar"
+                               accept="image/png, image/jpeg">
+                        <input type="hidden" name="avatar_path" value="">   <!-- Тут зберігається шлях до аватара -->
+                    </div>
+
+
                     <!--description to photo -->
                     <div class="mb-3">
                         <label for="photo_description" class="form-label">Опис до фотографії</label>
@@ -137,7 +143,7 @@ $allRows = $db->getAllRows();
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <!--            <th scope="col">Фото</th>-->
+<!--                        <th scope="col">Фото</th>-->
                         <th scope="col">Опис до фотографії</th>
                         <th scope="col">Прізвище</th>
                         <th scope="col">Дівоче</th>
@@ -153,6 +159,7 @@ $allRows = $db->getAllRows();
                     <tbody id="list-container">
                     <?php foreach ($allRows as $row) : ?>
                         <tr>
+<!--                            <td>--><?php //= $row[""] ?><!--</td>-->
                             <td><?= $row["file_description"] ?></td>
                             <td><?= $row["surname"] ?></td>
                             <td><?= $row["maiden_name"] ?></td>

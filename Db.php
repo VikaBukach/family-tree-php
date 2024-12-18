@@ -18,15 +18,17 @@ class Db
         }
     }
 
-    public function createRow($photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history) // добавление записи в БД
+    public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history)
     {
-        $sql = "INSERT INTO family_members (file_description, surname, maiden_name, name, fatherly, birth_date,
+        $sql = "INSERT INTO family_members (avatar_path, file_description, surname, maiden_name, name, fatherly, birth_date,
                                               history, created_at)
-        VALUES (:file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT)";
+        VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT)";
 
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
+            ':avatar_path' => $avatar_path,
+
             ':file_description' => $photo_description,
             ':surname' => $surname,
             ':maiden_name' => $maiden_name,
@@ -81,7 +83,7 @@ class Db
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([':id'=> $id]);
 
-//        header('Location: /');
+        header('Location: /');
 
     }
 

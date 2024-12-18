@@ -30,8 +30,8 @@ $member = $db->getRowById($id);
             <form class="d-block p-2" action="/?action=update" method="POST">
                 <!--photo -->
                 <!--                    <div class="mb-3">-->
-                <!--                        <label for="photo" class="form-label">Фото</label>-->
-                <!--                        <input class="form-control" type="file" id="photo">-->
+                <!--                        <label for="avatar_path" class="form-label">Фото</label>-->
+                <!--                        <input class="form-control" name="avatar_path" type="file" id="avatar_path">-->
                 <!--                    </div>-->
                 <!--description to photo -->
                 <div class="mb-3">
