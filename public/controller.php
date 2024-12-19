@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Db.php';
+require_once '../Db.php';
 
 class Controller
 {
@@ -92,3 +92,5 @@ class Controller
     }
 }
 
+$controller = new Controller();
+$controller->runAction($_GET['action'] ?? '');

@@ -27,7 +27,7 @@ $member = $db->getRowById($id);
     <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма редагування члена сімʼї</h1>
-            <form class="d-block p-2" action="/?action=update" method="POST" enctype="multipart/form-data">
+            <form class="d-block p-2" action="/controller.php?action=update" method="POST" enctype="multipart/form-data">
                 <!--photo -->
                 <div class="mb-3">
                     <label for="avatar" class="form-label">Поточна фотографія:</label>
