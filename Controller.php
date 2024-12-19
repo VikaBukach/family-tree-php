@@ -74,9 +74,11 @@ class Controller
             $fatherly = $_POST['fatherly'];
             $birth_date= new DateTime($_POST['birth_date'] ?? '');
             $history = $_POST['history'];
+            $status = $_POST['status'];
+            $death_date = new DateTime($_POST['death_date'] ?? '');
             $id = $_POST['id'];
 
-            $this->db->updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history);
+            $this->db->updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date);
         }
     }
 

@@ -117,20 +117,17 @@ $allRows = $db->getAllRows();
                         <input class="form-control" name="birth_date" type="date" id="birth_date">
                     </div>
                     <!--The Death date -->
-
                     <div class="mb-3">
                         <label for="status">Статус:</label>
                         <select id="status" name="status">
                             <option value="alive">Живий</option>
                             <option value="deceased">Померлий</option>
                         </select>
-
                         <div id="death-date-field" style="display: none;">
                             <label for="death_date" class="form-label">Дата завершення життєвого шляху:</label>
                             <input name="death_date" class="form-control" type="date" id="death_date"">
                         </div>
                     </div>
-
                     <!--about person -->
                     <div class="mb-3">
                         <label for="history" class="form-label">Історія</label>

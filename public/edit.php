@@ -85,10 +85,19 @@ $member = $db->getRowById($id);
                            id="birth_date">
                 </div>
                 <!--The Death date -->
-                <!--                    <div class="mb-3">-->
-                <!--                        <label for="death_date" class="form-label">Дата смерті</label>-->
-                <!--                        <input class="form-control" type="text" id="death_date" placeholder="дд-мм-рррр">-->
-                <!--                    </div>-->
+                <div class="mb-3">
+                    <label for="status">Статус:</label>
+                    <select id="status" name="status">
+                        <option value="alive">Живий</option>
+                        <option value="deceased">Померлий</option>
+                    </select>
+                    <div id="death-date-field" style="display: none;">
+                        <label for="death_date" class="form-label">Дата завершення життєвого шляху:</label>
+                        <input value="<?= $member['death_date']; ?>" name="death_date" class="form-control" type="date" id="death_date"">
+                    </div>
+                </div>
+
+
                 <!--about person -->
                 <div class="mb-3">
                     <label for="history" class="form-label">Історія</label>
@@ -105,6 +114,9 @@ $member = $db->getRowById($id);
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
 

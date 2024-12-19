@@ -60,10 +60,10 @@ class Db
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history)
+    function updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date)
     {
         $sql = "UPDATE family_members SET avatar_path=:avatar_path, file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
-                          name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history WHERE id =:id"; //оновлення запису
+                          name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history, status =:status, death_date =:death_date WHERE id =:id"; //оновлення запису
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
@@ -75,7 +75,9 @@ class Db
             ':name' => $name,
             ':fatherly' => $fatherly,
             ':birth_date' => $birth_date->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
-            ':history' => $history
+            ':history' => $history,
+            ':status' => $status,
+            ':death_date' => $death_date->format('Y-m-d')
         ]);
         header('Location: /');
     }
@@ -87,8 +89,6 @@ class Db
         $stmt->execute([':id'=> $id]);
 
         header('Location: /');
-
     }
-
 
 }
