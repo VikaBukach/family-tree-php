@@ -37,7 +37,7 @@ class Db
             ':birth_date' => $birth_date->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
             ':history' => $history,
             ':status' => $status,
-            ':death_date' => $death_date->format('Y-m-d') // передана відформатована дата, передаємо строку замість об'єкта
+            ':death_date' => $death_date?->format('Y-m-d') // передана відформатована дата, передаємо строку замість об'єкта
         ]);
     }
 

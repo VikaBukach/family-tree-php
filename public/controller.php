@@ -26,7 +26,7 @@ class Controller
             $avatar_path = '';
 
             if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK){
-              $uploadDir = __DIR__ . '/public/img/';   // Директорія для збереження аватарів
+              $uploadDir = __DIR__ . '/img/';   // Директорія для збереження аватарів
               $fileName = uniqid() . '-' . basename($_FILES['avatar']['name']);
               $filePath = $uploadDir . $fileName;
 
@@ -43,7 +43,7 @@ class Controller
             $birth_date = new DateTime($_POST['birth_date'] ?? '');
             $history = $_POST['history'] ?? '';
             $status = $_POST['status'] ?? '';
-            $death_date = new DateTime($_POST['death_date'] ?? '');
+            $death_date = !empty($_POST['death_date']) ? new DateTime($_POST['death_date']) : null;
 
             $this->db->createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date);
 
@@ -75,7 +75,7 @@ class Controller
             $birth_date= new DateTime($_POST['birth_date'] ?? '');
             $history = $_POST['history'];
             $status = $_POST['status'];
-            $death_date = new DateTime($_POST['death_date'] ?? '');
+            $death_date = !empty($_POST['death_date']) ? new DateTime($_POST['death_date']) : null;
             $id = $_POST['id'];
 
             $this->db->updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date);
