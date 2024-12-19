@@ -58,7 +58,7 @@ class Controller
             $avatar_path = $_POST['avatar_path'] ?? '';
 
             if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK){
-                $uploadDir = __DIR__ . '/public/img/';   // Директорія для збереження аватарів
+                $uploadDir = __DIR__ . '/img/';   // Директорія для збереження аватарів
                 $fileName = uniqid() . '-' . basename($_FILES['avatar']['name']);
                 $filePath = $uploadDir . $fileName;
 
