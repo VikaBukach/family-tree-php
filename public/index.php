@@ -117,10 +117,20 @@ $allRows = $db->getAllRows();
                         <input class="form-control" name="birth_date" type="date" id="birth_date">
                     </div>
                     <!--The Death date -->
-                    <!--                                        <div class="mb-3">-->
-                    <!--                                            <label for="death_date" class="form-label">Дата смерті</label>-->
-                    <!--                                            <input class="form-control" type="text" id="death_date" placeholder="дд-мм-рррр">-->
-                    <!--                                        </div>-->
+
+                    <div class="mb-3">
+                        <label for="status">Статус:</label>
+                        <select id="status" name="status">
+                            <option value="alive">Живий</option>
+                            <option value="deceased">Померлий</option>
+                        </select>
+
+                        <div id="death-date-field" style="display: none;">
+                            <label for="death_date" class="form-label">Дата завершення життєвого шляху:</label>
+                            <input name="death_date" class="form-control" type="date" id="death_date"">
+                        </div>
+                    </div>
+
                     <!--about person -->
                     <div class="mb-3">
                         <label for="history" class="form-label">Історія</label>
@@ -158,9 +168,10 @@ $allRows = $db->getAllRows();
                         <tr>
                             <td>
                                 <?php if (!empty ($row["avatar_path"])): ?>
-                                <img src="<?= htmlspecialchars($row["avatar_path"]) ?>" alt="фото" style="width: 50px; height: 50px; object-fit: cover;">
+                                    <img src="<?= htmlspecialchars($row["avatar_path"]) ?>" alt="фото"
+                                         style="width: 50px; height: 50px; object-fit: cover;">
                                 <?php else: ?>
-                                <span>Відсутня фотографія</span>
+                                    <span>Відсутня фотографія</span>
                                 <?php endif; ?>
                             </td>
                             <td><?= $row["file_description"] ?></td>
@@ -190,6 +201,7 @@ $allRows = $db->getAllRows();
     </div>
 </main>
 
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
