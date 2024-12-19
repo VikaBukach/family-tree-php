@@ -1,0 +1,83 @@
+<?php
+require_once '../../../Db.php';
+$db = new Db();
+$allRows = $db->getAllRows();
+
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<!------------------LIST RELATIVES ---------------------->
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Фотографія</th>
+                <th scope="col">Опис до фотографії</th>
+                <th scope="col">Прізвище</th>
+                <th scope="col">Дівоче</th>
+                <th scope="col">Імʼя</th>
+                <th scope="col">По-батькові</th>
+                <th scope="col">Дата народження</th>
+                <th scope="col">Дата смерті</th>
+                <th scope="col">Історія</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody id="list-container">
+            <?php foreach ($allRows as $row) : ?>
+                <tr>
+                    <td>
+                        <?php if (!empty ($row["avatar_path"])): ?>
+                            <img src="<?= htmlspecialchars($row["avatar_path"]) ?>" alt="фото"
+                                 style="width: 50px; height: 50px; object-fit: cover;">
+                        <?php else: ?>
+                            <span>Відсутня фотографія</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= $row["file_description"] ?></td>
+                    <td><?= $row["surname"] ?></td>
+                    <td><?= $row["maiden_name"] ?></td>
+                    <td><?= $row["name"] ?></td>
+                    <td><?= $row["fatherly"] ?></td>
+                    <td><?= $row["birth_date"] ?></td>
+                    <td><?= $row["death_date"] ?></td>
+                    <td><?= $row["history"] ?></td>
+                    <td>
+                        <button type="button" class="btn btn-outline-secondary">
+                            <a href="/views/members/edit.php?id=<?= $row['id'] ?>">Редагувати</a>
+                        </button>
+                    </td>
+                    <td>
+                        <form action="/controllers/MembersController.php?action=delete" method="POST">
+                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                            <button type="submit" class="btn btn-outline-danger">Видалити запис</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
+            Повернутись на головну
+        </a>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
