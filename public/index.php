@@ -157,7 +157,7 @@ $allRows = $db->getAllRows();
                         <th scope="col">Імʼя</th>
                         <th scope="col">По-батькові</th>
                         <th scope="col">Дата народження</th>
-                        <!--            <th scope="col">Дата смерті</th>-->
+                        <th scope="col">Дата смерті</th>
                         <th scope="col">Історія</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -180,6 +180,7 @@ $allRows = $db->getAllRows();
                             <td><?= $row["name"] ?></td>
                             <td><?= $row["fatherly"] ?></td>
                             <td><?= $row["birth_date"] ?></td>
+                            <td><?= $row["death_date"] ?></td>
                             <td><?= $row["history"] ?></td>
                             <td>
                                 <button type="button" class="btn btn-outline-secondary">

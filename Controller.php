@@ -42,8 +42,10 @@ class Controller
             $fatherly = $_POST['fatherly'] ?? '';
             $birth_date = new DateTime($_POST['birth_date'] ?? '');
             $history = $_POST['history'] ?? '';
+            $status = $_POST['status'] ?? '';
+            $death_date = new DateTime($_POST['death_date'] ?? '');
 
-            $this->db->createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history);
+            $this->db->createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date);
 
             header('Location: /');
         }

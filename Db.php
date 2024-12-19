@@ -18,11 +18,11 @@ class Db
         }
     }
 
-    public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history)
+    public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date)
     {
         $sql = "INSERT INTO family_members (avatar_path, file_description, surname, maiden_name, name, fatherly, birth_date,
-                                              history, created_at)
-        VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT)";
+                                              history, created_at, status, death_date)
+        VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT, :status, :death_date)";
 
         $stmt = $this->connection->prepare($sql);
 
@@ -35,7 +35,9 @@ class Db
             ':name' => $name,
             ':fatherly' => $fatherly,
             ':birth_date' => $birth_date->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
-            ':history' => $history
+            ':history' => $history,
+            ':status' => $status,
+            ':death_date' => $death_date->format('Y-m-d') // передана відформатована дата, передаємо строку замість об'єкта
         ]);
     }
 
