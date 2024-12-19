@@ -97,7 +97,6 @@ $member = $db->getRowById($id);
                     </div>
                 </div>
 
-
                 <!--about person -->
                 <div class="mb-3">
                     <label for="history" class="form-label">Історія</label>
