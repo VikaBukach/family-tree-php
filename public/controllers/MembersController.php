@@ -1,24 +1,9 @@
 <?php
 
-require_once '../Db.php';
+require_once '../../BaseController.php';
 
-class Controller
+class MembersController extends BaseController
 {
-    private $db;
-
-    public function __construct()
-    {
-        $this->db = new Db();
-
-    }
-
-    public function runAction($actionName)
-    {
-        if(method_exists($this, 'action' . $actionName)){
-            return $this->{'action' . $actionName}();
-        }
-    }
-
     public function actionCreate()
     {
         if($_POST) {
@@ -26,12 +11,12 @@ class Controller
             $avatar_path = '';
 
             if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK){
-              $uploadDir = __DIR__ . '/img/';   // Директорія для збереження аватарів
+              $uploadDir = __DIR__ . '/../img/';   // Директорія для збереження аватарів
               $fileName = uniqid() . '-' . basename($_FILES['avatar']['name']);
               $filePath = $uploadDir . $fileName;
 
               if(move_uploaded_file($_FILES['avatar']['tmp_name'], $filePath)){
-                  $avatar_path = '/img/' . $fileName; // Шлях до аватара
+                  $avatar_path = '/../img/' . $fileName; // Шлях до аватара
               }
             }
 
@@ -58,12 +43,12 @@ class Controller
             $avatar_path = $_POST['avatar_path'] ?? '';
 
             if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK){
-                $uploadDir = __DIR__ . '/img/';   // Директорія для збереження аватарів
+                $uploadDir = __DIR__ . '/../img/';   // Директорія для збереження аватарів
                 $fileName = uniqid() . '-' . basename($_FILES['avatar']['name']);
                 $filePath = $uploadDir . $fileName;
 
                 if(move_uploaded_file($_FILES['avatar']['tmp_name'], $filePath)){
-                    $avatar_path = '/img/' . $fileName; // Шлях до аватара
+                    $avatar_path = '/../img/' . $fileName; // Шлях до аватара
                 }
             }
 
@@ -92,5 +77,5 @@ class Controller
     }
 }
 
-$controller = new Controller();
+$controller = new MembersController();
 $controller->runAction($_GET['action'] ?? '');

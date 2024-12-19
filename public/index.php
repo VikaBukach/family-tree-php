@@ -108,7 +108,7 @@ $allRows = $db->getAllRows();
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-6 mt-5 mb-5">
                 <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма додавання члена сімʼї</h1>
-                <form class="d-block p-2" action="/controller.php?action=create" method="POST"
+                <form class="d-block p-2" action="/controllers/MembersController.php?action=create" method="POST"
                       enctype="multipart/form-data">
                     <!--photo -->
                     <div class="mb-3">
@@ -222,7 +222,7 @@ $allRows = $db->getAllRows();
                                 </button>
                             </td>
                             <td>
-                                <form action="/controller.php?action=delete" method="POST">
+                                <form action="/controllers/MembersController.php?action=delete" method="POST">
                                     <input type="hidden" name="id" value="<?= $row['id'] ?>">
                                     <button type="submit" class="btn btn-outline-danger">Видалити запис</button>
                                 </form>
