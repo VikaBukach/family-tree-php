@@ -23,7 +23,7 @@ $allRows = $db->getAllRows();
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col">Фотографія</th>
+                <th scope="col">Фото</th>
                 <th scope="col">Опис до фотографії</th>
                 <th scope="col">Прізвище</th>
                 <th scope="col">Дівоче</th>
