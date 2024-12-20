@@ -44,16 +44,20 @@ $allRoles = $db->getAllRoles();
                     <?php endforeach; ?>
                 </select>
 
-                <label for="relationship_type" class="text-primary">Роль(тип звʼязку):</label>
+                <label for="relationship_type" class="text-primary">Тип звʼязку(роль):</label>
                 <select class="form-select mt-3 mb-3" aria-label="Default select example">
-                    <!--                    відмалювати циклом-->
-                    <option selected>Oберіть роль:</option>
-                    <option value="1">Папа</option>
-                    <option value="2">мама</option>
-                    <option value="3">Бабушка</option>
-                    <option value="3">Сестра</option>
-                </select>
 
+                    <option selected>Oберіть роль:</option>
+
+                    <?php foreach ($allRoles as $role): ?>
+
+                    <option value="<?= $member['id'] ?>"><?= $role['role_name']?> </option>
+
+                  <?php endforeach; ?>
+                </select>
+                <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                    <button type="submit" class="btn btn-outline-primary btn-lg">Зберегти</button>
+                </div>
             </form>
 
 
