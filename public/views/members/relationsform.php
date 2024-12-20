@@ -26,35 +26,42 @@ $allRoles = $db->getAllRoles();
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма додавання відносин</h1>
 
-            <form action="controllers/RelationshipsController.php?action=actionCreateRelation" method="POST">
-                <input type="hidden" name="id" value="<?=$member['id'] ?>">
-                <label for="member_id" class="text-primary">Член родини:</label>
-                <select class="form-select mt-3 mb-3" aria-label="Default select example">
-                    <option selected><?=$member['name'] .' '. $member['surname']?></option>
-                </select>
+            <form action="/controllers/RelationshipsController.php?action=createRelation" method="POST">
 
+                <div class="mb-3">
+                <label for="member_id" class="text-primary">Член родини:</label>
+                <select name="member_id" class="form-select mt-3 mb-3" aria-label="Default select example">
+                    <option value="<?=$member['id'] ?>" selected><?=$member['name'] .' '. $member['surname']?></option>
+                </select>
+                </div>
+
+                <div class="mb-3">
                 <label for="related_member_id" class="text-primary">Повʼязаний член родини:</label>
-                <select class="form-select mt-3 mb-3" aria-label="Default select example">
-                    <option selected>Oберіть іншого члена родини щоб повʼязати звязок:</option>
+                <select name="related_member_id" id="related_member_id" class="form-select mt-3 mb-3" aria-label="Default select example">
+                    <option selected value="">Oберіть іншого члена родини щоб повʼязати звязок:</option>
 
                     <?php foreach ($allRows as $row) : ?>
 
-                    <option value="<?=$member['id'] ?>"><?=$row['name'] . $row['surname']?></option>
+                    <option value="<?=$row['id'] ?>"><?=$row['name'] .' '. $row['surname']?></option>
 
                     <?php endforeach; ?>
                 </select>
+                </div>
 
+                <div class="mb-3">
                 <label for="relationship_type" class="text-primary">Тип звʼязку(роль):</label>
-                <select class="form-select mt-3 mb-3" aria-label="Default select example">
+                <select name="relationship_type" id="relationship_type" class="form-select mt-3 mb-3" aria-label="Default select example">
 
-                    <option selected>Oберіть роль:</option>
+                    <option selected value="">Oберіть роль:</option>
 
                     <?php foreach ($allRoles as $role): ?>
 
-                    <option value="<?= $member['id'] ?>"><?= $role['role_name']?> </option>
+                    <option value="<?= $role['id_role']?>"><?= $role['role_name']?></option>
 
                   <?php endforeach; ?>
                 </select>
+                </div>
+
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">
                     <button type="submit" class="btn btn-outline-primary btn-lg">Зберегти</button>
                 </div>

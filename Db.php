@@ -99,6 +99,18 @@ class Db
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function createReletionship($member_id, $related_member_id, $relationship_type)
+    {
+        $sql = "INSERT INTO relationships (member_id, related_member_id, relationship_type) VALUES (:member_id, :related_member_id, :relationship_type)";
+        $stmt = $this->connection->prepare($sql);
+
+        $res = $stmt->execute([
+        ':member_id' => $member_id,
+        ':related_member_id' => $related_member_id,
+        ':relationship_type' => $relationship_type
+        ]);
+    }
+
 
 
 }

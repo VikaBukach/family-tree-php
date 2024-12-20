@@ -19,7 +19,7 @@ CREATE TABLE relationships (
                                id INT AUTO_INCREMENT PRIMARY KEY,
                                member_id INT NOT NULL, -- Член родини
                                related_member_id INT NOT NULL, -- Зв'язаний член родини
-                               relationship_type VARCHAR(50), -- Тип відносин (тато, мама, брат тощо)
+                               relationship_type INT NOT NULL, -- Тип відносин (тато, мама, брат тощо)
                                FOREIGN KEY (member_id) REFERENCES family_members(id) ON DELETE CASCADE,
                                FOREIGN KEY (related_member_id) REFERENCES family_members(id) ON DELETE CASCADE
 );
