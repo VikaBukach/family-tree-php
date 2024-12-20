@@ -89,9 +89,6 @@
                 <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
                     Повернутись на головну
                 </a>
-                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/views/members/relationsform.php">
-                    Наступний шаг: додати відносини
-                </a>
             </form>
         </div>
     </div>

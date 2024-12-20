@@ -1,5 +1,10 @@
 <?php
+$id = $_GET['id'];
 
+require_once '../../../Db.php';
+$db = new Db();
+$member = $db->getRowById($id);
+$allRows = $db->getAllRows();
 
 ?>
 
@@ -20,26 +25,27 @@
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма додавання відносин</h1>
 
-            <form action="">
-                <input type="hidden" name="id" value="id">
+            <form action="controllers/RelationshipsController.php?action=actionCreateRelation" method="POST">
+                <input type="hidden" name="id" value="<?=$member['id'] ?>">
                 <label for="member_id" class="text-primary">Член родини:</label>
                 <select class="form-select mt-3 mb-3" aria-label="Default select example">
-                    <option selected>Поточний член родини(family_member):</option>
-<!--                    <option value="1">Kolesn Seraf</option>-->
-<!--                    <option value="2">Bukach Vika</option>-->
-<!--                    <option value="3">Moiseen Yul</option>-->
+                    <option selected><?=$member['name'] .' '. $member['surname']?></option>
                 </select>
 
                 <label for="related_member_id" class="text-primary">Повʼязаний член родини:</label>
                 <select class="form-select mt-3 mb-3" aria-label="Default select example">
                     <option selected>Oберіть члена родини(member):</option>
-                    <option value="1">Kolesn Seraf</option>
-                    <option value="2">Kolesn Seraf</option>
-                    <option value="3">Moiseen Yul</option>
+
+                    <?php foreach ($allRows as $row) : ?>
+
+                    <option value="<?=$member['id'] ?>"><?=$row['name'] . $row['surname']?></option>
+
+                    <?php endforeach; ?>
                 </select>
 
                 <label for="relationship_type" class="text-primary">Роль(тип звʼязку):</label>
                 <select class="form-select mt-3 mb-3" aria-label="Default select example">
+                    <!--                    відмалювати циклом-->
                     <option selected>Oберіть роль:</option>
                     <option value="1">Папа</option>
                     <option value="2">мама</option>

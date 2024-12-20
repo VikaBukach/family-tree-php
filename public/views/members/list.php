@@ -56,9 +56,8 @@ $allRows = $db->getAllRows();
                     <td><?= $row["death_date"] ?></td>
                     <td><?= $row["history"] ?></td>
                     <td>
-                        <button type="button" class="btn btn-outline-secondary">
-                            <a href="/views/members/edit.php?id=<?= $row['id'] ?>">Редагувати</a>
-                        </button>
+                            <a class="btn btn-outline-secondary" href="/views/members/edit.php?id=<?= $row['id'] ?>">Редагувати</a>
+                            <a class="btn btn-outline-secondary" href="/views/members/relationsform.php?id=<?= $row['id'] ?>">Додати звʼязок</a>
                     </td>
                     <td>
                         <form action="/controllers/MembersController.php?action=delete" method="POST">

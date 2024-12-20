@@ -24,6 +24,13 @@ CREATE TABLE relationships (
                                FOREIGN KEY (related_member_id) REFERENCES family_members(id) ON DELETE CASCADE
 );
 
+create table roles
+(
+    id_role        int auto_increment
+        primary key,
+    role_name varchar(50) not null
+);
+
 INSERT INTO roles (role_name)
 VALUES
     ('Батько'),
