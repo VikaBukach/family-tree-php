@@ -5,6 +5,7 @@ require_once '../../../Db.php';
 $db = new Db();
 $member = $db->getRowById($id);
 $allRows = $db->getAllRows();
+$allRoles = $db->getAllRoles();
 
 ?>
 
@@ -34,7 +35,7 @@ $allRows = $db->getAllRows();
 
                 <label for="related_member_id" class="text-primary">Повʼязаний член родини:</label>
                 <select class="form-select mt-3 mb-3" aria-label="Default select example">
-                    <option selected>Oберіть члена родини(member):</option>
+                    <option selected>Oберіть іншого члена родини щоб повʼязати звязок:</option>
 
                     <?php foreach ($allRows as $row) : ?>
 

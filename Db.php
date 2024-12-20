@@ -91,5 +91,14 @@ class Db
         header('Location: /');
     }
 
+    function getAllRoles() //отримання усіх ролей
+    {
+        $sql = "SELECT * FROM  roles";
+        $stmt = $this->connection->query($sql);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
 }
