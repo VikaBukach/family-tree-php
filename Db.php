@@ -104,12 +104,18 @@ class Db
         $sql = "INSERT INTO relationships (member_id, related_member_id, relationship_type) VALUES (:member_id, :related_member_id, :relationship_type)";
         $stmt = $this->connection->prepare($sql);
 
-        $res = $stmt->execute([
+        $stmt->execute([
         ':member_id' => $member_id,
         ':related_member_id' => $related_member_id,
         ':relationship_type' => $relationship_type
         ]);
         header('Location: /');
+    }
+
+    function createCard($member_id, $image_path, $title, $description)
+    {
+//        $sql = "INSERT INTO";
+
     }
 
 

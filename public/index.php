@@ -97,7 +97,7 @@ $allRows = $db->getAllRows();
 
                 </ul>
                 <div class="card-body">
-                    <a href="/views/members/gallery.php" class="card-link text-primary">Більше інформаціїї</a>
+                    <a href="/views/members/gallery.php?id=<?= $row['id'] ?>" class="card-link text-primary">Більше інформаціїї</a>
                 </div>
             </div>
             <?php endforeach; ?>

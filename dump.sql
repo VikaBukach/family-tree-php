@@ -49,4 +49,16 @@ VALUES
     ('Прабабка'),
     ('Прадід'),
     ('Племінниця'),
-    ('Племіннник')
+    ('Племіннник'),
+    ('Онука'),
+    ('Онук'),
+    ('Донька'),
+
+CREATE TABLE cards (
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       family_member_id INT NOT NULL,
+                       image_path VARCHAR(255) NOT NULL,
+                       title VARCHAR(255) NOT NULL,
+                       description TEXT NOT NULL,
+                       FOREIGN KEY (family_member_id) REFERENCES family_members(id) ON DELETE CASCADE
+);
