@@ -109,6 +109,7 @@ class Db
         ':related_member_id' => $related_member_id,
         ':relationship_type' => $relationship_type
         ]);
+        header('Location: /');
     }
 
 
