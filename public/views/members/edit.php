@@ -27,6 +27,7 @@ $member = $db->getRowById($id);
     <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма редагування члена сімʼї</h1>
+
             <form class="d-block p-2" action="/controllers/MembersController.php?action=update" method="POST" enctype="multipart/form-data">
                 <!--photo -->
                 <div class="mb-3">
@@ -107,7 +108,7 @@ $member = $db->getRowById($id);
                     Зберегти зміни
                 </button>
             </form>
-            <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
+            <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/views/members/gallery.php">
                 Повернутись до списку
             </a>
         </div>

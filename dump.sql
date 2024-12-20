@@ -1,4 +1,4 @@
-create table family_members
+CREATE TABLE family_members
 (
     id               int auto_increment
         primary key,
@@ -14,3 +14,32 @@ create table family_members
     status           varchar(20)                         null,
     death_date       date                                null
 );
+
+CREATE TABLE relationships (
+                               id INT AUTO_INCREMENT PRIMARY KEY,
+                               member_id INT NOT NULL, -- Член родини
+                               related_member_id INT NOT NULL, -- Зв'язаний член родини
+                               relationship_type VARCHAR(50), -- Тип відносин (тато, мама, брат тощо)
+                               FOREIGN KEY (member_id) REFERENCES family_members(id) ON DELETE CASCADE,
+                               FOREIGN KEY (related_member_id) REFERENCES family_members(id) ON DELETE CASCADE
+);
+
+INSERT INTO roles (role_name)
+VALUES
+    ('Батько'),
+    ('Мати'),
+    ('Дідусь'),
+    ('Бабуся'),
+    ('Брат'),
+    ('Сестра'),
+    ('Син'),
+    ('Чоловік'),
+    ('Дружина'),
+    ('Дядько'),
+    ('Тітка'),
+    ('Двоюрідні сестра'),
+    ('Двоюрідний брат'),
+    ('Прабабка'),
+    ('Прадід'),
+    ('Племінниця'),
+    ('Племіннник')
