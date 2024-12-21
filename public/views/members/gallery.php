@@ -2,6 +2,8 @@
 require_once '../../../Db.php';
 $db = new Db();
 $allRows = $db->getAllRows();
+$allCards = $db->getAllCards();
+//var_dump($allCards);
 $id = $_GET['id'];
 
 
@@ -35,29 +37,41 @@ $id = $_GET['id'];
                 Додати спогад
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/views/members/formcardgallery.php?id=<?=$id ?>">Фото</a></li>
+                <li><a class="dropdown-item" href="/views/members/formcardgallery.php?id=<?= $id ?>">Фото</a></li>
 
                 <li><a class="dropdown-item" href="#">Текс</a></li>
             </ul>
         </div>
 
-        <div class="card-group mt-5">
-            <div class="card">
-                <img src="/img/67643e7b86dba-ба.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                <?php foreach ($allCards as $card) : ?>
+                <div class="card" style="width: 400px; height: 500px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 5px;">
+
+                    <div style="width: 100%; height: 75%; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+                    <?php if (!empty ($card['image_path'])) : ?>
+                        <img src="<?= htmlspecialchars($card['image_path']) ?>" class="card-img-top" alt="фото"
+                             style="max-width: 75%; max-height: 100%; object-fit: cover;">
+
+                    <?php else: ?>
+                        <span>Відсутне фото</span>
+                    <?php endif; ?>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $card['title'] ?></h5>
+                        <p class="card-text"><?= $card['description'] ?></p>
+                    </div>
                 </div>
+                <?php endforeach; ?>
             </div>
-        </div>
 
         <div class="card" style="margin-top: 50px">
             <div class="card-body">
                 This is some text within a card body.
             </div>
         </div>
+
+
 
 
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">

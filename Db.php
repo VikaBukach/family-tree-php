@@ -124,7 +124,14 @@ class Db
             ':description' => $description
         ]);
         header('Location: /');
+    }
 
+    function getAllCards() //отримання усіх карток
+    {
+        $sql = "SELECT * FROM  cards";
+        $stmt = $this->connection->query($sql);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
