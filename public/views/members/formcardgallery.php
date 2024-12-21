@@ -48,7 +48,7 @@ $db = new Db();
         </div>
     </div>
 
-    <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
+    <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/projects/family-tree-php/public/views/members/gallery.php">
         Повернутись на головну
     </a>
 </div>

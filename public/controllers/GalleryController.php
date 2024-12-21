@@ -38,7 +38,7 @@ class GalleryController extends BaseController
 
             $this->db->createCard($family_member_id, $image_path, $title, $description);
 
-            header('Location: /');
+            header("Location: /views/members/gallery.php?id=$family_member_id");
             exit();
 
         }
