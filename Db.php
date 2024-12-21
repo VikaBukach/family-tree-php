@@ -128,10 +128,31 @@ class Db
 
     function getAllCards() //отримання усіх карток
     {
-        $sql = "SELECT * FROM  cards";
+        $sql = "SELECT * FROM cards";
         $stmt = $this->connection->query($sql);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function getAllCardByIdMember($id)
+    {
+        $sql = "SELECT * FROM cards WHERE family_member_id = :id";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([':id'=> $id]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    function getMemberById($id)
+    {
+        $sql = "SELECT * FROM family_members WHERE id = :id";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([':id'=> $id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 

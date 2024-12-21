@@ -3,9 +3,10 @@
 require_once '../../../Db.php';
 $id = $_GET['id'];
 $db = new Db();
-$familyMember = $db->getRowById($id);
-$allCards = $db->getAllCards();
-//var_dump($allCards);
+$familyMember = $db->getMemberById($id);
+$memberCards = $db->getAllCardByIdMember($id);
+
+//var_dump($familyMember);
 
 
 
@@ -46,7 +47,7 @@ $allCards = $db->getAllCards();
         </div>
 
             <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-                <?php foreach ($allCards as $card) : ?>
+                <?php foreach ($memberCards as $card) : ?>
                     <!------------------створення карточки---------------------->
                 <div class="card" style="width: 400px; height: 500px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 5px;">
                     <div style="width: 100%; height: 75%; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
