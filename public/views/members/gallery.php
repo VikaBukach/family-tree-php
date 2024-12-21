@@ -33,7 +33,6 @@ $memberCards = $db->getAllCardByIdMember($id);
     </div>
 
     <div class="container mt-4">
-
         <div class="btn-group mt-5">
             <button class="btn btn-secondary dropdown-toggle" style="margin-bottom: 30px;" type="button" data-bs-toggle="dropdown"
                     data-bs-auto-close="inside" aria-expanded="false">
@@ -41,8 +40,7 @@ $memberCards = $db->getAllCardByIdMember($id);
             </button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/views/members/formcardgallery.php?id=<?= $id ?>">Фото</a></li>
-
-                <li><a class="dropdown-item" href="#">Текс</a></li>
+<!--                <li><a class="dropdown-item" href="#">Текс</a></li>-->
             </ul>
         </div>
 
@@ -66,15 +64,9 @@ $memberCards = $db->getAllCardByIdMember($id);
                 <?php endforeach; ?>
             </div>
         <!------------------створення біографіі(виводиться з дискрипшина) ---------------------->
-
         <div class="card" style="margin-top: 50px; margin-bottom: 50px;">
-
             <div class="card-body"><?= $familyMember['file_description']?></div>
-
         </div>
-
-
-
 
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">
             Повернутись на головну
