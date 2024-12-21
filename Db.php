@@ -112,9 +112,18 @@ class Db
         header('Location: /');
     }
 
-    function createCard($member_id, $image_path, $title, $description)
+    function createCard($family_member_id, $image_path, $title, $description)
     {
-//        $sql = "INSERT INTO";
+        $sql = "INSERT INTO cards (family_member_id, image_path, title, description) VALUES (:family_member_id, :image_path, :title, :description)";
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([
+            ':family_member_id' => $family_member_id,
+            ':image_path' => $image_path,
+            ':title' => $title,
+            ':description' => $description
+        ]);
+        header('Location: /');
 
     }
 
