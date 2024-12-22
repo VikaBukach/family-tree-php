@@ -1,6 +1,8 @@
 <?php
 
-require_once '../Db.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use FamilyTree\Db;
 
 //$controller = new Controller();
 //$controller->runAction($_GET['action'] ?? '');
@@ -35,15 +37,15 @@ $allRows = $db->getAllRows();
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white""
-                               aria-current="page">До дерева
+                               aria-current="page">Головна
                             </a>
                             <a href="/views/members/formcreate.php" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                               aria-current="page">Додати члена сімʼї
-                            </a>
+                               aria-current="page">Додати члена сімʼї</a>
                             <a href="/views/members/list.php"
-                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список
-                                членів родини
-                            </a>
+                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список членів родини</a>
+                            <a href="/views/members/connections.php"
+                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Родинні звʼязки</a>
+
                         </div>
 
                     </div>

@@ -1,5 +1,5 @@
 <?php
-require_once 'Db.php';
+namespace FamilyTree;
 
 class BaseController
 {
@@ -12,7 +12,7 @@ class BaseController
 
     public function runAction($actionName)
     {
-        if(method_exists($this, 'action' . $actionName)){
+        if (method_exists($this, 'action' . $actionName)) {
             return $this->{'action' . $actionName}();
         }
     }

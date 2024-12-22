@@ -1,7 +1,13 @@
 <?php
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use FamilyTree\Db;
+
+if (empty($_GET['id'])) {
+    header('Location: /');
+}
 $id = $_GET['id'];
 
-require_once '../../../Db.php';
 $db = new Db();
 $member = $db->getRowById($id);
 $allRows = $db->getAllRows();

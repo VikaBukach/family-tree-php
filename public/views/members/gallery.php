@@ -1,16 +1,23 @@
 <?php
 
-require_once '../../../Db.php';
-$id = $_GET['id'];
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use FamilyTree\Db;
+
+if (empty($_GET['id'])) {
+    header('Location: /');
+}
+
+$id = $_GET['id'] ?? '';
+
 $db = new Db();
 $familyMember = $db->getMemberById($id);
 $memberCards = $db->getAllCardByIdMember($id);
 
 //var_dump($familyMember);
 
-
-
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,39 +40,48 @@ $memberCards = $db->getAllCardByIdMember($id);
     </div>
 
     <div class="container mt-4">
-        <div class="btn-group mt-5">
-            <button class="btn btn-secondary dropdown-toggle" style="margin-bottom: 30px;" type="button" data-bs-toggle="dropdown"
-                    data-bs-auto-close="inside" aria-expanded="false">
-                Додати спогад
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/views/members/formcardgallery.php?id=<?= $id ?>">Фото</a></li>
-<!--                <li><a class="dropdown-item" href="#">Текс</a></li>-->
-            </ul>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group mt-5">
+                <button class="btn btn-secondary dropdown-toggle" style="margin-bottom: 30px;" type="button"
+                        data-bs-toggle="dropdown"
+                        data-bs-auto-close="inside" aria-expanded="false">
+                    Додати спогад
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/views/members/formcardgallery.php?id=<?= $id ?>">Фото</a></li>
+                    <!--                <li><a class="dropdown-item" href="#">Текс</a></li>-->
+                </ul>
+            </div>
+
+            <a href="/views/members/connections.php?id=<?= $id ?>" class="btn btn-secondary">Родинні звʼязки</a>
+
+
         </div>
 
-            <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-                <?php foreach ($memberCards as $card) : ?>
-                    <!------------------створення карточки---------------------->
-                <div class="card" style="width: 400px; height: 500px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 5px;">
+
+        <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            <?php foreach ($memberCards as $card) : ?>
+                <!------------------створення карточки---------------------->
+                <div class="card"
+                     style="width: 400px; height: 500px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 5px;">
                     <div style="width: 100%; height: 75%; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-                    <?php if (!empty ($card['image_path'])) : ?>
-                        <img src="<?= htmlspecialchars($card['image_path']) ?>" class="card-img-top" alt="фото"
-                             style="max-width: 75%; max-height: 100%; object-fit: cover;">
-                    <?php else: ?>
-                        <span>Відсутне фото</span>
-                    <?php endif; ?>
+                        <?php if (!empty ($card['image_path'])) : ?>
+                            <img src="<?= htmlspecialchars($card['image_path']) ?>" class="card-img-top" alt="фото"
+                                 style="max-width: 75%; max-height: 100%; object-fit: cover;">
+                        <?php else: ?>
+                            <span>Відсутне фото</span>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?= $card['title'] ?></h5>
                         <p class="card-text"><?= $card['description'] ?></p>
                     </div>
                 </div>
-                <?php endforeach; ?>
-            </div>
+            <?php endforeach; ?>
+        </div>
         <!------------------створення біографіі(виводиться з дискрипшина) ---------------------->
         <div class="card" style="margin-top: 50px; margin-bottom: 50px;">
-            <div class="card-body"><?= $familyMember['file_description']?></div>
+            <div class="card-body"><?= $familyMember['file_description'] ?></div>
         </div>
 
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">

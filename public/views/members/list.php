@@ -1,5 +1,8 @@
 <?php
-require_once '../../../Db.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use FamilyTree\Db;
+
 $db = new Db();
 $allRows = $db->getAllRows();
 

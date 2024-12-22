@@ -1,10 +1,8 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-
-require_once '../../BaseController.php';
-
-
+use FamilyTree\BaseController;
 
 class RelationshipsController extends BaseController
 {

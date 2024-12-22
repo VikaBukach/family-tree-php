@@ -1,4 +1,9 @@
 <?php
+namespace FamilyTree;
+
+use PDO;
+use PDOException;
+
 require_once 'env.php';
 
 class Db
@@ -144,7 +149,6 @@ class Db
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     function getMemberById($id)
     {
         $sql = "SELECT * FROM family_members WHERE id = :id";
@@ -153,6 +157,34 @@ class Db
         $stmt->execute([':id'=> $id]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    //відображення типу зв’язку ("мати", "батько" тощо) біля кожного члена родини
+function getFamilyRelationships($member_id)
+
+    //приєднує таблицю roles (JOIN roles rl ON r.relationship_type = rl.id).
+    //додає текстове значення типу зв’язку як relationship_name
+{
+    $sql= "SELECT
+       fm.id as member_id,
+       fm.name as memeber_name,
+       fm.surname as memeber_surname,
+       fm.avatar_path as memeber_avatar,
+       rl.role_name AS role_name,
+       fm2.name as related_name,
+       fm2.surname as related_surname,
+       fm2.avatar_path as related_avatar
+        FROM family_members fm
+        left join relationships r ON r.member_id = fm.id
+        left join roles rl ON r.relationship_type = rl.id_role
+        left join family_members fm2 ON r.related_member_id = fm2.id
+        WHERE fm.id = :member_id";
+
+    $stmt = $this->connection->prepare($sql);
+    $stmt->execute([':member_id'=> $member_id]);
+
+    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
     }
 
 
