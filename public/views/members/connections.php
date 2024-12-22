@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use FamilyTree\Db;
+use FamilyTree\structure\FamilyRelationshipsStructure;
 
 if (empty($_GET['id'])) {
     header('Location: /');
@@ -10,6 +11,7 @@ if (empty($_GET['id'])) {
 
 $id = $_GET['id'];
 $db = new Db();
+/** @var FamilyRelationshipsStructure[] $relationships */
 $relationships = $db->getFamilyRelationships($id);
 
 ?>
@@ -39,9 +41,9 @@ $relationships = $db->getFamilyRelationships($id);
             <ul>
                 <?php foreach ($relationships as $relation): ?>
                     <li>
-                        <img src="<?= htmlspecialchars($relation['avatar_path']) ?>" alt="Аватар" style="width: 50px;">
-                        <strong><?= htmlspecialchars($relation['relationship_name']) ?>:</strong>
-                        <?= htmlspecialchars($relation['name'] . ' ' . $relation['surname']) ?>
+                        <img src="<?= htmlspecialchars($relation->memeber_avatar) ?>" alt="Аватар" style="width: 50px;">
+                        <strong><?= htmlspecialchars($relation->role_name) ?>:</strong>
+                        <?= htmlspecialchars($relation->related_name . ' ' . $relation->related_surname) ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
