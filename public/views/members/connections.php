@@ -14,6 +14,8 @@ $db = new Db();
 /** @var FamilyRelationshipsStructure[] $relationships */
 $relationships = $db->getFamilyRelationships($id);
 
+$familyMember = $db->getMemberById($id);
+
 ?>
 
 
@@ -32,38 +34,40 @@ $relationships = $db->getFamilyRelationships($id);
 <body>
 <div class="container-fluid">
     <div class="text-center mt-5 mb-3">
-        <h1 class="fw-bolder lh-sm fs-1 text " style="max-width: 1000px; margin: 0 auto;">Родинні звʼязки</h1>
+        <h1 class="fw-bolder lh-sm fs-1 text " style="max-width: 1000px; margin: 0 auto;">Інформація про члена родини</h1>
     </div>
 
+    <div class="container">
+        <div class="member">
+            <img src="<?= htmlspecialchars($familyMember['avatar_path']) ?>" alt="фото" style="width: 100px;">
+            <h2><?= htmlspecialchars($familyMember['name'] . ' ' . $familyMember['surname']) ?></h2>
+        </div>
 
-    <div class="relationships">
-        <?php if (!empty($relationships)): ?>
-            <ul>
-                <?php foreach ($relationships as $relation): ?>
-                    <li>
-                        <img src="<?= htmlspecialchars($relation->memeber_avatar) ?>" alt="Аватар" style="width: 50px;">
-                        <strong><?= htmlspecialchars($relation->role_name) ?>:</strong>
-                        <?= htmlspecialchars($relation->related_name . ' ' . $relation->related_surname) ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php else: ?>
-            <p>Немає зв’язків для цього члена родини.</p>
-        <?php endif; ?>
-    </div>
+        <h2>Родинні зв’язки</h2>
+        <div class="relationships">
+            <?php if (!empty($relationships)): ?>
+                <ul>
+                    <?php foreach ($relationships as $relation): ?>
+                        <li>
+                            <img src="<?= htmlspecialchars($relation->related_avatar) ?>" alt="фото" style="width: 50px;">
+                            <?= htmlspecialchars($relation->related_surname. ' ' . $relation->related_name) ?>:
+                            <?= htmlspecialchars($relation->role_name)?>
 
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>Немає зв’язків для цього члена родини.</p>
+            <?php endif; ?>
+        </div>
 
+    <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">
+        Повернутись на головну
+    </a>
+</div>
 
-
-
-
-        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">
-    Повернутись на головну
-</a>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/main.js"></script>
 </body>
 </html>
