@@ -4,8 +4,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use FamilyTree\Db;
 
-//$controller = new Controller();
-//$controller->runAction($_GET['action'] ?? '');
 $db = new Db();
 $allRows = $db->getAllRows();
 

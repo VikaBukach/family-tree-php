@@ -38,7 +38,8 @@ $familyMember = $db->getMemberById($id);
     </div>
 
     <div class="container">
-        <div class="member">
+
+        <div class="member card mr-3" style="width: 18rem; display: flex; justify-content: center; align-items: center;">
             <img src="<?= htmlspecialchars($familyMember['avatar_path']) ?>" alt="фото" style="width: 100px;">
             <h2><?= htmlspecialchars($familyMember['name'] . ' ' . $familyMember['surname']) ?></h2>
         </div>
@@ -48,7 +49,7 @@ $familyMember = $db->getMemberById($id);
             <?php if (!empty($relationships)): ?>
                 <ul>
                     <?php foreach ($relationships as $relation): ?>
-                        <li>
+                        <li class="card mr-3" style="width: 18rem; display: flex; justify-content: center; align-items: center;">
                             <img src="<?= htmlspecialchars($relation->related_avatar) ?>" alt="фото" style="width: 50px;">
                             <?= htmlspecialchars($relation->related_surname. ' ' . $relation->related_name) ?>:
                             <?= htmlspecialchars($relation->role_name)?>
