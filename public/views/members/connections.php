@@ -34,41 +34,42 @@ $familyMember = $db->getMemberById($id);
 <body>
 <div class="container-fluid">
     <div class="text-center mt-5 mb-3">
-        <h1 class="fw-bolder lh-sm fs-1 text " style="max-width: 1000px; margin: 0 auto;">Інформація про члена родини</h1>
+        <h1 class="fw-bolder lh-sm fs-1 text " style="max-width: 1000px; margin: 0 auto;">Інформація про члена
+            родини</h1>
     </div>
 
     <div class="container">
-
-        <div class="member card mr-3" style="width: 18rem; display: flex; justify-content: center; align-items: center;">
-            <img src="<?= htmlspecialchars($familyMember['avatar_path']) ?>" alt="фото" style="width: 100px;">
-            <h2><?= htmlspecialchars($familyMember['name'] . ' ' . $familyMember['surname']) ?></h2>
+        <div class="member card mr-3"
+             style="width: 18rem; display: flex; justify-content: center; align-items: center;">
+            <img src="<?= $familyMember['avatar_path'] ?>" alt="фото" style="width: 100px;">
+            <h2><?= $familyMember['name'] . ' ' . $familyMember['surname'] ?></h2>
         </div>
 
         <h2>Родинні зв’язки</h2>
         <div class="relationships">
-            <?php if (!empty($relationships)): ?>
+            <?php if (is_array($relationships) && count($relationships) > 0): ?>
                 <ul>
                     <?php foreach ($relationships as $relation): ?>
-                        <li class="card mr-3" style="width: 18rem; display: flex; justify-content: center; align-items: center;">
-                            <img src="<?= htmlspecialchars($relation->related_avatar) ?>" alt="фото" style="width: 50px;">
-                            <?= htmlspecialchars($relation->related_surname. ' ' . $relation->related_name) ?>:
-                            <?= htmlspecialchars($relation->role_name)?>
-
-                        </li>
+                        <?php if (!empty($relation->related_avatar) && !empty($relation->related_name) && !empty($relation->related_surname) && !empty($relation->role_name)): ?>
+                            <li class="card mr-3"
+                                style="width: 18rem; display: flex; justify-content: center; align-items: center;">
+                                <img src="<?= $relation->related_avatar ?>" alt="фото" style="width: 50px;">
+                                <?= $relation->related_surname . ' ' . $relation->related_name ?>:
+                                <?= $relation->role_name ?>
+                            </li>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
-            <?php else: ?>
-                <p>Немає зв’язків для цього члена родини.</p>
             <?php endif; ?>
         </div>
 
-    <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">
-        Повернутись на головну
-    </a>
-</div>
+        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">
+            Повернутись на головну
+        </a>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
 </body>
 </html>
