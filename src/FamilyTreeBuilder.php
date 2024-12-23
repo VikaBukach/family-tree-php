@@ -1,7 +1,6 @@
 <?php
 
-namespace FamilyTree\entity;
-use FamilyTree\Db;
+namespace FamilyTree;
 
 class FamilyTreeBuilder
 {

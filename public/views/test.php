@@ -1,32 +1,18 @@
 <?php
 
+use FamilyTree\FamilyMemberHelper;
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use FamilyTree\Db;
+$member = FamilyMemberHelper::initMembers(43);
+$partnerMama = $member->getPartner();
 
-use FamilyTree\structure\FamilyRelationshipsStructure;
-
-//if (empty($_GET['id'])) {
-//    header('Location: /');
-//}
-
-//$id = $_GET['id'];
-$db = new Db();
-///** @var FamilyRelationshipsStructure[] $relationships */
-
-// Отримуємо відносини для конкретного члена родини:
-//$relationships = $db->getFamilyRelationships($id);
-
-// Отримуємо основну інформацію про члена родини:
-$familyMember = $db->getMemberById(43);
+$papa = $partnerMama->getPartner();
 
 
 
-$data = [
-    ['id' => $familyMember['id'], 'pids' => [2], 'name' => $familyMember['name'], 'img' => $familyMember['avatar_path'], "gender" => $familyMember['sex'] === 0 ? "male" : "female"],
-];
 
-$dataAsJson = json_encode($data);
+$dataAsJson = json_encode([]);
 
 
 

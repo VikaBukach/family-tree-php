@@ -47,7 +47,7 @@ $data = [
     ['id' => 15, 'pids' => [13], 'name' => "Meghan Markle", 'img' => "https://cdn.balkan.app/shared/f16.png", 'gender' => 'female'],
     ['id' => 16, 'fid' => 12, 'mid' => 14, 'name' => "Prince George", 'img' => "https://cdn.balkan.app/shared/f17.png", "gender" => 'male'],
     ['id' => 17, 'fid' => 12, 'mid' => 14, 'name' => "Prince Charlotte", 'img' => "https://cdn.balkan.app/shared/f18.png", "gender" => 'female'],
-    ['id' => 18, 'fid' => 12, 'mid' => 14, 'name' => "Prince Louis", 'img' => "https://cdn.balkan.app/shared/f19.png", "gender" => 'male']
+    ['id' => 18, 'fid' => 12, 'mid' => 14, 'name' => "Prince Louis", 'img' => "https://cdn.balkan.app/shared/f19.png", "gender" => 'male'],
 ];
 
 $dataAsJson = json_encode($data);

@@ -3,8 +3,6 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use FamilyTree\Db;
-use FamilyTree\entity\FamilyTreeBuilder;
-
 use FamilyTree\structure\FamilyRelationshipsStructure;
 
 if (empty($_GET['id'])) {

@@ -188,25 +188,36 @@ class Db
                 left join family_members fm2 ON r.related_member_id = fm2.id
             WHERE fm.id = :member_id";
 
-    $stmt = $this->connection->prepare($sql);
-    $stmt->execute([':member_id'=> $member_id]);
-    $dataResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([':member_id' => $member_id]);
+        $dataResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $result = [];
-    foreach ($dataResult as $data) {
-        $result[] = new FamilyRelationshipsStructure(
-            $data['member_id'],
-            $data['memeber_name'],
-            $data['memeber_surname'],
-            $data['memeber_avatar'],
-            $data['role_name'],
-            $data['related_name'],
-            $data['related_surname'],
-            $data['related_avatar']
-        );
+        $result = [];
+        foreach ($dataResult as $data) {
+            $result[] = new FamilyRelationshipsStructure(
+                $data['member_id'],
+                $data['memeber_name'],
+                $data['memeber_surname'],
+                $data['memeber_avatar'],
+                $data['role_name'],
+                $data['related_name'],
+                $data['related_surname'],
+                $data['related_avatar']
+            );
+        }
+
+        return $result;
     }
 
-    return $result;
-    }
+    public function getRelatedMemberIdByMemberAndRoleName($memberId, $roleName)
+    {
+        $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = (SELECT id_role FROM roles WHERE role_name = :role_name)";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([
+            ':member_id' => $memberId,
+            ':role_name' => $roleName
+        ]);
 
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
