@@ -41,8 +41,6 @@ $allRows = $db->getAllRows();
                                aria-current="page">Додати члена сімʼї</a>
                             <a href="/views/members/list.php"
                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список членів родини</a>
-                            <a href="/views/members/connections.php"
-                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Родинні звʼязки</a>
 
                         </div>
 

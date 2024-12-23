@@ -1,4 +1,4 @@
-CREATE TABLE family_members
+create table family_members
 (
     id               int auto_increment
         primary key,
@@ -12,7 +12,8 @@ CREATE TABLE family_members
     history          text                                null,
     created_at       timestamp default CURRENT_TIMESTAMP null,
     status           varchar(20)                         null,
-    death_date       date                                null
+    death_date       date                                null,
+    sex              tinyint                             not null
 );
 
 CREATE TABLE relationships (
@@ -53,6 +54,8 @@ VALUES
     ('Онука'),
     ('Онук'),
     ('Донька'),
+    ('Прадід'),
+    ('Прабабуся'),
 
 CREATE TABLE cards (
                        id INT AUTO_INCREMENT PRIMARY KEY,

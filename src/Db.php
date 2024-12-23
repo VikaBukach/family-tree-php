@@ -164,12 +164,13 @@ class Db
     }
 
     //відображення типу зв’язку ("мати", "батько" тощо) біля кожного члена родини
-    function getFamilyRelationships($member_id, $parent_id = null, &$visited = [])
+    function getFamilyRelationships($member_id = null, &$visited = [])
     {
         // Уникаємо нескінченних циклів
         if (in_array($member_id, $visited)) {
             return [];
         }
+
         $visited[] = $member_id;
 
         $sql = "SELECT
@@ -193,7 +194,7 @@ class Db
 
     $result = [];
     foreach ($dataResult as $data) {
-        $fr = new FamilyRelationshipsStructure(
+        $result[] = new FamilyRelationshipsStructure(
             $data['member_id'],
             $data['memeber_name'],
             $data['memeber_surname'],
@@ -203,8 +204,6 @@ class Db
             $data['related_surname'],
             $data['related_avatar']
         );
-
-        $result[] = $fr;
     }
 
     return $result;
