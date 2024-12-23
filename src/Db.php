@@ -1,4 +1,5 @@
 <?php
+
 namespace FamilyTree;
 
 use FamilyTree\structure\FamilyRelationshipsStructure;
@@ -24,11 +25,11 @@ class Db
         }
     }
 
-    public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date)
+    public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
     {
         $sql = "INSERT INTO family_members (avatar_path, file_description, surname, maiden_name, name, fatherly, birth_date,
-                                              history, created_at, status, death_date)
-        VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT, :status, :death_date)";
+                                              history, created_at, status, death_date, sex)
+        VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT, :status, :death_date, :sex)";
 
         $stmt = $this->connection->prepare($sql);
 
@@ -43,7 +44,8 @@ class Db
             ':birth_date' => $birth_date->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
             ':history' => $history,
             ':status' => $status,
-            ':death_date' => $death_date?->format('Y-m-d') // передана відформатована дата, передаємо строку замість об'єкта
+            ':death_date' => $death_date?->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
+            ':sex' => $sex
         ]);
     }
 
@@ -66,15 +68,15 @@ class Db
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date)
+    function updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
     {
         $sql = "UPDATE family_members SET avatar_path=:avatar_path, file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
-                          name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history, status =:status, death_date =:death_date WHERE id =:id"; //оновлення запису
+                          name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history, status =:status, death_date =:death_date, sex =:sex WHERE id =:id"; //оновлення запису
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
-            ':id'=> $id,
-            ':avatar_path'=> $avatar_path,
+            ':id' => $id,
+            ':avatar_path' => $avatar_path,
             ':file_description' => $photo_description,
             ':surname' => $surname,
             ':maiden_name' => $maiden_name,
@@ -83,7 +85,8 @@ class Db
             ':birth_date' => $birth_date->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
             ':history' => $history,
             ':status' => $status,
-            ':death_date' => $death_date?->format('Y-m-d')
+            ':death_date' => $death_date?->format('Y-m-d'),
+            ':sex' => $sex
         ]);
         header('Location: /');
     }
@@ -92,7 +95,7 @@ class Db
     {
         $sql = "DELETE FROM family_members WHERE id=:id";
         $stmt = $this->connection->prepare($sql);
-        $stmt->execute([':id'=> $id]);
+        $stmt->execute([':id' => $id]);
 
         header('Location: /');
     }
@@ -111,9 +114,9 @@ class Db
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
-        ':member_id' => $member_id,
-        ':related_member_id' => $related_member_id,
-        ':relationship_type' => $relationship_type
+            ':member_id' => $member_id,
+            ':related_member_id' => $related_member_id,
+            ':relationship_type' => $relationship_type
         ]);
         header('Location: /');
     }
@@ -145,7 +148,7 @@ class Db
         $sql = "SELECT * FROM cards WHERE family_member_id = :id";
         $stmt = $this->connection->prepare($sql);
 
-        $stmt->execute([':id'=> $id]);
+        $stmt->execute([':id' => $id]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -155,15 +158,21 @@ class Db
         $sql = "SELECT * FROM family_members WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
 
-        $stmt->execute([':id'=> $id]);
+        $stmt->execute([':id' => $id]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     //відображення типу зв’язку ("мати", "батько" тощо) біля кожного члена родини
-    function getFamilyRelationships($member_id)
+    function getFamilyRelationships($member_id, $parent_id = null, &$visited = [])
     {
-        $sql= "SELECT
+        // Уникаємо нескінченних циклів
+        if (in_array($member_id, $visited)) {
+            return [];
+        }
+        $visited[] = $member_id;
+
+        $sql = "SELECT
                fm.id as member_id,
                fm.name as memeber_name,
                fm.surname as memeber_surname,
@@ -200,4 +209,5 @@ class Db
 
     return $result;
     }
+
 }

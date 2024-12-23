@@ -33,6 +33,20 @@ $member = $db->getRowById($id);
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма редагування члена сімʼї</h1>
 
             <form class="d-block p-2" action="/controllers/MembersController.php?action=update" method="POST" enctype="multipart/form-data">
+                <!--radiobutt male/femail -->
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sex" id="male" value="0"
+                        <?= $member['sex'] === 0 ? 'checked' : '' ?>>
+                        <label class="form-check-label" for="male">Чоловік</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sex" id="female" value="1"
+                        <?= $member['sex'] === 1 ? 'checked' : '' ?>>
+                        <label class="form-check-label" for="female">Жінка</label>
+                    </div>
+                </div>
+
                 <!--photo -->
                 <div class="mb-3">
                     <label for="avatar" class="form-label">Поточна фотографія:</label>

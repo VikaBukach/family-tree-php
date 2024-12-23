@@ -18,6 +18,19 @@
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма додавання члена сімʼї</h1>
             <form class="d-block p-2" action="/controllers/MembersController.php?action=create" method="POST"
                   enctype="multipart/form-data">
+
+                <!--radiobutt male/femail -->
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sex" id="male" value="0">
+                        <label class="form-check-label" for="male">Чоловік</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sex" id="female" value="1" checked>
+                        <label class="form-check-label" for="female">Жінка</label>
+                    </div>
+                </div>
+
                 <!--photo -->
                 <div class="mb-3">
                     <!--                        <input type="hidden" name="user_id" value="1"> -->
@@ -82,10 +95,13 @@
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">
                     <button type="submit" class="btn btn-outline-primary btn-lg">Зберегти</button>
                 </div>
-                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
-                    Повернутись на головну
-                </a>
+
+
             </form>
+
+            <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
+                Повернутись на головну
+            </a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
