@@ -4,10 +4,13 @@ use FamilyTree\FamilyMemberHelper;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$member = FamilyMemberHelper::initMembers(43);
-$partnerMama = $member->getPartner();
+$member = FamilyMemberHelper::initMembers(35);
 
-$papa = $partnerMama->getPartner();
+$partner = $member->getPartner();
+$mama = $member->getMother();
+$fath = $member->getFather();
+
+$grandMother = $fath->getMother();
 
 
 
