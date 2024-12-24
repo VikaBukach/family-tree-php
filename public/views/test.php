@@ -7,10 +7,16 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 $member = FamilyMemberHelper::initMembers(35);
 
 $partner = $member->getPartner();
+
 $mama = $member->getMother();
 $fath = $member->getFather();
 
-$grandMother = $fath->getMother();
+$daugh = $member->getDaughter();
+$son = $member->getSon();
+
+$grandMother1 = $mama->getMother();
+
+
 
 
 

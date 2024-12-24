@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use FamilyTree\Db;
+use FamilyTree\RoleRelationships;
 use FamilyTree\structure\FamilyRelationshipsStructure;
 
 if (empty($_GET['id'])) {
@@ -18,6 +19,7 @@ $relationships = $db->getFamilyRelationships($id);
 
 // Отримуємо основну інформацію про члена родини:
 $familyMember = $db->getMemberById($id);
+
 ?>
 
 
@@ -52,12 +54,12 @@ $familyMember = $db->getMemberById($id);
             <?php if (is_array($relationships) && count($relationships) > 0): ?>
                 <ul>
                     <?php foreach ($relationships as $relation): ?>
-                        <?php if (!empty($relation->related_avatar) && !empty($relation->related_name) && !empty($relation->related_surname) && !empty($relation->role_name)): ?>
+                        <?php if (!empty($relation->related_avatar) && !empty($relation->related_name) && !empty($relation->related_surname) && !empty($relation->role_type)): ?>
                             <li class="card mr-3"
                                 style="width: 18rem; display: flex; justify-content: center; align-items: center;">
                                 <img src="<?= $relation->related_avatar ?>" alt="фото" style="width: 50px;">
                                 <?= $relation->related_surname . ' ' . $relation->related_name ?>:
-                                <?= $relation->role_name ?>
+                                <?= RoleRelationships::getNameByKey($relation->role_type) ?>
                             </li>
                         <?php endif; ?>
                     <?php endforeach; ?>

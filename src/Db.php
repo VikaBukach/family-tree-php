@@ -100,14 +100,6 @@ class Db
         header('Location: /');
     }
 
-    function getAllRoles() //отримання усіх ролей
-    {
-        $sql = "SELECT * FROM  roles";
-        $stmt = $this->connection->query($sql);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     function createReletionship($member_id, $related_member_id, $relationship_type)
     {
         $sql = "INSERT INTO relationships (member_id, related_member_id, relationship_type) VALUES (:member_id, :related_member_id, :relationship_type)";
@@ -178,13 +170,12 @@ class Db
                fm.name as memeber_name,
                fm.surname as memeber_surname,
                fm.avatar_path as memeber_avatar,
-               rl.role_name AS role_name,
+               r.relationship_type AS role_type,
                fm2.name as related_name,
                fm2.surname as related_surname,
                fm2.avatar_path as related_avatar
             FROM family_members fm
                 left join relationships r ON r.member_id = fm.id
-                left join roles rl ON r.relationship_type = rl.id_role
                 left join family_members fm2 ON r.related_member_id = fm2.id
             WHERE fm.id = :member_id";
 
@@ -199,7 +190,7 @@ class Db
                 $data['memeber_name'],
                 $data['memeber_surname'],
                 $data['memeber_avatar'],
-                $data['role_name'],
+                $data['role_type'],
                 $data['related_name'],
                 $data['related_surname'],
                 $data['related_avatar']
@@ -209,13 +200,13 @@ class Db
         return $result;
     }
 
-    public function getRelatedMemberIdByMemberAndRoleName($memberId, $roleName)
+    public function getRelatedMemberIdByMemberAndRoleName($memberId, $roleType)
     {
-        $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = (SELECT id_role FROM roles WHERE role_name = :role_name)";
+        $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([
             ':member_id' => $memberId,
-            ':role_name' => $roleName
+            ':relationship_type' => $roleType
         ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);

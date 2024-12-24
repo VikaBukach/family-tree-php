@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use FamilyTree\Db;
+use FamilyTree\RoleRelationships;
 
 if (empty($_GET['id'])) {
     header('Location: /');
@@ -11,7 +12,7 @@ $id = $_GET['id'];
 $db = new Db();
 $member = $db->getRowById($id);
 $allRows = $db->getAllRows();
-$allRoles = $db->getAllRoles();
+$allRoles = RoleRelationships::getAllRoles();
 
 ?>
 
@@ -60,9 +61,9 @@ $allRoles = $db->getAllRoles();
 
                     <option selected value="">Oберіть роль:</option>
 
-                    <?php foreach ($allRoles as $role): ?>
+                    <?php foreach (RoleRelationships::getAllRoles() as $roleKey => $roleName): ?>
 
-                    <option value="<?= $role['id_role']?>"><?= $role['role_name']?></option>
+                    <option value="<?= $roleKey?>"><?= $roleName?></option>
 
                   <?php endforeach; ?>
                 </select>

@@ -58,6 +58,8 @@ VALUES
     ('Прабабуся'),
     ('Невістка'),
     ('Зять'),
+    ('Теща'),
+    ('Тесть'),
 
 CREATE TABLE cards (
                        id INT AUTO_INCREMENT PRIMARY KEY,

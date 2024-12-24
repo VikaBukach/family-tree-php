@@ -11,6 +11,10 @@ class FamilyMember
     private const WIFE = 'Дружина';
     private const MOTHER = 'Мати';
     private const FATHER = 'Батько';
+    private const DAUGHTER = 'Донька';
+    private const SON = 'Син';
+    private const GRANDFATHER = 'Дідусь';
+    private const GRANDMOTHER = 'Бабуся';
 
     private $db;
 
@@ -86,4 +90,27 @@ class FamilyMember
 
         return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
     }
+
+     public function getDaughter()
+     {
+         $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, self::DAUGHTER);
+
+         if(!$relatedMember){
+             return null;
+         }
+
+         return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
+     }
+
+    public function getSon()
+    {
+        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, self::SON);
+
+        if(!$relatedMember){
+            return null;
+        }
+
+        return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
+    }
+
 }
