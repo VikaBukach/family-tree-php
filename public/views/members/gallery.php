@@ -81,7 +81,7 @@ $memberCards = $db->getAllCardByIdMember($id);
         </div>
         <!------------------створення біографіі(виводиться з дискрипшина) ---------------------->
         <div class="card" style="margin-top: 50px; margin-bottom: 50px;">
-            <div class="card-body"><?= $familyMember['file_description'] ?></div>
+            <div class="card-body"><?= $familyMember['history'] ?></div>
         </div>
 
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">

@@ -56,6 +56,8 @@ VALUES
     ('Донька'),
     ('Прадід'),
     ('Прабабуся'),
+    ('Невістка'),
+    ('Зять'),
 
 CREATE TABLE cards (
                        id INT AUTO_INCREMENT PRIMARY KEY,
