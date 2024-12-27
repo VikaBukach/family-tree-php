@@ -27,6 +27,23 @@ class Db
 
     public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
     {
+        //перевірка на дубл:
+        $checkSql = "SELECT * FROM family_members WHERE surname =:surname AND name =:name  AND fatherly =:fatherly";
+        $stmt = $this->connection->prepare($checkSql);
+
+        $stmt->execute([
+            ':surname' => $surname,
+            ':name' => $name,
+            ':fatherly' => $fatherly,
+        ]);
+
+        $exists = $stmt->fetchColumn(); // Повертає кількість записів
+
+        if ($exists > 0) { // не дає створити дублюючий запис membera у бд
+           return;
+        }
+
+        // Якщо не існує - продовжуємо вставку
         $sql = "INSERT INTO family_members (avatar_path, file_description, surname, maiden_name, name, fatherly, birth_date,
                                               history, created_at, status, death_date, sex)
         VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT, :status, :death_date, :sex)";

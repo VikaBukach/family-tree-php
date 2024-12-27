@@ -68,5 +68,4 @@ class RoleRelationships
         return null;
     }
 
-
 }

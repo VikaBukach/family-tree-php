@@ -95,8 +95,6 @@
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">
                     <button type="submit" class="btn btn-outline-primary btn-lg">Зберегти</button>
                 </div>
-
-
             </form>
 
             <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
