@@ -28,6 +28,7 @@ $memberCards = $db->getAllCardByIdMember($id);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -54,8 +55,6 @@ $memberCards = $db->getAllCardByIdMember($id);
             </div>
 
             <a href="/views/members/connections.php?id=<?= $id ?>" class="btn btn-secondary">Родинні звʼязки</a>
-
-
         </div>
 
 
@@ -67,7 +66,7 @@ $memberCards = $db->getAllCardByIdMember($id);
                     <div style="width: 100%; height: 75%; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
                         <?php if (!empty ($card['image_path'])) : ?>
                             <img src="<?= htmlspecialchars($card['image_path']) ?>" class="card-img-top" alt="фото"
-                                 style="max-width: 75%; max-height: 100%; object-fit: cover;">
+                                 style="max-width: 75%; max-height: 100%; object-fit: cover; cursor: zoom-in; transition: transform 0.3s ease;">
                         <?php else: ?>
                             <span>Відсутне фото</span>
                         <?php endif; ?>
@@ -78,6 +77,13 @@ $memberCards = $db->getAllCardByIdMember($id);
                     </div>
                 </div>
             <?php endforeach; ?>
+        </div>
+
+        <!--Модальне віккно для перегляду збільшенного зображення -->
+        <div id="imageModal"
+             style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000;">
+            <img id="modalImage" src="" alt="Зображення"
+                 style="max-width: 90%; max-height: 90%; border: 5px solid white; border-radius: 8px;">
         </div>
         <!------------------створення біографіі(виводиться з дискрипшина) ---------------------->
         <div class="card" style="margin-top: 50px; margin-bottom: 50px;">
@@ -90,7 +96,23 @@ $memberCards = $db->getAllCardByIdMember($id);
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            const $modal = $('#imageModal');
+            const $modalImage = $('#modalImage');
+
+            //open modal on click
+            $('.card-img-top').on('click', function () {
+                const src = $(this).attr('src');   //отримуємо джерело зображ
+                $modalImage.attr('src', src);      // устанавлюємо джерело у модальне вікно
+                $modal.css('display', 'flex');
+            });
+
+            //Закриття мод вікна при клік
+            $modal.on('click', function () {
+                $modal.css('display', 'none');
+            })
+        })
+    </script>
 </body>
 </html>
