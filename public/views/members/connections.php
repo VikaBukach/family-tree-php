@@ -43,23 +43,30 @@ $familyMember = $db->getMemberById($id);
     </div>
 
     <div class="container">
-        <div class="member card mr-3"
-             style="width: 18rem; display: flex; justify-content: center; align-items: center;">
-            <img src="<?= $familyMember['avatar_path'] ?>" alt="фото" style="width: 100px;">
-            <h2><?= $familyMember['name'] . ' ' . $familyMember['surname'] ?></h2>
+        <div class="member card-container"
+             style="display: flex; justify-content: center; align-items: center;">
+            <div class="card" style="width: 18rem; border: 1px solid #ddd; border-radius: 10px; padding: 15px; text-align: center;">
+            <img src="<?= $familyMember['avatar_path'] ?>" alt="фото" style="border-radius: 50%;">
+            <h2 style="margin-top: 15px"><?= $familyMember['name'] . ' ' . $familyMember['surname'] ?></h2>
+            </div>
         </div>
 
-        <h2>Родинні зв’язки</h2>
-        <div class="relationships">
+        <h2 class="text-center mb-4 mt-4">Родинні зв’язки</h2>
+        <div class="relationships" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
             <?php if (is_array($relationships) && count($relationships) > 0): ?>
-                <ul>
+                <ul class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
                     <?php foreach ($relationships as $relation): ?>
                         <?php if (!empty($relation->related_avatar) && !empty($relation->related_name) && !empty($relation->related_surname) && !empty($relation->role_type)): ?>
-                            <li class="card mr-3"
-                                style="width: 18rem; display: flex; justify-content: center; align-items: center;">
-                                <img src="<?= $relation->related_avatar ?>" alt="фото" style="width: 50px;">
-                                <?= $relation->related_surname . ' ' . $relation->related_name ?>:
-                                <?= RoleRelationships::getNameByKey($relation->role_type) ?>
+                            <li class="card"
+                                style="width: 150px; height: 180px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 5px;">
+                                <img src="<?= $relation->related_avatar ?>" alt="фото" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;">
+                                <h6 style="margin-bottom: 5px; display: flex; text-align: center;">
+                                    <?= $relation->related_surname . ' ' . $relation->related_name ?>:
+                                </h6>
+                                <p style="font-size: 14px; color: #555;">
+                                    <?= RoleRelationships::getNameByKey($relation->role_type) ?>
+                                </p>
+
                             </li>
                         <?php endif; ?>
                     <?php endforeach; ?>

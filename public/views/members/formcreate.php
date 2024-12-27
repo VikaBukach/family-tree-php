@@ -33,7 +33,7 @@
 
                 <!--photo -->
                 <div class="mb-3">
-                    <!--                        <input type="hidden" name="user_id" value="1"> -->
+                    <input type="hidden" name="member_id" value="">
                     <label for="avatar" class="form-label">Завантажити фотографію:</label>
 
                     <input type="file" class="form-control" name="avatar" id="avatar"
