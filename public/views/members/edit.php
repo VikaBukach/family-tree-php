@@ -134,7 +134,17 @@ $member = $db->getRowById($id);
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="../../js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#status').change(function () {
+            if ($(this).val() === 'deceased') {
+                $('#death-date-field').show();
+            } else {
+                $('#death-date-field').hide();
+            }
+        });
+    });
+</script>
 </body>
 </html>
 
