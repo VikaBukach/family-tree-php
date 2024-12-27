@@ -29,7 +29,6 @@ $allRows = $db->getAllRows();
     <nav class="bg-gray-800">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
-
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 
                     <div class="hidden sm:ml-6 sm:block">
@@ -41,11 +40,13 @@ $allRows = $db->getAllRows();
                                aria-current="page">Додати члена сімʼї</a>
                             <a href="/views/members/list.php"
                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список членів родини</a>
-
                         </div>
-
                     </div>
                 </div>
+                <form class="d-flex" role="search" style="" method="POST" action="/controllers/MembersController.php?action=searchRelative">
+                    <input class="form-control me-2" name="query" type="search" placeholder="Введіть прізвище" aria-label="Search" required>
+                    <button class="btn btn-outline-success" type="submit">Пошук</button>
+                </form>
             </div>
         </div>
         </div>
@@ -107,6 +108,9 @@ $allRows = $db->getAllRows();
     <!------------LIST RELATIVES ---------------------->
 
 </main>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="js/main.js"></script>

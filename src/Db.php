@@ -228,4 +228,13 @@ class Db
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function searchRelativeByName($query)
+    {
+        $sql = "SELECT * FROM family_members WHERE surname LIKE :query OR name LIKE :query OR maiden_name LIKE :query";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([':query' => '%' . $query. '%']);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
