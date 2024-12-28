@@ -229,7 +229,19 @@ class Db
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function searchRelativeByName($query)
+    public function getRelatedMemberIdsByMemberAndRoleName($memberId, $roleType)
+    {
+        $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([
+            ':member_id' => $memberId,
+            ':relationship_type' => $roleType
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRelativesByNames($query)
     {
         $sql = "SELECT * FROM family_members WHERE surname LIKE :query OR name LIKE :query OR maiden_name LIKE :query";
         $stmt = $this->connection->prepare($sql);

@@ -84,10 +84,9 @@ class MembersController extends BaseController
     {
         if ($_POST) {
             $query = $_POST['query'] ?? '';
-            $results = $this->db->searchRelativeByName($query);
+            $searchResults = $this->db->getRelativesByNames($query);
         }
     }
-
 
 }
 

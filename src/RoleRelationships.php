@@ -6,12 +6,12 @@ class RoleRelationships
 {
     public const FATHER = 'FATHER';
     public const MOTHER = 'MOTHER';
-    private const HUSBAND = 'HUSBAND';
-    private const WIFE = 'WIFE';
-    private const DAUGHTER = 'DAUGHTER';
-    private const SON = 'SON';
-    private const GRANDFATHER = 'GRANDFATHER';
-    private const GRANDMOTHER = 'GRANDMOTHER';
+    public const HUSBAND = 'HUSBAND';
+    public const WIFE = 'WIFE';
+    public const DAUGHTER = 'DAUGHTER';
+    public const SON = 'SON';
+    public const GRANDFATHER = 'GRANDFATHER';
+    public const GRANDMOTHER = 'GRANDMOTHER';
     public const BROTHER = 'BROTHER';
     public const SISTER = 'SISTER';
     public const UNCLE = 'UNCLE';

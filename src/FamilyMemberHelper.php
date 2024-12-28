@@ -6,7 +6,7 @@ use FamilyTree\entity\FamilyMember;
 
 class FamilyMemberHelper
 {
-    public static function initMembers($id)
+    public static function initMember($id)
     {
        $db = new Db();
 

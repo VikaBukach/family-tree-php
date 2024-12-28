@@ -1,12 +1,14 @@
 <?php
 
+use FamilyTree\entity\FamilyMember;
 use FamilyTree\FamilyMemberHelper;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$member = FamilyMemberHelper::initMembers(35);
+/*
+$member = FamilyMemberHelper::initMember(35);
 
-$partner = $member->getPartner();
+$partner = $member->getPartners();
 
 $mama = $member->getMother();
 $fath = $member->getFather();
@@ -16,6 +18,23 @@ $son = $member->getSon();
 
 $grandMother1 = $mama->getMother();
 
+*/
+
+//$data = [
+//    ['id' => $familyMember['id'], 'pids' => [2], 'name' => $familyMember['name'], 'img' => $familyMember['avatar_path'], "gender" => $familyMember['sex'] === 0 ? "male" : "female"],
+//];
+
+function generateTree($memberId, $depth = 3)
+{
+    $member = FamilyMemberHelper::initMember($memberId);
+
+    $partners = $member->getPartners();
+    $sisters = $member->getSisters();
+    $brothers = $member->getBrothers();
+    $father = $member->getFather();
+    $mother = $member->getMother();
+    $daughters = $member->getDaughters();
+    $sons = $member->getSons();
 
 
 

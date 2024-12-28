@@ -4,18 +4,10 @@ namespace FamilyTree\entity;
 
 use FamilyTree\Db;
 use FamilyTree\FamilyMemberHelper;
+use FamilyTree\RoleRelationships;
 
 class FamilyMember
 {
-    private const HUSBAND = 'Чоловік';
-    private const WIFE = 'Дружина';
-    private const MOTHER = 'Мати';
-    private const FATHER = 'Батько';
-    private const DAUGHTER = 'Донька';
-    private const SON = 'Син';
-    private const GRANDFATHER = 'Дідусь';
-    private const GRANDMOTHER = 'Бабуся';
-
     private $db;
 
     public function __construct(
@@ -41,18 +33,116 @@ class FamilyMember
         return $this->id;
     }
 
-    public function getPartner()
+    public function getPartners()
     {
-        $currentPartner = $this->sex == 1 ? self::HUSBAND : self::WIFE;
+        $currentPartner = $this->sex == 1 ? RoleRelationships::HUSBAND : RoleRelationships::WIFE;
 
-        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, $currentPartner);
+        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, $currentPartner);
+
+        if(!$relatedMembers){
+            return null;
+        }
+
+        $partners = [];
+
+        foreach ($relatedMembers as $relatedMember){
+            $partners[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+        }
+
+        return $partners;
+    }
+
+    public function getSisters()
+    {
+        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::SISTER);
+
+        if(!$relatedMembers){
+            return null;
+        }
+
+        $sisters = [];
+
+        foreach ($relatedMembers as $relatedMember){
+            $sisters[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+        }
+
+        return $sisters;
+    }
+
+    public function getBrothers()
+    {
+        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::BROTHER);
+
+        if(!$relatedMembers){
+            return null;
+        }
+
+        $brothers = [];
+
+        foreach ($relatedMembers as $relatedMember){
+            $brothers[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+        }
+
+        return $brothers;
+    }
+
+    public function getMother()
+    {
+        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, RoleRelationships::MOTHER);
 
         if(!$relatedMember){
             return null;
         }
 
-        return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
+        return FamilyMemberHelper::initMember($relatedMember['related_member_id']);
     }
+
+    public function getFather()
+    {
+        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, RoleRelationships::FATHER);
+
+        if(!$relatedMember){
+            return null;
+        }
+
+        return FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+    }
+
+    public function getSons()
+    {
+        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::SON);
+
+        if(!$relatedMembers){
+            return null;
+        }
+
+        $sons = [];
+
+        foreach ($relatedMembers as $relatedMember){
+            $sons[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+        }
+
+        return $sons;
+    }
+
+    public function getDaughters()
+    {
+        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::DAUGHTER);
+
+        if(!$relatedMembers){
+            return null;
+        }
+
+        $daughters = [];
+
+        foreach ($relatedMembers as $relatedMember){
+            $daughters[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+        }
+
+        return $daughters;
+    }
+
+
 
     public function getFullName()
     {
@@ -69,48 +159,5 @@ class FamilyMember
         return $this->sex == 1 ? 'female' : 'male';
     }
 
-    public function getMother()
-    {
-        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, self::MOTHER);
-
-        if(!$relatedMember){
-            return null;
-        }
-
-        return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
-    }
-
-    public function getFather()
-    {
-        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, self::FATHER);
-
-        if(!$relatedMember){
-            return null;
-        }
-
-        return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
-    }
-
-     public function getDaughter()
-     {
-         $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, self::DAUGHTER);
-
-         if(!$relatedMember){
-             return null;
-         }
-
-         return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
-     }
-
-    public function getSon()
-    {
-        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, self::SON);
-
-        if(!$relatedMember){
-            return null;
-        }
-
-        return FamilyMemberHelper::initMembers($relatedMember['related_member_id']);
-    }
 
 }
