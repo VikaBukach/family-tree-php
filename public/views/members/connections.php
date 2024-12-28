@@ -74,7 +74,8 @@ $familyMember = $db->getMemberById($id);
                 </ul>
             <?php endif; ?>
         </div>
-        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/views/members/relationsform.php?id=<?= $relation->member_id ?>">Додати звʼязок</a>
+        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/views/members/relationsform.php?id=<?= $id ?>">Додати звʼязок</a>
+
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px;">
             Повернутись на головну
         </a>
