@@ -35,15 +35,15 @@ class FamilyMember
 
     public function getPartners()
     {
+        $partners = [];
+
         $currentPartner = $this->sex == 1 ? RoleRelationships::HUSBAND : RoleRelationships::WIFE;
 
         $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, $currentPartner);
 
         if(!$relatedMembers){
-            return null;
+            return $partners;
         }
-
-        $partners = [];
 
         foreach ($relatedMembers as $relatedMember){
             $partners[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
@@ -54,13 +54,13 @@ class FamilyMember
 
     public function getSisters()
     {
+        $sisters = [];
+
         $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::SISTER);
 
         if(!$relatedMembers){
-            return null;
+            return $sisters;
         }
-
-        $sisters = [];
 
         foreach ($relatedMembers as $relatedMember){
             $sisters[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
@@ -71,13 +71,13 @@ class FamilyMember
 
     public function getBrothers()
     {
+        $brothers = [];
+
         $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::BROTHER);
 
         if(!$relatedMembers){
-            return null;
+            return $brothers;
         }
-
-        $brothers = [];
 
         foreach ($relatedMembers as $relatedMember){
             $brothers[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
@@ -110,13 +110,13 @@ class FamilyMember
 
     public function getSons()
     {
+        $sons = [];
+
         $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::SON);
 
         if(!$relatedMembers){
-            return null;
+            return $sons;
         }
-
-        $sons = [];
 
         foreach ($relatedMembers as $relatedMember){
             $sons[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
@@ -127,13 +127,13 @@ class FamilyMember
 
     public function getDaughters()
     {
+        $daughters = [];
+
         $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::DAUGHTER);
 
         if(!$relatedMembers){
-            return null;
+            return $daughters;
         }
-
-        $daughters = [];
 
         foreach ($relatedMembers as $relatedMember){
             $daughters[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
@@ -158,6 +158,4 @@ class FamilyMember
     {
         return $this->sex == 1 ? 'female' : 'male';
     }
-
-
 }
