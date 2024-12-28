@@ -3,6 +3,7 @@
 namespace FamilyTree;
 
 use FamilyTree\entity\FamilyMember;
+use RuntimeException;
 
 class FamilyMemberHelper
 {
@@ -10,7 +11,9 @@ class FamilyMemberHelper
     {
        $db = new Db();
 
-        $familyMember = $db->getMemberById($id);
+        if(!$familyMember = $db->getMemberById($id)) {
+            throw new RuntimeException('Member does not found');
+        }
 
         $familyMemberEntity = new FamilyMember(
             $familyMember['id'],

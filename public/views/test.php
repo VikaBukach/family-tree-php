@@ -5,31 +5,16 @@ use FamilyTree\FamilyMemberHelper;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-/*
-$member = FamilyMemberHelper::initMember(35);
+$result = [];
 
-$partner = $member->getPartners();
-
-$mama = $member->getMother();
-$fath = $member->getFather();
-
-$daugh = $member->getDaughter();
-$son = $member->getSon();
-
-$grandMother1 = $mama->getMother();
-
-*/
-
-//$data = [
-//    ['id' => 12, 'pids' => [2], 'name' => $familyMember['name'], 'img' => $familyMember['avatar_path'], "gender" => $familyMember['sex'] === 0 ? "male" : "female"],
-//    ['id' => 12, 'pids' => [2], 'name' => $familyMember['name'], 'img' => $familyMember['avatar_path'], "gender" => $familyMember['sex'] === 0 ? "male" : "female"],
-//];
-
-function generateTree($memberId, $depth = 3)
+function generateTree($result, $memberId, $isStop = false)
 {
-    $result = [];
-
     $member = FamilyMemberHelper::initMember($memberId);
+
+    if (is_null($member)) {
+        return $result;
+    }
+
     $existingIds = array_column($result, 'id');
     if (!in_array($member->getId(), $existingIds)) {
         $result[] = prepareMember($member);
@@ -56,27 +41,33 @@ function generateTree($memberId, $depth = 3)
     foreach ($brothers as $brother){
         $existingIds = array_column($result, 'id');
         if (!in_array($brother->getId(), $existingIds)) {
-            $result[] = prepareMember($brother);
+            $result[] = prepareMember($brother, $isStop);
         }
     }
 
     $father = $member->getFather();
     $existingIds = array_column($result, 'id');
     if ($father && !in_array($father->getId(), $existingIds)) {
-        $result[] = prepareMember($father);
+        $result[] = prepareMember($father, $isStop);
+        if ($grandFather = $father->getFather()) {
+            $result = generateTree($result, $grandFather->getId(), true);
+        }
     }
 
     $mother = $member->getMother();
     $existingIds = array_column($result, 'id');
     if ($mother && !in_array($mother->getId(), $existingIds)) {
-        $result[] = prepareMember($mother);
+        $result[] = prepareMember($mother, $isStop);
+        if ($grandMother = $father->getMother()) {
+            $result = generateTree($result, $grandMother->getId(), true);
+        }
     }
 
     $daughters = $member->getDaughters();
     foreach ($daughters as $daughter){
         $existingIds = array_column($result, 'id');
         if (!in_array($daughter->getId(), $existingIds)) {
-            $result[] = prepareMember($daughter);
+            $result[] = prepareMember($daughter, $isStop);
         }
     }
 
@@ -91,7 +82,7 @@ function generateTree($memberId, $depth = 3)
     return $result;
 }
 
-function prepareMember(FamilyMember $member)
+function prepareMember(FamilyMember $member, $isStop = false)
 {
    $result = [];
 
@@ -106,23 +97,23 @@ function prepareMember(FamilyMember $member)
     $result['gender'] = $member->getSex();
 //    $result['title'] = ;
 
-    $result['mid'] = $member->getMother()?->getId();
-    $result['fid'] = $member->getFather()?->getId();
+    if (!$isStop) {
+        $result['mid'] = $member->getMother()?->getId();
+        $result['fid'] = $member->getFather()?->getId();
+    } else {
+        $result['mid'] = null;
+        $result['fid'] = null;
+    }
+
+
+
 
     return $result;
 }
 
-
-
-$result = generateTree(35);
-
-
-
+$result = generateTree($result, $_GET['id'] ?? 0);
 
 $dataAsJson = json_encode($result);
-
-
-
 
 ?>
 <style>
