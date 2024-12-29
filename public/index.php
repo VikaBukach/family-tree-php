@@ -7,7 +7,9 @@ use FamilyTree\Db;
 $db = new Db();
 $allRows = $db->getAllRows();
 
+//$searchResults = $db->getRelativesByNames($query);
 
+$fg = 'dd'
 ?>
 
 <!doctype html>
@@ -33,18 +35,23 @@ $allRows = $db->getAllRows();
 
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white""
-                               aria-current="page">Головна
+                            <a href="/"
+                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white""
+                            aria-current="page">Головна
                             </a>
-                            <a href="/views/members/formcreate.php" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                            <a href="/views/members/formcreate.php"
+                               class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                                aria-current="page">Додати члена сімʼї</a>
                             <a href="/views/members/list.php"
-                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список членів родини</a>
+                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список
+                                членів родини</a>
                         </div>
                     </div>
                 </div>
-                <form class="d-flex" role="search" style="" method="POST" action="/controllers/MembersController.php?action=searchRelative">
-                    <input class="form-control me-2" name="query" type="search" placeholder="Введіть прізвище" aria-label="Search" required>
+                <form class="d-flex" role="search" style="" method="POST"
+                      action="/controllers/MembersController.php?action=searchRelative">
+                    <input class="form-control me-2" name="query" type="search" placeholder="Введіть прізвище"
+                           aria-label="Search" required>
                     <button class="btn btn-outline-success" type="submit">Пошук</button>
                 </form>
             </div>
@@ -67,38 +74,44 @@ $allRows = $db->getAllRows();
     <div class="container mt-4">
         <div class="card-body row g-4">
 
-        <?php foreach($allRows as $row): ?>
-            <div class="card mr-3" style="width: 18rem; display: flex; justify-content: center; align-items: center;">
 
-                <?php if (!empty ($row["avatar_path"])): ?>
-                    <img src="<?= htmlspecialchars($row["avatar_path"]) ?>" class="card-img-top mt-2" alt="фото"
-                         style="width: 180px; height: 250px; object-fit: cover;">
-                <?php else: ?>
-                    <span>Відсутне фото</span>
-                <?php endif; ?>
 
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"> <?= $row["surname"] ?></li>
 
-                    <?php if (!empty($row["maiden_name"])): ?>
-                    <li class="list-group-item"> Дівоче: <?= $row["maiden_name"] ?>
-                    </li>
+
+            <?php foreach ($allRows as $row): ?>
+                <div class="card mr-3"
+                     style="width: 18rem; display: flex; justify-content: center; align-items: center;">
+
+                    <?php if (!empty ($row["avatar_path"])): ?>
+                        <img src="<?= htmlspecialchars($row["avatar_path"]) ?>" class="card-img-top mt-2" alt="фото"
+                             style="width: 180px; height: 250px; object-fit: cover;">
+                    <?php else: ?>
+                        <span>Відсутне фото</span>
                     <?php endif; ?>
 
-                    <li class="list-group-item"><?= $row["name"] ?></li>
-                    <li class="list-group-item"><?= $row["fatherly"] ?></li>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> <?= $row["surname"] ?></li>
 
-                    <li class="list-group-item"><?= date('d-m-Y', strtotime($row["birth_date"])) ?>
-                        <?php if(!empty($row['death_date'])): ?>
-                        <br> <?= date('d-m-Y', strtotime($row["death_date"])) ?>
-                        <?php endif;?>
-                    </li>
+                        <?php if (!empty($row["maiden_name"])): ?>
+                            <li class="list-group-item"> Дівоче: <?= $row["maiden_name"] ?>
+                            </li>
+                        <?php endif; ?>
 
-                </ul>
-                <div class="card-body">
-                    <a href="/views/members/gallery.php?id=<?= $row['id'] ?>" class="card-link text-primary">Більше інформаціїї</a>
+                        <li class="list-group-item"><?= $row["name"] ?></li>
+                        <li class="list-group-item"><?= $row["fatherly"] ?></li>
+
+                        <li class="list-group-item"><?= date('d-m-Y', strtotime($row["birth_date"])) ?>
+                            <?php if (!empty($row['death_date'])): ?>
+                                <br> <?= date('d-m-Y', strtotime($row["death_date"])) ?>
+                            <?php endif; ?>
+                        </li>
+
+                    </ul>
+                    <div class="card-body">
+                        <a href="/views/members/gallery.php?id=<?= $row['id'] ?>" class="card-link text-primary">Більше
+                            інформаціїї</a>
+                    </div>
                 </div>
-            </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -108,8 +121,6 @@ $allRows = $db->getAllRows();
     <!------------LIST RELATIVES ---------------------->
 
 </main>
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
