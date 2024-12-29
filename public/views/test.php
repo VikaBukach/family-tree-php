@@ -4,7 +4,12 @@ use FamilyTree\helpers\GenerateTreeHelper;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-GenerateTreeHelper::generate($_GET['id'] ?? 0);
+session_start();
+//if (empty($_SESSION['user_id']) || $_SESSION['user_id'] !== 35) {
+//    header('Location: /views/auth.php');
+//}
+
+GenerateTreeHelper::generate($_GET['id'] ?? 43);
 $dataAsJson = json_encode(GenerateTreeHelper::getResult());
 
 ?>

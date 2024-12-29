@@ -1,5 +1,106 @@
+/* Базовий стиль для всього сайту */
+/*body {*/
+/*    font-family: 'Cinzel', serif; !* Середньовічний стиль шрифту *!*/
+/*    font-size: 16px; !* Базовий розмір шрифту *!*/
+/*    line-height: 1.5; !* Зручне міжрядкове відступлення *!*/
+/*}*/
+
+/*!* Додаткові стилі для заголовків *!*/
+/*h1, h2, h3, h4, h5, h6 {*/
+/*    font-family: 'Cinzel', serif;*/
+/*    font-weight: 700;*/
+/*    color: black; */
+/*}*/
+
+/*!* Посилання *!*/
+/*a {*/
+/*    font-family: 'Cinzel', serif;*/
+/*    color: black;*/
+/*    text-decoration: none;*/
+/*    transition: color 0.3s ease;*/
+/*}*/
+
+/*a:hover {*/
+/*    color: rgba(255, 215, 0, 0.88);*/
+/*}*/
+
+
+/* Оновлення шрифту для всіх компонентів Bootstrap */
+/*.navbar, .btn, .form-control, .dropdown-item, .table, .card {*/
+/*    font-family: 'Cinzel', serif;*/
+/*}*/
+
+/* -----------------nav ----------------------*/
+.navbar-custom{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(32,59,96,1) 80%, rgba(34,53,112,1) 89%, rgba(39,74,111,1) 100%, rgba(0,212,255,1) 100%);
+    /*background: radial-gradient(circle, rgba(32, 59, 96, 1) 0%, rgba(2, 0, 36, 1) 100%);*/
+}
+
+.logo-img {
+    width: 70px;
+    height: 80px;
+    margin-right: 10px;
+    margin-left: 100px;
+}
+
+.brand-text {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #b9a141;
+}
+
+/*.navbar-nav{*/
+/*    margin-left: 100px;*/
+/*}*/
+
+.navbar-nav .nav-item {
+    margin-right: 20px;
+}
+
+.nav-link {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #b9a141;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link.active{
+    color: #FFD700;
+}
+
+.nav-link:hover {
+    color: rgba(255, 215, 0, 0.88);
+}
+
+.btn-outline-success {
+    border-color: #b9a141;
+    color: #b9a141;
+}
+
+
+
+.btn-outline-success:hover {
+    color: #FFD700;
+    background-color: rgba(255, 215, 0, 0.15);
+    border-color: #b9a141;
+}
+
+/* ------------main ------------*/
+
+
+
+
+
+
+/* ------------modal window in gallery for zoom photo ------------*/
 #imageModal {
-    display: none; /* Приховане за замовчуванням */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;

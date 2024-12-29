@@ -19,37 +19,44 @@ $fg = 'dd'
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
+
+
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Family tree</title>
 </head>
 <body>
 
 <header>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Family Tree</a>
+            <a class="navbar-brand align-items-center" href="#">
+                <img src="/img/tree.png" class="logo-img" alt="tree" >
+                <span class="brand-text">Family Tree</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: space-evenly">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Головна</a>
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/views/members/formcreate.php">Додати члена сімʼї</a>
+                        <a class="nav-link" href="/views/members/formcreate.php">Add family member</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/views/members/list.php">Список
-                            членів родини</a>
+                        <a class="nav-link" href="/views/members/list.php">List of family members</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search" style="" method="POST"
                       action="/controllers/MembersController.php?action=searchRelative">
                     <input class="form-control me-2" name="query" type="search" placeholder="Введіть прізвище"
                            aria-label="Search" required>
-                    <button class="btn btn-outline-success" type="submit">Пошук</button>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
