@@ -32,6 +32,8 @@ $familyMember = $db->getMemberById($id);
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+
 </head>
 <body>
 
@@ -78,6 +80,7 @@ $familyMember = $db->getMemberById($id);
             Повернутись на головну
         </a>
     </div>
+
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/jquery.min.js"></script>
 </body>
