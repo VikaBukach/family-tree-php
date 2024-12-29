@@ -6,7 +6,11 @@ use FamilyTree\entities\FamilyMember;
 
 class GenerateTreeHelper
 {
+    private const DEPTH_VALUE = 100;
+
     private static $result = [];
+
+    private static $depth = self::DEPTH_VALUE;
 
     public static function getResult()
     {
@@ -15,6 +19,12 @@ class GenerateTreeHelper
 
     public static function generate($memberId)
     {
+        self::$depth--;
+
+        if (self::$depth < 0) {
+            return self::$result;
+        }
+
         $member = FamilyMemberHelper::initMember($memberId);
 
         if (is_null($member)) {
@@ -31,7 +41,7 @@ class GenerateTreeHelper
         foreach ($partners as $partner) {
             $existingIds = array_column(self::$result, 'id');
             if (!in_array($partner->getId(), $existingIds)) {
-                self::$result[] = self::prepareMember($partner);
+                self::generate($partner->getId());
             }
         }
 
@@ -39,7 +49,7 @@ class GenerateTreeHelper
         foreach ($sisters as $sister) {
             $existingIds = array_column(self::$result, 'id');
             if (!in_array($sister->getId(), $existingIds)) {
-                self::$result[] = self::prepareMember($sister);
+                self::generate($sister->getId());
             }
         }
 
@@ -47,7 +57,7 @@ class GenerateTreeHelper
         foreach ($brothers as $brother) {
             $existingIds = array_column(self::$result, 'id');
             if (!in_array($brother->getId(), $existingIds)) {
-                self::$result[] = self::prepareMember($brother);
+                self::generate($brother->getId());
             }
         }
 
@@ -73,7 +83,7 @@ class GenerateTreeHelper
         foreach ($daughters as $daughter) {
             $existingIds = array_column(self::$result, 'id');
             if (!in_array($daughter->getId(), $existingIds)) {
-                self::$result[] = self::prepareMember($daughter);
+                self::generate($daughter->getId());
             }
         }
 
@@ -81,7 +91,7 @@ class GenerateTreeHelper
         foreach ($sons as $son) {
             $existingIds = array_column(self::$result, 'id');
             if (!in_array($son->getId(), $existingIds)) {
-                self::$result[] = self::prepareMember($son);
+                self::generate($son->getId());
             }
         }
     }
@@ -92,20 +102,22 @@ class GenerateTreeHelper
 
         $result['id'] = $member->getId();
 
-        $result['pids'] = array_map(function (FamilyMember $member){
+        $result['pids'] = array_map(function (FamilyMember $member) {
             return $member->getId();
         }, $member->getPartners() ?: []);
 
         $result['title'] = $member->getFullName(); // прибрала name бо великий шифр
         $result['img'] = $member->getImagePath();
         $result['gender'] = $member->getSex();
-//    $result['title'] = ;
 
-        $result['mid'] = $member->getMother()?->getId();
-        $result['fid'] = $member->getFather()?->getId();
-
+        if (self::$depth < 0) {
+            $result['mid'] = null;
+            $result['fid'] = null;
+        } else {
+            $result['mid'] = $member->getMother()?->getId();
+            $result['fid'] = $member->getFather()?->getId();
+        }
 
         return $result;
     }
-
 }

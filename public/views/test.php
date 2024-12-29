@@ -1,6 +1,5 @@
 <?php
 
-
 use FamilyTree\helpers\GenerateTreeHelper;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -31,8 +30,6 @@ $dataAsJson = json_encode(GenerateTreeHelper::getResult());
 
 <script>
     var dataFromPhpAsJson = '<?= $dataAsJson ?>';
-    console.log(dataFromPhpAsJson);
-
 
     //JavaScript
     var options = getOptions();
