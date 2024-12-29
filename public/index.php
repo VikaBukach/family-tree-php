@@ -20,8 +20,7 @@ $fg = 'dd'
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
@@ -64,7 +63,7 @@ $fg = 'dd'
 </header>
 <main class="container-fluid">
     <div class="text-center">
-        <h1 class="fw-bolder lh-sm fs-4 text mt-3 mb-3" style="max-width: 1000px; margin: 0 auto;">
+        <h1 class="fw-bolder lh-sm fs-3 text mt-3 mb-3" style="max-width: 1200px; margin: 0 auto;">
             Родинне дерево — це не просто перелік імен чи дат, це жива історія, яка об’єднує минуле,
             теперішнє та майбутнє. Вивчаючи свої корені, ми дізнаємося більше про своїх предків, їхній шлях у житті,
             традиції та цінності, які передавалися з покоління в покоління. Цей проєкт покликаний зберегти нашу
@@ -75,15 +74,11 @@ $fg = 'dd'
 
     <!------------------Card of member ---------------------->
     <div class="container mt-4">
-        <div class="card-body row g-4">
-
-
-
-
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
 
             <?php foreach ($allRows as $row): ?>
-                <div class="card mr-3"
-                     style="width: 18rem; display: flex; justify-content: center; align-items: center;">
+                <div class="card mr-3 custom-card"
+                     style="width: 16rem; display: flex; justify-content: center; align-items: center; margin-right: 2px;">
 
                     <?php if (!empty ($row["avatar_path"])): ?>
                         <img src="<?= htmlspecialchars($row["avatar_path"]) ?>" class="card-img-top mt-2" alt="фото"
@@ -92,7 +87,7 @@ $fg = 'dd'
                         <span>Відсутне фото</span>
                     <?php endif; ?>
 
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush custom-list">
                         <li class="list-group-item"> <?= $row["surname"] ?></li>
 
                         <?php if (!empty($row["maiden_name"])): ?>
@@ -111,7 +106,7 @@ $fg = 'dd'
 
                     </ul>
                     <div class="card-body">
-                        <a href="/views/members/gallery.php?id=<?= $row['id'] ?>" class="card-link text-primary">Більше
+                        <a href="/views/members/gallery.php?id=<?= $row['id'] ?>" class="btn btn-primary">Більше
                             інформаціїї</a>
                     </div>
                 </div>

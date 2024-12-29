@@ -1,20 +1,19 @@
-/* Базовий стиль для всього сайту */
-/*body {*/
-/*    font-family: 'Cinzel', serif; !* Середньовічний стиль шрифту *!*/
-/*    font-size: 16px; !* Базовий розмір шрифту *!*/
-/*    line-height: 1.5; !* Зручне міжрядкове відступлення *!*/
-/*}*/
+body {
+     /*font-family: 'Cormorant Garamond', serif;*/
+    /*font-size: 16px; !* Базовий розмір шрифту *!*/
+    /*line-height: 1.5; !* Зручне міжрядкове відступлення *!*/
+}
 
 /*!* Додаткові стилі для заголовків *!*/
 /*h1, h2, h3, h4, h5, h6 {*/
-/*    font-family: 'Cinzel', serif;*/
+/*    font-family: 'Cormorant Garamond', serif;*/
 /*    font-weight: 700;*/
-/*    color: black; */
+/*    color: black;*/
 /*}*/
 
 /*!* Посилання *!*/
 /*a {*/
-/*    font-family: 'Cinzel', serif;*/
+/*    font-family: 'Cormorant Garamond', serif;*/
 /*    color: black;*/
 /*    text-decoration: none;*/
 /*    transition: color 0.3s ease;*/
@@ -26,9 +25,9 @@
 
 
 /* Оновлення шрифту для всіх компонентів Bootstrap */
-/*.navbar, .btn, .form-control, .dropdown-item, .table, .card {*/
-/*    font-family: 'Cinzel', serif;*/
-/*}*/
+.navbar, .btn, .form-control, .dropdown-item, .table, .card {
+    font-family: 'Cormorant Garamond', serif;
+}
 
 /* -----------------nav ----------------------*/
 .navbar-custom{
@@ -37,7 +36,6 @@
     width: 100%;
     z-index: 1000;
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(32,59,96,1) 80%, rgba(34,53,112,1) 89%, rgba(39,74,111,1) 100%, rgba(0,212,255,1) 100%);
-    /*background: radial-gradient(circle, rgba(32, 59, 96, 1) 0%, rgba(2, 0, 36, 1) 100%);*/
 }
 
 .logo-img {
@@ -59,7 +57,7 @@
 /*}*/
 
 .navbar-nav .nav-item {
-    margin-right: 20px;
+    margin-right: 30px;
 }
 
 .nav-link {
@@ -92,11 +90,12 @@
 }
 
 /* ------------main ------------*/
-
-
-
-
-
+main {
+    font-family: 'Cormorant Garamond', serif;
+    margin-top: 100px;
+    padding: 20px;
+    color: #020024FF;
+}
 
 /* ------------modal window in gallery for zoom photo ------------*/
 #imageModal {
@@ -117,4 +116,64 @@
     max-height: 90%;
     border: 5px solid white;
     border-radius: 8px;
+}
+/* -----------Card of member  ------------*/
+.custom-card {
+    background: linear-gradient(145deg, #4c4c4c, #2e2e2e);
+    color: #b9a141;
+    border: 1px solid #8b7e4e;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.custom-card .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #8b7e4e;
+}
+
+.custom-card .no-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background: #3e3e3e;
+    color: #b9a141;
+    font-style: italic;
+}
+
+.custom-list .list-group-item {
+    background: none;
+    border: none;
+    color: #b9a141;
+    font-size: 20px;
+}
+
+.custom-list .list-group-item:not(:last-child) {
+    border-bottom: 1px solid rgba(185, 161, 65, 0.5);
+}
+
+.btn-primary {
+    background-color: #b9a141;
+    border-color: #8b7e4e;
+    color: #2e2e2e;
+}
+
+.btn-primary:hover {
+    border-color: #8b7e4e;
+    background-color: #8b7e4e;
+    color: #fff;
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
