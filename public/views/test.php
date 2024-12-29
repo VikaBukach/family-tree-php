@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 $result = [];
 
-function generateTree($result, $memberId, $isStop = false)
+function generateTree($result, $memberId)
 {
     $member = FamilyMemberHelper::initMember($memberId);
 
@@ -26,6 +26,7 @@ function generateTree($result, $memberId, $isStop = false)
         $existingIds = array_column($result, 'id');
         if (!in_array($partner->getId(), $existingIds)) {
             $result[] = prepareMember($partner);
+//            $result[] = prepareMember($partner);
         }
     }
 
@@ -34,6 +35,7 @@ function generateTree($result, $memberId, $isStop = false)
         $existingIds = array_column($result, 'id');
         if (!in_array($sister->getId(), $existingIds)) {
             $result[] = prepareMember($sister);
+//            $result[] = generateTree($result, $sister->getId());
         }
     }
 
@@ -41,25 +43,25 @@ function generateTree($result, $memberId, $isStop = false)
     foreach ($brothers as $brother){
         $existingIds = array_column($result, 'id');
         if (!in_array($brother->getId(), $existingIds)) {
-            $result[] = prepareMember($brother, $isStop);
+            $result[] = prepareMember($brother);
         }
     }
 
     $father = $member->getFather();
     $existingIds = array_column($result, 'id');
     if ($father && !in_array($father->getId(), $existingIds)) {
-        $result[] = prepareMember($father, $isStop);
+        $result[] = prepareMember($father);
         if ($grandFather = $father->getFather()) {
-            $result = generateTree($result, $grandFather->getId(), true);
+            $result = generateTree($result, $grandFather->getId());
         }
     }
 
     $mother = $member->getMother();
     $existingIds = array_column($result, 'id');
     if ($mother && !in_array($mother->getId(), $existingIds)) {
-        $result[] = prepareMember($mother, $isStop);
+        $result[] = prepareMember($mother);
         if ($grandMother = $father->getMother()) {
-            $result = generateTree($result, $grandMother->getId(), true);
+            $result = generateTree($result, $grandMother->getId());
         }
     }
 
@@ -67,7 +69,7 @@ function generateTree($result, $memberId, $isStop = false)
     foreach ($daughters as $daughter){
         $existingIds = array_column($result, 'id');
         if (!in_array($daughter->getId(), $existingIds)) {
-            $result[] = prepareMember($daughter, $isStop);
+            $result[] = prepareMember($daughter);
         }
     }
 
@@ -82,7 +84,7 @@ function generateTree($result, $memberId, $isStop = false)
     return $result;
 }
 
-function prepareMember(FamilyMember $member, $isStop = false)
+function prepareMember(FamilyMember $member)
 {
    $result = [];
 
@@ -92,18 +94,13 @@ function prepareMember(FamilyMember $member, $isStop = false)
         return $member->getId();
     }, $member->getPartners() ?: []);
 
-    $result['name'] = $member->getFullName();
+    $result['title'] = $member->getFullName(); // прибрала name бо великий шифр
     $result['img'] = $member->getImagePath();
     $result['gender'] = $member->getSex();
 //    $result['title'] = ;
 
-    if (!$isStop) {
         $result['mid'] = $member->getMother()?->getId();
         $result['fid'] = $member->getFather()?->getId();
-    } else {
-        $result['mid'] = null;
-        $result['fid'] = null;
-    }
 
 
 
@@ -170,4 +167,5 @@ $dataAsJson = json_encode($result);
         }
         return {enableSearch, scaleInitial};
     }
+
 </script>
