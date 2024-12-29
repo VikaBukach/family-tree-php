@@ -19,35 +19,32 @@ $fg = 'dd'
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <title>Family tree</title>
 </head>
 <body>
 
 <header>
-    <nav class="bg-gray-800">
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center justify-between">
-                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 
-                    <div class="hidden sm:ml-6 sm:block">
-                        <div class="flex space-x-4">
-                            <a href="/"
-                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white""
-                            aria-current="page">Головна
-                            </a>
-                            <a href="/views/members/formcreate.php"
-                               class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                               aria-current="page">Додати члена сімʼї</a>
-                            <a href="/views/members/list.php"
-                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Список
-                                членів родини</a>
-                        </div>
-                    </div>
-                </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Family Tree</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Головна</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/views/members/formcreate.php">Додати члена сімʼї</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/views/members/list.php">Список
+                            членів родини</a>
+                    </li>
+                </ul>
                 <form class="d-flex" role="search" style="" method="POST"
                       action="/controllers/MembersController.php?action=searchRelative">
                     <input class="form-control me-2" name="query" type="search" placeholder="Введіть прізвище"
@@ -55,7 +52,6 @@ $fg = 'dd'
                     <button class="btn btn-outline-success" type="submit">Пошук</button>
                 </form>
             </div>
-        </div>
         </div>
     </nav>
 </header>
@@ -123,7 +119,6 @@ $fg = 'dd'
 </main>
 
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
