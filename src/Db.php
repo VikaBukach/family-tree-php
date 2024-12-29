@@ -2,7 +2,7 @@
 
 namespace FamilyTree;
 
-use FamilyTree\structure\FamilyRelationshipsStructure;
+use FamilyTree\structures\FamilyRelationshipsStructure;
 use PDO;
 use PDOException;
 

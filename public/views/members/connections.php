@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use FamilyTree\Db;
 use FamilyTree\RoleRelationships;
-use FamilyTree\structure\FamilyRelationshipsStructure;
+use FamilyTree\structures\FamilyRelationshipsStructure;
 
 if (empty($_GET['id'])) {
     header('Location: /');

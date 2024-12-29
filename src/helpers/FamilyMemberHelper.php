@@ -1,8 +1,9 @@
 <?php
 
-namespace FamilyTree;
+namespace FamilyTree\helpers;
 
-use FamilyTree\entity\FamilyMember;
+use FamilyTree\Db;
+use FamilyTree\entities\FamilyMember;
 use RuntimeException;
 
 class FamilyMemberHelper

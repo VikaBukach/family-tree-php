@@ -1,9 +1,9 @@
 <?php
 
-namespace FamilyTree\entity;
+namespace FamilyTree\entities;
 
 use FamilyTree\Db;
-use FamilyTree\FamilyMemberHelper;
+use FamilyTree\helpers\FamilyMemberHelper;
 use FamilyTree\RoleRelationships;
 
 class FamilyMember

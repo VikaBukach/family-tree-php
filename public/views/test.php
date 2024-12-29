@@ -1,7 +1,7 @@
 <?php
 
-use FamilyTree\entity\FamilyMember;
-use FamilyTree\FamilyMemberHelper;
+use FamilyTree\entities\FamilyMember;
+use FamilyTree\helpers\FamilyMemberHelper;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 

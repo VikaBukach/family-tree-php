@@ -1,5 +1,5 @@
 <?php
-namespace FamilyTree\structure;
+namespace FamilyTree\structures;
 
 class FamilyRelationshipsStructure
 {
