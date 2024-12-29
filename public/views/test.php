@@ -129,7 +129,7 @@ $dataAsJson = json_encode($result);
     }
 </style>
 
-<script src="https://balkan.app/js/FamilyTree.js"></script>
+<script src="/js/FamilyTree.js"></script>
 <div id="tree"></div>
 
 
