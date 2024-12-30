@@ -61,7 +61,7 @@ $fg = 'dd'
         </div>
     </nav>
 </header>
-<main class="container-fluid">
+<main class="container-fluid parallax">
     <div class="text-center">
         <h1 class="fw-bolder lh-sm fs-3 text mt-3 mb-3" style="max-width: 1200px; margin: 0 auto;">
             Родинне дерево — це не просто перелік імен чи дат, це жива історія, яка об’єднує минуле,
@@ -73,7 +73,7 @@ $fg = 'dd'
     </div>
 
     <!------------------Card of member ---------------------->
-    <div class="container mt-4">
+    <div class="container mt-4 parallax-content">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
 
             <?php foreach ($allRows as $row): ?>

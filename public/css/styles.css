@@ -31,7 +31,8 @@ body {
 
 /* -----------------nav ----------------------*/
 .navbar-custom{
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: 1000;
@@ -177,3 +178,17 @@ main {
     justify-content: space-between;
     align-items: flex-end;
 }
+
+.parallax {
+    background-image: url('/img/f5.jpg');
+    /*background-image: url('/img/tr6.jpg');*/
+
+    /*background-image: url('/img/h3.jpg');*/
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
