@@ -8,92 +8,67 @@ class GenerateTreeHelper
 {
     private const DEPTH_VALUE = 100;
 
-    private static $result = [];
+    private static $membersForTree = [];
 
-    private static $depth = self::DEPTH_VALUE;
+    private static $circlesCount = self::DEPTH_VALUE;
 
-    public static function getResult()
+    public static function getMembersForTree()
     {
-        return self::$result;
+        $resultTree = [];
+
+        foreach (self::$membersForTree as $circles) {
+            foreach ($circles as $member) {
+                if (is_null($member)) {
+                    continue;
+                }
+
+                $existingIds = array_column($resultTree, 'id');
+                if (!in_array($member->getId(), $existingIds)) {
+                    $resultTree[] = self::prepareMember($member);
+                }
+            }
+        }
+
+        return $resultTree;
     }
 
-    public static function generate($memberId)
+    public static function generate($member)
     {
-        self::$depth--;
-
-        if (self::$depth < 0) {
-            return self::$result;
-        }
-
-        $member = FamilyMemberHelper::initMember($memberId);
-
         if (is_null($member)) {
-            return self::$result;
+            return self::$membersForTree;
         }
 
-        $existingIds = array_column(self::$result, 'id');
-        if (!in_array($member->getId(), $existingIds)) {
-            self::$result[] = self::prepareMember($member);
-        }
-
+        $circle[] = $member;
 
         $partners = $member->getPartners();
         foreach ($partners as $partner) {
-            $existingIds = array_column(self::$result, 'id');
-            if (!in_array($partner->getId(), $existingIds)) {
-                self::generate($partner->getId());
-            }
+            $circle[] = $partner;
         }
 
         $sisters = $member->getSisters();
         foreach ($sisters as $sister) {
-            $existingIds = array_column(self::$result, 'id');
-            if (!in_array($sister->getId(), $existingIds)) {
-                self::generate($sister->getId());
-            }
+            $circle[] = $sister;
         }
 
         $brothers = $member->getBrothers();
         foreach ($brothers as $brother) {
-            $existingIds = array_column(self::$result, 'id');
-            if (!in_array($brother->getId(), $existingIds)) {
-                self::generate($brother->getId());
-            }
+            $circle[] = $brother;
         }
 
-        $father = $member->getFather();
-        $existingIds = array_column(self::$result, 'id');
-        if ($father && !in_array($father->getId(), $existingIds)) {
-            self::$result[] = self::prepareMember($father);
-            if ($grandFather = $father->getFather()) {
-                self::generate($grandFather->getId());
-            }
-        }
-
-        $mother = $member->getMother();
-        $existingIds = array_column(self::$result, 'id');
-        if ($mother && !in_array($mother->getId(), $existingIds)) {
-            self::$result[] = self::prepareMember($mother);
-            if ($grandMother = $father->getMother()) {
-                self::generate($grandMother->getId());
-            }
-        }
+        $circle[] = $member->getFather();
+        $circle[] = $member->getMother();
 
         $daughters = $member->getDaughters();
         foreach ($daughters as $daughter) {
-            $existingIds = array_column(self::$result, 'id');
-            if (!in_array($daughter->getId(), $existingIds)) {
-                self::generate($daughter->getId());
-            }
+            $circle[] = $daughter;
         }
 
         $sons = $member->getSons();
         foreach ($sons as $son) {
-            $existingIds = array_column(self::$result, 'id');
-            if (!in_array($son->getId(), $existingIds)) {
-                self::generate($son->getId());
-            }
+            $circle[] = $son;
         }
+
+        self::$membersForTree[] = $circle;
     }
 
     public static function prepareMember(FamilyMember $member)
@@ -110,7 +85,7 @@ class GenerateTreeHelper
         $result['img'] = $member->getImagePath();
         $result['gender'] = $member->getSex();
 
-        if (self::$depth < 0) {
+        if (self::$circlesCount < 0) {
             $result['mid'] = null;
             $result['fid'] = null;
         } else {
