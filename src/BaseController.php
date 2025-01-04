@@ -7,7 +7,7 @@ class BaseController
 
     public function __construct()
     {
-        $this->db = new Db();
+        $this->db = Db::getInstance();
     }
 
     public function runAction($actionName)

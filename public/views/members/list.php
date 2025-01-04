@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use FamilyTree\Db;
 
-$db = new Db();
+$db = Db::getInstance();
 $allRows = $db->getAllRows();
 
 ?>

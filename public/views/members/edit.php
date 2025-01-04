@@ -8,7 +8,7 @@ if (empty($_GET['id'])) {
 }
 
 $id = $_GET['id'];
-$db = new Db();
+$db = Db::getInstance();
 $member = $db->getRowById($id);
 
 

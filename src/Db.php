@@ -2,6 +2,7 @@
 
 namespace FamilyTree;
 
+use DateTime;
 use FamilyTree\structures\FamilyRelationshipsStructure;
 use PDO;
 use PDOException;
@@ -12,7 +13,11 @@ class Db
 {
     public $connection;
 
-    public function __construct()
+    private $queries = [];
+
+    private static $instance = null;
+
+    private function __construct()
     {
         $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
         $username = DB_USER;
@@ -28,8 +33,9 @@ class Db
     public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
     {
         //перевірка на дубл:
-        $checkSql = "SELECT * FROM family_members WHERE surname =:surname AND name =:name  AND fatherly =:fatherly";
-        $stmt = $this->connection->prepare($checkSql);
+        $sql = "SELECT * FROM family_members WHERE surname =:surname AND name =:name  AND fatherly =:fatherly";
+        $this->queries[] = $sql;
+        $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
             ':surname' => $surname,
@@ -40,13 +46,14 @@ class Db
         $exists = $stmt->fetchColumn(); // Повертає кількість записів
 
         if ($exists > 0) { // не дає створити дублюючий запис membera у бд
-           return;
+            return;
         }
 
         // Якщо не існує - продовжуємо вставку
         $sql = "INSERT INTO family_members (avatar_path, file_description, surname, maiden_name, name, fatherly, birth_date,
                                               history, created_at, status, death_date, sex)
         VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT, :status, :death_date, :sex)";
+        $this->queries[] = $sql;
 
         $stmt = $this->connection->prepare($sql);
 
@@ -69,6 +76,7 @@ class Db
     function getAllRows() //отримання усіх даних з таблиці
     {
         $sql = "SELECT * FROM  family_members";
+        $this->queries[] = $sql;
         $stmt = $this->connection->query($sql);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -77,6 +85,7 @@ class Db
     function getRowById($id) //отримання даних для редагування, отримання конкретного запису з БД для подальшого внесення змін.
     {
         $sql = "SELECT * FROM family_members WHERE id=:id";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([
             ':id' => $id,
@@ -89,6 +98,7 @@ class Db
     {
         $sql = "UPDATE family_members SET avatar_path=:avatar_path, file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
                           name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history, status =:status, death_date =:death_date, sex =:sex WHERE id =:id"; //оновлення запису
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
@@ -111,6 +121,7 @@ class Db
     function deleteRow($id)
     {
         $sql = "DELETE FROM family_members WHERE id=:id";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([':id' => $id]);
 
@@ -120,6 +131,7 @@ class Db
     function createReletionship($member_id, $related_member_id, $relationship_type)
     {
         $sql = "INSERT INTO relationships (member_id, related_member_id, relationship_type) VALUES (:member_id, :related_member_id, :relationship_type)";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
@@ -133,6 +145,7 @@ class Db
     function createCard($family_member_id, $image_path, $title, $description)
     {
         $sql = "INSERT INTO cards (family_member_id, image_path, title, description) VALUES (:family_member_id, :image_path, :title, :description)";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([
@@ -147,6 +160,7 @@ class Db
     function getAllCards() //отримання усіх карток
     {
         $sql = "SELECT * FROM cards";
+        $this->queries[] = $sql;
         $stmt = $this->connection->query($sql);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -155,6 +169,7 @@ class Db
     function getAllCardByIdMember($id)
     {
         $sql = "SELECT * FROM cards WHERE family_member_id = :id";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([':id' => $id]);
@@ -165,6 +180,7 @@ class Db
     function getMemberById($id)
     {
         $sql = "SELECT * FROM family_members WHERE id = :id";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
 
         $stmt->execute([':id' => $id]);
@@ -196,6 +212,8 @@ class Db
                 left join family_members fm2 ON r.related_member_id = fm2.id
             WHERE fm.id = :member_id";
 
+        $this->queries[] = $sql;
+
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([':member_id' => $member_id]);
         $dataResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -220,6 +238,7 @@ class Db
     public function getRelatedMemberIdByMemberAndRoleName($memberId, $roleType)
     {
         $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([
             ':member_id' => $memberId,
@@ -232,6 +251,7 @@ class Db
     public function getRelatedMemberIdsByMemberAndRoleName($memberId, $roleType)
     {
         $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([
             ':member_id' => $memberId,
@@ -244,9 +264,19 @@ class Db
     public function getRelativesByNames($query)
     {
         $sql = "SELECT * FROM family_members WHERE surname LIKE :query OR name LIKE :query OR maiden_name LIKE :query";
+        $this->queries[] = $sql;
         $stmt = $this->connection->prepare($sql);
-        $stmt->execute([':query' => '%' . $query. '%']);
+        $stmt->execute([':query' => '%' . $query . '%']);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getInstance()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 }

@@ -11,7 +11,7 @@ if (empty($_GET['id'])) {
 }
 
 $id = $_GET['id'];
-$db = new Db();
+$db = Db::getInstance();
 /** @var FamilyRelationshipsStructure[] $relationships */
 
 // Отримуємо відносини для конкретного члена родини:

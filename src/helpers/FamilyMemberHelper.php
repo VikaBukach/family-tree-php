@@ -10,7 +10,7 @@ class FamilyMemberHelper
 {
     public static function initMember($id)
     {
-       $db = new Db();
+       $db = Db::getInstance();
 
         if(!$familyMember = $db->getMemberById($id)) {
             throw new RuntimeException('Member does not found');

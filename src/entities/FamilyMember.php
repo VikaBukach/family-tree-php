@@ -25,7 +25,7 @@ class FamilyMember
         private $death_date,
         private $sex
     ) {
-        $this->db = new Db();
+        $this->db = Db::getInstance();
     }
 
     public function getId()
