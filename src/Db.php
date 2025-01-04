@@ -14,6 +14,9 @@ class Db
     public $connection;
 
     private $queries = [];
+    private $startTime = null;
+    private $sql = null;
+    private $params = null;
 
     private static $instance = null;
 
@@ -35,37 +38,57 @@ class Db
         $startString = "\n========================================= " . (new DateTime())->format('Y-m-d H:i:s.u') . " =========================================\n";
         file_put_contents("sql.log", $startString, FILE_APPEND);
 
-        file_put_contents("sql.log", $this->queries, FILE_APPEND);
+        file_put_contents("sql.log", $data = implode(PHP_EOL, $this->queries), FILE_APPEND);
+    }
+
+    public function beforeFunction()
+    {
+        $this->startTime = microtime(true);
+    }
+
+    public function afterFunction()
+    {
+        $this->queries[] = $this->sql;
+        $this->queries[] = json_encode($this->params);
+        $this->queries[] = 'Query time: ' . round((microtime(true) - $this->startTime) * 1000, 2) . ' ms.';
+
+        $this->sql = null;
+        $this->params = null;
+        $this->startTime = null;
     }
 
     public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
     {
-        //перевірка на дубл:
-        $sql = "SELECT * FROM family_members WHERE surname =:surname AND name =:name  AND fatherly =:fatherly";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
+        $this->beforeFunction();
 
-        $stmt->execute([
+        //перевірка на дубл:
+        $this->sql = "SELECT * FROM family_members WHERE surname =:surname AND name =:name  AND fatherly =:fatherly";
+
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
             ':surname' => $surname,
             ':name' => $name,
             ':fatherly' => $fatherly,
-        ]);
+        ];
+
+        $stmt->execute($this->params);
 
         $exists = $stmt->fetchColumn(); // Повертає кількість записів
 
         if ($exists > 0) { // не дає створити дублюючий запис membera у бд
+            $this->afterFunction();
             return;
         }
 
         // Якщо не існує - продовжуємо вставку
-        $sql = "INSERT INTO family_members (avatar_path, file_description, surname, maiden_name, name, fatherly, birth_date,
+        $this->sql = "INSERT INTO family_members (avatar_path, file_description, surname, maiden_name, name, fatherly, birth_date,
                                               history, created_at, status, death_date, sex)
         VALUES (:avatar_path, :file_description, :surname, :maiden_name, :name, :fatherly, :birth_date, :history, DEFAULT, :status, :death_date, :sex)";
-        $this->queries[] = $sql;
 
-        $stmt = $this->connection->prepare($sql);
+        $stmt = $this->connection->prepare($this->sql);
 
-        $stmt->execute([
+        $this->params = [
             ':avatar_path' => $avatar_path,
 
             ':file_description' => $photo_description,
@@ -78,38 +101,56 @@ class Db
             ':status' => $status,
             ':death_date' => $death_date?->format('Y-m-d'), // передана відформатована дата, передаємо строку замість об'єкта
             ':sex' => $sex
-        ]);
+        ];
+
+        $stmt->execute($this->params);
+
+        $this->afterFunction();
     }
 
     function getAllRows() //отримання усіх даних з таблиці
     {
-        $sql = "SELECT * FROM  family_members";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->query($sql);
+        $this->beforeFunction();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->sql = "SELECT * FROM  family_members";
+        $stmt = $this->connection->query($this->sql);
+
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     function getRowById($id) //отримання даних для редагування, отримання конкретного запису з БД для подальшого внесення змін.
     {
-        $sql = "SELECT * FROM family_members WHERE id=:id";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute([
-            ':id' => $id,
-        ]);
+        $this->beforeFunction();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->sql = "SELECT * FROM family_members WHERE id=:id";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
+            ':id' => $id,
+        ];
+
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     function updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
     {
-        $sql = "UPDATE family_members SET avatar_path=:avatar_path, file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
-                          name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history, status =:status, death_date =:death_date, sex =:sex WHERE id =:id"; //оновлення запису
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
+        $this->beforeFunction();
 
-        $stmt->execute([
+        $this->sql = "UPDATE family_members SET avatar_path=:avatar_path, file_description =:file_description, surname =:surname, maiden_name =:maiden_name,
+                          name =:name, fatherly =:fatherly, birth_date=:birth_date, history =:history, status =:status, death_date =:death_date, sex =:sex WHERE id =:id"; //оновлення запису
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
             ':id' => $id,
             ':avatar_path' => $avatar_path,
             ':file_description' => $photo_description,
@@ -122,78 +163,116 @@ class Db
             ':status' => $status,
             ':death_date' => $death_date?->format('Y-m-d'),
             ':sex' => $sex
-        ]);
+        ];
+
+        $stmt->execute($this->params);
+
+        $this->afterFunction();
+
         header('Location: /');
     }
 
     function deleteRow($id)
     {
-        $sql = "DELETE FROM family_members WHERE id=:id";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute([':id' => $id]);
+        $this->beforeFunction();
+
+        $this->sql = "DELETE FROM family_members WHERE id=:id";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [':id' => $id];
+
+        $stmt->execute($this->params);
+
+        $this->afterFunction();
 
         header('Location: /');
     }
 
     function createReletionship($member_id, $related_member_id, $relationship_type)
     {
-        $sql = "INSERT INTO relationships (member_id, related_member_id, relationship_type) VALUES (:member_id, :related_member_id, :relationship_type)";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
+        $this->beforeFunction();
 
-        $stmt->execute([
+        $this->sql = "INSERT INTO relationships (member_id, related_member_id, relationship_type) VALUES (:member_id, :related_member_id, :relationship_type)";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
             ':member_id' => $member_id,
             ':related_member_id' => $related_member_id,
             ':relationship_type' => $relationship_type
-        ]);
+        ];
+
+        $stmt->execute($this->params);
+
+        $this->afterFunction();
+
         header('Location: /');
     }
 
     function createCard($family_member_id, $image_path, $title, $description)
     {
-        $sql = "INSERT INTO cards (family_member_id, image_path, title, description) VALUES (:family_member_id, :image_path, :title, :description)";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
+        $this->beforeFunction();
 
-        $stmt->execute([
+        $this->sql = "INSERT INTO cards (family_member_id, image_path, title, description) VALUES (:family_member_id, :image_path, :title, :description)";
+        $stmt = $this->connection->prepare($this->sql);
+        $this->params = [
             ':family_member_id' => $family_member_id,
             ':image_path' => $image_path,
             ':title' => $title,
             ':description' => $description
-        ]);
+        ];
+        $stmt->execute($this->params);
+
+        $this->afterFunction();
+
         header('Location: /');
     }
 
     function getAllCards() //отримання усіх карток
     {
-        $sql = "SELECT * FROM cards";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->query($sql);
+        $this->beforeFunction();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->sql = "SELECT * FROM cards";
+        $stmt = $this->connection->query($this->sql);
+
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     function getAllCardByIdMember($id)
     {
-        $sql = "SELECT * FROM cards WHERE family_member_id = :id";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
+        $this->beforeFunction();
 
-        $stmt->execute([':id' => $id]);
+        $this->sql = "SELECT * FROM cards WHERE family_member_id = :id";
+        $stmt = $this->connection->prepare($this->sql);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->params = [':id' => $id];
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     function getMemberById($id)
     {
-        $sql = "SELECT * FROM family_members WHERE id = :id";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
+        $this->beforeFunction();
 
-        $stmt->execute([':id' => $id]);
+        $this->sql = "SELECT * FROM family_members WHERE id = :id";
+        $stmt = $this->connection->prepare($this->sql);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->params = [':id' => $id];
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     //відображення типу зв’язку ("мати", "батько" тощо) біля кожного члена родини
@@ -204,9 +283,12 @@ class Db
             return [];
         }
 
+        $this->beforeFunction();
+
+
         $visited[] = $member_id;
 
-        $sql = "SELECT
+        $this->sql = "SELECT
                fm.id as member_id,
                fm.name as memeber_name,
                fm.surname as memeber_surname,
@@ -220,10 +302,11 @@ class Db
                 left join family_members fm2 ON r.related_member_id = fm2.id
             WHERE fm.id = :member_id";
 
-        $this->queries[] = $sql;
+        $stmt = $this->connection->prepare($this->sql);
 
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute([':member_id' => $member_id]);
+        $this->params = [':member_id' => $member_id];
+
+        $stmt->execute($this->params);
         $dataResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $result = [];
@@ -240,43 +323,68 @@ class Db
             );
         }
 
+        $this->afterFunction();
+
         return $result;
     }
 
     public function getRelatedMemberIdByMemberAndRoleName($memberId, $roleType)
     {
-        $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute([
+        $this->beforeFunction();
+
+        $this->sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
             ':member_id' => $memberId,
             ':relationship_type' => $roleType
-        ]);
+        ];
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     public function getRelatedMemberIdsByMemberAndRoleName($memberId, $roleType)
     {
-        $sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute([
+        $this->beforeFunction();
+
+        $this->sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
             ':member_id' => $memberId,
             ':relationship_type' => $roleType
-        ]);
+        ];
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     public function getRelativesByNames($query)
     {
-        $sql = "SELECT * FROM family_members WHERE surname LIKE :query OR name LIKE :query OR maiden_name LIKE :query";
-        $this->queries[] = $sql;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute([':query' => '%' . $query . '%']);
+        $this->beforeFunction();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->sql = "SELECT * FROM family_members WHERE surname LIKE :query OR name LIKE :query OR maiden_name LIKE :query";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [':query' => '%' . $query . '%'];
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
     }
 
     public static function getInstance()
