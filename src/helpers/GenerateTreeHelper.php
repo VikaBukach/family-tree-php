@@ -6,11 +6,10 @@ use FamilyTree\entities\FamilyMember;
 
 class GenerateTreeHelper
 {
-    private const DEPTH_VALUE = 100;
+    private const DEPTH_VALUE = 2;
 
     private static $membersForTree = [];
-
-    private static $circlesCount = self::DEPTH_VALUE;
+    private static $currentCircle = 0;
 
     public static function getMembersForTree()
     {
@@ -29,46 +28,83 @@ class GenerateTreeHelper
             }
         }
 
+        $allIds = array_column($resultTree, 'id');
+
+        foreach ($resultTree as $key => $item) {
+            if (!empty($item['mid']) && !in_array($item['mid'], $allIds)) {
+                $resultTree[$key]['mid'] = null;
+            }
+
+            if (!empty($item['fid']) && !in_array($item['fid'], $allIds)) {
+                $resultTree[$key]['fid'] = null;
+            }
+
+            foreach ($item['pids'] as $keyp => $pid) {
+                if (!in_array($pid, $allIds)) {
+                    unset($resultTree[$key]['pids'][$keyp]);
+                }
+            }
+        }
+
         return $resultTree;
     }
 
-    public static function generate($member)
+    public static function generateStart(FamilyMember $member)
+    {
+        self::generate($member);
+
+        for ($i = 1; $i < self::DEPTH_VALUE; $i++) {
+            self::$currentCircle = $i;
+            if (key_exists(self::$currentCircle-1, self::$membersForTree)) {
+                foreach (self::$membersForTree as $circle) {
+                    /** @var FamilyMember  $memberOfCircle */
+                    foreach ($circle as $memberOfCircle) {
+                        if ($memberOfCircle->getId() === $member->getId()) {
+                            continue;
+                        }
+
+                        self::generate($memberOfCircle);
+                    }
+                }
+            }
+        }
+    }
+
+    private static function generate(?FamilyMember $member)
     {
         if (is_null($member)) {
             return self::$membersForTree;
         }
 
-        $circle[] = $member;
+        self::$membersForTree[self::$currentCircle][] = $member;
 
         $partners = $member->getPartners();
         foreach ($partners as $partner) {
-            $circle[] = $partner;
+            self::$membersForTree[self::$currentCircle][] = $partner;
         }
 
         $sisters = $member->getSisters();
         foreach ($sisters as $sister) {
-            $circle[] = $sister;
+            self::$membersForTree[self::$currentCircle][] = $sister;
         }
 
         $brothers = $member->getBrothers();
         foreach ($brothers as $brother) {
-            $circle[] = $brother;
+            self::$membersForTree[self::$currentCircle][] = $brother;
         }
 
-        $circle[] = $member->getFather();
-        $circle[] = $member->getMother();
+        self::$membersForTree[self::$currentCircle][] = $member->getFather();
+        self::$membersForTree[self::$currentCircle][] = $member->getMother();
 
         $daughters = $member->getDaughters();
         foreach ($daughters as $daughter) {
-            $circle[] = $daughter;
+            self::$membersForTree[self::$currentCircle][] = $daughter;
         }
 
         $sons = $member->getSons();
         foreach ($sons as $son) {
-            $circle[] = $son;
+            self::$membersForTree[self::$currentCircle][] = $son;
         }
-
-        self::$membersForTree[] = $circle;
     }
 
     public static function prepareMember(FamilyMember $member)
@@ -77,21 +113,16 @@ class GenerateTreeHelper
 
         $result['id'] = $member->getId();
 
+        $result['title'] = $member->getFullName(); // прибрала name бо великий шрифт
+        $result['img'] = $member->getImagePath();
+        $result['gender'] = $member->getSex();
+
         $result['pids'] = array_map(function (FamilyMember $member) {
             return $member->getId();
         }, $member->getPartners() ?: []);
 
-        $result['title'] = $member->getFullName(); // прибрала name бо великий шифр
-        $result['img'] = $member->getImagePath();
-        $result['gender'] = $member->getSex();
-
-        if (self::$circlesCount < 0) {
-            $result['mid'] = null;
-            $result['fid'] = null;
-        } else {
-            $result['mid'] = $member->getMother()?->getId();
-            $result['fid'] = $member->getFather()?->getId();
-        }
+        $result['mid'] = $member->getMother()?->getId();
+        $result['fid'] = $member->getFather()?->getId();
 
         return $result;
     }

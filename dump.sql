@@ -69,3 +69,21 @@ CREATE TABLE cards (
                        description TEXT NOT NULL,
                        FOREIGN KEY (family_member_id) REFERENCES family_members(id) ON DELETE CASCADE
 );
+
+CREATE TABLE users(
+                      id INT AUTO_INCREMENT PRIMARY KEY,
+                      username VARCHAR(255) NOT NULL UNIQUE,
+                      email VARCHAR(255) NOT NULL UNIQUE,
+                      password VARCHAR(255) NOT NULL,
+                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+ALTER TABLE family_members
+    ADD COLUMN  user_id INT DEFAULT NULL,
+    ADD CONSTRAINT fk_family_members_user_id FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE SET NULL ON UPDATE CASCADE;
+
+SELECT * FROM family_members fm JOIN users u ON fm.user_id = u.id
+
+alter table users
+    modify role VARCHAR(55) default 'Viewer' not null;
