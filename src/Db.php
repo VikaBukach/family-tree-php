@@ -30,6 +30,14 @@ class Db
         }
     }
 
+    public function __destruct()
+    {
+        $startString = "\n========================================= " . (new DateTime())->format('Y-m-d H:i:s.u') . " =========================================\n";
+        file_put_contents("sql.log", $startString, FILE_APPEND);
+
+        file_put_contents("sql.log", $this->queries, FILE_APPEND);
+    }
+
     public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
     {
         //перевірка на дубл:
