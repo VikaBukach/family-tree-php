@@ -70,41 +70,29 @@ class GenerateTreeHelper
         }
     }
 
-    private static function generate(?FamilyMember $member)
+    private static function generate(?FamilyMember $ownMember)
     {
-        if (is_null($member)) {
+        if (is_null($ownMember)) {
             return self::$membersForTree;
         }
 
-        self::$membersForTree[self::$currentCircle][] = $member;
+        self::$membersForTree[self::$currentCircle][] = $ownMember;
 
-        $partners = $member->getPartners();
-        foreach ($partners as $partner) {
-            self::$membersForTree[self::$currentCircle][] = $partner;
+        $members = $ownMember->getPartners();
+        foreach ($members as $member) {
+            self::$membersForTree[self::$currentCircle][] = $member;
         }
 
-        $sisters = $member->getSisters();
-        foreach ($sisters as $sister) {
-            self::$membersForTree[self::$currentCircle][] = $sister;
+        $members = $ownMember->getParents();
+        foreach ($members as $member) {
+            self::$membersForTree[self::$currentCircle][] = $member;
         }
 
-        $brothers = $member->getBrothers();
-        foreach ($brothers as $brother) {
-            self::$membersForTree[self::$currentCircle][] = $brother;
+        $members = $ownMember->getChildren();
+        foreach ($members as $member) {
+            self::$membersForTree[self::$currentCircle][] = $member;
         }
 
-        self::$membersForTree[self::$currentCircle][] = $member->getFather();
-        self::$membersForTree[self::$currentCircle][] = $member->getMother();
-
-        $daughters = $member->getDaughters();
-        foreach ($daughters as $daughter) {
-            self::$membersForTree[self::$currentCircle][] = $daughter;
-        }
-
-        $sons = $member->getSons();
-        foreach ($sons as $son) {
-            self::$membersForTree[self::$currentCircle][] = $son;
-        }
     }
 
     public static function prepareMember(FamilyMember $member)
@@ -121,8 +109,15 @@ class GenerateTreeHelper
             return $member->getId();
         }, $member->getPartners() ?: []);
 
-        $result['mid'] = $member->getMother()?->getId();
-        $result['fid'] = $member->getFather()?->getId();
+        $members = $member->getParents();
+        /** @var FamilyMember $item */
+        foreach ($members as $item) {
+            if ($item?->getSex() === 'female') {
+                $result['mid'] = $item?->getId();
+            } else {
+                $result['fid'] = $item?->getId();
+            }
+        }
 
         return $result;
     }
