@@ -19,6 +19,7 @@ class Db
     private $params = null;
 
     private static $instance = null;
+    private static $cache = [];
 
     private function __construct()
     {
@@ -43,10 +44,22 @@ class Db
 
     public function beforeFunction()
     {
+        $parentFunctionName = null;
+        $arg = null;
+        $backtrace = debug_backtrace();
+        if (isset($backtrace[1])) {
+            $parentFunctionName = $backtrace[1]['function'];
+            $arg = $backtrace[1]['args'][0];
+        }
+
+        if (isset(self::$cache[$parentFunctionName][$arg])) {
+            return self::$cache[$parentFunctionName][$arg];
+        }
+
         $this->startTime = microtime(true);
     }
 
-    public function afterFunction()
+    public function afterFunction(bool $isCache = false, $item = null)
     {
         $this->queries[] = $this->sql;
         $this->queries[] = json_encode($this->params);
@@ -55,6 +68,20 @@ class Db
         $this->sql = null;
         $this->params = null;
         $this->startTime = null;
+
+        if (!$isCache) {
+            return;
+        }
+
+        $parentFunctionName = null;
+        $arg = null;
+        $backtrace = debug_backtrace();
+        if (isset($backtrace[1])) {
+            $parentFunctionName = $backtrace[1]['function'];
+            $arg = $backtrace[1]['args'][0] ?? 0;
+        }
+
+        return self::$cache[$parentFunctionName][$arg] = $item;
     }
 
     public function createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex)
@@ -110,21 +137,25 @@ class Db
 
     function getAllRows() //отримання усіх даних з таблиці
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "SELECT * FROM  family_members";
         $stmt = $this->connection->query($this->sql);
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
 
     function getRowById($id) //отримання даних для редагування, отримання конкретного запису з БД для подальшого внесення змін.
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "SELECT * FROM family_members WHERE id=:id";
         $stmt = $this->connection->prepare($this->sql);
@@ -137,7 +168,7 @@ class Db
 
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
@@ -229,21 +260,25 @@ class Db
 
     function getAllCards() //отримання усіх карток
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "SELECT * FROM cards";
         $stmt = $this->connection->query($this->sql);
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
 
     function getAllCardByIdMember($id)
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "SELECT * FROM cards WHERE family_member_id = :id";
         $stmt = $this->connection->prepare($this->sql);
@@ -253,14 +288,16 @@ class Db
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
 
     function getMemberById($id)
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "SELECT * FROM family_members WHERE id = :id";
         $stmt = $this->connection->prepare($this->sql);
@@ -270,7 +307,7 @@ class Db
 
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
@@ -283,7 +320,9 @@ class Db
             return [];
         }
 
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
 
         $visited[] = $member_id;
@@ -323,14 +362,17 @@ class Db
             );
         }
 
-        $this->afterFunction();
+        $this->afterFunction(true, $result);
 
         return $result;
     }
 
     public function getParentsIdsByMemberId($memberId)
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
+
 
         $this->sql = "select related_member_id from relationships where member_id = :member_id and relationship_type = :relationship_type";
         $stmt = $this->connection->prepare($this->sql);
@@ -344,14 +386,16 @@ class Db
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
 
     public function getChildrenIdsByParentId($parentId)
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "select member_id from relationships where related_member_id = :related_member_id and relationship_type = :relationship_type";
         $stmt = $this->connection->prepare($this->sql);
@@ -365,14 +409,16 @@ class Db
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
 
     public function getPartnersIdsByMemberId($memberId)
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "select case when member_id = :member_id then related_member_id else member_id end as partner_id
                             from relationships
@@ -389,14 +435,16 @@ class Db
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
 
     public function getRelativesByNames($query)
     {
-        $this->beforeFunction();
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
         $this->sql = "SELECT * FROM family_members WHERE surname LIKE :query OR name LIKE :query OR maiden_name LIKE :query";
         $stmt = $this->connection->prepare($this->sql);
@@ -406,7 +454,7 @@ class Db
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->afterFunction();
+        $this->afterFunction(true, $res);
 
         return $res;
     }
