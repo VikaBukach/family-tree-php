@@ -24,6 +24,21 @@ $allRoles = RoleRelationships::getAllRoles();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <!-- Or for RTL support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
 </head>
 <body>
 <div class="container-fluid">
@@ -35,7 +50,7 @@ $allRoles = RoleRelationships::getAllRoles();
 
                 <div class="mb-3">
                 <label for="member_id" class="text-primary">Член родини:</label>
-                <select name="member_id" class="form-select mt-3 mb-3" aria-label="Default select example">
+                <select name="member_id" class="form-select mt-3 mb-3" id="member-id" aria-label="Default select example">
                     <option value="<?=$member['id'] ?>" selected><?=$member['name'] .' '. $member['surname']?></option>
                 </select>
                 </div>
@@ -80,6 +95,17 @@ $allRoles = RoleRelationships::getAllRoles();
 </div>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+    $("#related_member_id").select2({
+        theme: "bootstrap-5",
+        containerCssClass: "select2--small", // For Select2 v4.0
+        selectionCssClass: "select2--small", // For Select2 v4.1
+        dropdownCssClass: "select2--small",
+    });
+
+</script>
 </body>
 </html>
 
