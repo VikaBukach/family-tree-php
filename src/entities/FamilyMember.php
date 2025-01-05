@@ -33,6 +33,23 @@ class FamilyMember
         return $this->id;
     }
 
+    public function getParents()
+    {
+        $parents = [];
+
+        $relatedMembers = $this->db->getParentsIdsByMemberId($this->id);
+
+        if(!$relatedMembers){
+            return $parents;
+        }
+
+        foreach ($relatedMembers as $relatedMember){
+            $parents[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+        }
+
+        return $parents;
+    }
+
     public function getPartners()
     {
         $partners = [];
@@ -49,98 +66,22 @@ class FamilyMember
 
         return $partners;
     }
-
-    public function getSisters()
+    public function getChildren()
     {
-        $sisters = [];
+        $children = [];
 
-        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::SISTER);
+        $relatedMembers = $this->db->getChildrenIdsByParentId($this->id);
 
         if(!$relatedMembers){
-            return $sisters;
+            return $children;
         }
 
         foreach ($relatedMembers as $relatedMember){
-            $sisters[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+            $children[]= FamilyMemberHelper::initMember($relatedMember['member_id']);
         }
 
-        return $sisters;
+        return $children;
     }
-
-    public function getBrothers()
-    {
-        $brothers = [];
-
-        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::BROTHER);
-
-        if(!$relatedMembers){
-            return $brothers;
-        }
-
-        foreach ($relatedMembers as $relatedMember){
-            $brothers[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
-        }
-
-        return $brothers;
-    }
-
-    public function getMother()
-    {
-        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, RoleRelationships::MOTHER);
-
-        if(!$relatedMember){
-            return null;
-        }
-
-        return FamilyMemberHelper::initMember($relatedMember['related_member_id']);
-    }
-
-    public function getFather()
-    {
-        $relatedMember = $this->db->getRelatedMemberIdByMemberAndRoleName($this->id, RoleRelationships::FATHER);
-
-        if(!$relatedMember){
-            return null;
-        }
-
-        return FamilyMemberHelper::initMember($relatedMember['related_member_id']);
-    }
-
-    public function getSons()
-    {
-        $sons = [];
-
-        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::SON);
-
-        if(!$relatedMembers){
-            return $sons;
-        }
-
-        foreach ($relatedMembers as $relatedMember){
-            $sons[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
-        }
-
-        return $sons;
-    }
-
-    public function getDaughters()
-    {
-        $daughters = [];
-
-        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, RoleRelationships::DAUGHTER);
-
-        if(!$relatedMembers){
-            return $daughters;
-        }
-
-        foreach ($relatedMembers as $relatedMember){
-            $daughters[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
-        }
-
-        return $daughters;
-    }
-
-
 
     public function getFullName()
     {

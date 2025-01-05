@@ -328,37 +328,37 @@ class Db
         return $result;
     }
 
-    public function getRelatedMemberIdByMemberAndRoleName($memberId, $roleType)
+    public function getParentsIdsByMemberId($memberId)
     {
         $this->beforeFunction();
 
-        $this->sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
+        $this->sql = "select related_member_id from relationships where member_id = :member_id and relationship_type = :relationship_type";
         $stmt = $this->connection->prepare($this->sql);
 
         $this->params = [
             ':member_id' => $memberId,
-            ':relationship_type' => $roleType
+            ':relationship_type' => RoleRelationships::PARENT,
         ];
 
         $stmt->execute($this->params);
 
-        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $this->afterFunction();
 
         return $res;
     }
 
-    public function getRelatedMemberIdsByMemberAndRoleName($memberId, $roleType)
+    public function getChildrenIdsByParentId($parentId)
     {
         $this->beforeFunction();
 
-        $this->sql = "SELECT related_member_id FROM relationships WHERE member_id = :member_id AND relationship_type = :relationship_type";
+        $this->sql = "select member_id from relationships where related_member_id = :related_member_id and relationship_type = :relationship_type";
         $stmt = $this->connection->prepare($this->sql);
 
         $this->params = [
-            ':member_id' => $memberId,
-            ':relationship_type' => $roleType
+            ':related_member_id' => $parentId,
+            ':relationship_type' => RoleRelationships::PARENT,
         ];
 
         $stmt->execute($this->params);

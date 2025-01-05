@@ -4,15 +4,13 @@ namespace FamilyTree;
 
 class RoleRelationships
 {
-    public const FATHER = 'FATHER';
-    public const MOTHER = 'MOTHER';
+    public const PARENT = 'PARENT';
     public const PARTNER = 'PARTNER';
 
     public static function getAllRoles()
     {
         return [
-            self::FATHER => 'Батько',
-            self::MOTHER => 'Мати',
+            self::PARENT => 'Один з батьків',
             self::PARTNER => 'Партнер'
         ];
     }
