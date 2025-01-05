@@ -370,6 +370,30 @@ class Db
         return $res;
     }
 
+    public function getPartnersIdsByMemberId($memberId)
+    {
+        $this->beforeFunction();
+
+        $this->sql = "select case when member_id = :member_id then related_member_id else member_id end as partner_id
+                            from relationships
+                            where (member_id = :member_id or related_member_id = :member_id)
+                            and relationship_type = :relationship_type";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
+            ':member_id' => $memberId,
+            ':relationship_type' => RoleRelationships::PARTNER,
+        ];
+
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->afterFunction();
+
+        return $res;
+    }
+
     public function getRelativesByNames($query)
     {
         $this->beforeFunction();

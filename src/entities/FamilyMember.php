@@ -37,16 +37,14 @@ class FamilyMember
     {
         $partners = [];
 
-        $currentPartner = $this->sex == 1 ? RoleRelationships::HUSBAND : RoleRelationships::WIFE;
-
-        $relatedMembers = $this->db->getRelatedMemberIdsByMemberAndRoleName($this->id, $currentPartner);
+        $relatedMembers = $this->db->getPartnersIdsByMemberId($this->id);
 
         if(!$relatedMembers){
             return $partners;
         }
 
         foreach ($relatedMembers as $relatedMember){
-            $partners[]= FamilyMemberHelper::initMember($relatedMember['related_member_id']);
+            $partners[]= FamilyMemberHelper::initMember($relatedMember['partner_id']);
         }
 
         return $partners;

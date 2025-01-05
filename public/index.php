@@ -7,6 +7,7 @@ use FamilyTree\Db;
 $db = Db::getInstance();
 $allRows = $db->getAllRows();
 
+
 //$searchResults = $db->getRelativesByNames($query);
 
 $fg = 'dd'
