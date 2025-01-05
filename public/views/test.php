@@ -9,55 +9,13 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 //if (empty($_SESSION['user_id']) || $_SESSION['user_id'] !== 35) {
 //    header('Location: /views/auth.php');
 //}
+
 $member = FamilyMemberHelper::initMember($_GET['id'] ?? 35);
 GenerateTreeHelper::generateStart($member);
 $membersForTree = GenerateTreeHelper::getMembersForTree();
 
 
-//$membersForTree = [
-//    [
-//        'id' => 35,
-//        'title' => 'Вікторія Букач',
-//        'img' => '/../img/677111ac63fb3-дівч2.jpg',
-//        'gender' => 'female',
-//        'mid' => 39,
-//        'fid' => 20,
-//    ],
-//    [
-//        'id' => 39,
-//        'title' => 'Маргарита Колеснікова',
-//        'img' => '/../img/676ff3bb8e5e6-gir1.jpg',
-//        'gender' => 'female',
-//        'mid' => 40,
-//        'fid' => 49,
-//    ],
-//    [
-//        'id' => 20,
-//        'title' => 'Маргарит1 Колеснікова',
-//        'img' => '/../img/676ff3bb8e5e6-gir1.jpg',
-//        'gender' => 'female',
-////        'mid' => 40,
-////        'fid' => 49,
-//    ],
-//    [
-//        'id' => 49,
-//        'title' => 'Михайло Тітов',
-//        'img' => '/../img/676ff5591594b-ded1.jpg',
-//        'gender' => 'male',
-//        'mid' => NULL,
-//        'fid' => NULL,
-//    ],
-//    [
-//        'id' => 40,
-//        'title' => 'Надія тітова',
-//        'img' => '/../img/676ff4418d275-ba6.jpg',
-//        'gender' => 'female',
-//        'mid' => NULL,
-//        'fid' => NULL,
-//    ]
-//];
 
-$dataAsJson = json_encode($membersForTree);
 
 
 $dataAsJson = json_encode($membersForTree);

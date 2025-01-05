@@ -6,7 +6,7 @@ use FamilyTree\entities\FamilyMember;
 
 class GenerateTreeHelper
 {
-    private const DEPTH_VALUE = 2;
+    private const DEPTH_VALUE = 3;
 
     private static $membersForTree = [];
     private static $currentCircle = 0;
