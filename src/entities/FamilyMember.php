@@ -13,7 +13,6 @@ class FamilyMember
     public function __construct(
         private $id,
         private $avatar_path,
-        private $file_description,
         private $surname,
         private $maiden_name,
         private $name,

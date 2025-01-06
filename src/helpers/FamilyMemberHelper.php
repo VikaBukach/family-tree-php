@@ -19,7 +19,6 @@ class FamilyMemberHelper
         $familyMemberEntity = new FamilyMember(
             $familyMember['id'],
             $familyMember['avatar_path'],
-            $familyMember['file_description'],
             $familyMember['surname'],
             $familyMember['maiden_name'],
             $familyMember['name'],
