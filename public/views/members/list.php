@@ -25,7 +25,6 @@ $allRows = $db->getAllRows();
             <thead>
             <tr>
                 <th scope="col">Фото</th>
-                <th scope="col">Опис до фотографії</th>
                 <th scope="col">Прізвище</th>
                 <th scope="col">Дівоче</th>
                 <th scope="col">Імʼя</th>
@@ -48,7 +47,6 @@ $allRows = $db->getAllRows();
                             <span>Відсутня фотографія</span>
                         <?php endif; ?>
                     </td>
-                    <td><?= $row["file_description"] ?></td>
                     <td><?= $row["surname"] ?></td>
                     <td><?= $row["maiden_name"] ?></td>
                     <td><?= $row["name"] ?></td>
@@ -70,7 +68,7 @@ $allRows = $db->getAllRows();
             <?php endforeach; ?>
             </tbody>
         </table>
-        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/">
+        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px">
             Повернутись на головну
         </a>
     </div>

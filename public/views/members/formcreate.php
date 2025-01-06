@@ -39,12 +39,6 @@
                     <input type="hidden" name="avatar_path" value="">
                     <!-- Тут зберігається шлях до аватара -->
                 </div>
-                <!--description to photo -->
-                <div class="mb-3">
-                    <label for="photo_description" class="form-label">Опис до фотографії</label>
-                    <textarea class="form-control" name="file_description" id="photo_description" rows="3"
-                              placeholder="Опис до фотографії"></textarea>
-                </div>
                 <!--Surname -->
                 <div class="mb-3">
                     <label for="surname" class="form-label">Прізвище</label>
@@ -88,7 +82,7 @@
                 <div class="mb-3">
                     <label for="history" class="form-label">Історія</label>
                     <textarea class="form-control" name="history" id="history" rows="3"
-                              placeholder="Трохи історії..."></textarea>
+                              placeholder="опис життєвих подій..."></textarea>
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">
                     <button type="submit" class="btn btn-outline-primary btn-lg">Зберегти</button>

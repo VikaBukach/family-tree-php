@@ -22,7 +22,6 @@ class MembersController extends BaseController
             }
 
             // Обробка інш
-            $photo_description = $_POST['file_description'] ?? '';
             $surname = $_POST['surname'] ?? '';
             $maiden_name = $_POST['maiden_name'] ?? '';
             $name = $_POST['name'] ?? '';
@@ -33,7 +32,7 @@ class MembersController extends BaseController
             $death_date = !empty($_POST['death_date']) ? new DateTime($_POST['death_date']) : null;
             $sex = $_POST['sex'] ?? '';
 
-            $this->db->createRow($avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex);
+            $this->db->createRow($avatar_path, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex);
 
             header('Location: /');
         }
@@ -55,7 +54,6 @@ class MembersController extends BaseController
                 }
             }
 
-            $photo_description = $_POST['file_description'];
             $surname = $_POST['surname'];
             $maiden_name = $_POST['maiden_name'];
             $name = $_POST['name'];
@@ -67,7 +65,7 @@ class MembersController extends BaseController
             $sex = $_POST['sex'];
             $id = $_POST['id'];
 
-            $this->db->updateRow($id, $avatar_path, $photo_description, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex);
+            $this->db->updateRow($id, $avatar_path, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex);
         }
     }
 

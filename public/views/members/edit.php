@@ -63,13 +63,6 @@ $member = $db->getRowById($id);
                     <input type="hidden" name="avatar_path" value="<?= $member['avatar_path']; ?>">
                 </div>
 
-                <!--description to photo -->
-                <div class="mb-3">
-                    <input type="hidden" name="id" value="<?= $member['id']; ?>">
-                    <label for="photo_description" class="form-label">Опис до фотографії</label>
-                    <textarea class="form-control" name="file_description" id="photo_description" rows="3"
-                              placeholder="Опис до фотографії"><?= $member['file_description']; ?></textarea>
-                </div>
                 <!--Surname -->
                 <div class="mb-3">
                     <label for="surname" class="form-label">Прізвище</label>
@@ -118,7 +111,7 @@ $member = $db->getRowById($id);
                 <div class="mb-3">
                     <label for="history" class="form-label">Історія</label>
                     <textarea class="form-control" name="history" id="history" rows="3"
-                              placeholder="Трохи історії..."><?= $member['history']; ?></textarea>
+                              placeholder="опис життєвих подій..."><?= $member['history']; ?></textarea>
                 </div>
                 <button type="submit" class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg">
                     Зберегти зміни
