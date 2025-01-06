@@ -30,17 +30,18 @@ $member = $db->getRowById($id);
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма редагування члена сімʼї</h1>
 
-            <form class="d-block p-2" action="/controllers/MembersController.php?action=update" method="POST" enctype="multipart/form-data">
+            <form class="d-block p-2" action="/controllers/MembersController.php?action=update" method="POST"
+                  enctype="multipart/form-data">
                 <!--radiobutt male/femail -->
                 <div class="mb-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="sex" id="male" value="0"
-                        <?= $member['sex'] === 0 ? 'checked' : '' ?>>
+                            <?= $member['sex'] === 0 ? 'checked' : '' ?>>
                         <label class="form-check-label" for="male">Чоловік</label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="sex" id="female" value="1"
-                        <?= $member['sex'] === 1 ? 'checked' : '' ?>>
+                            <?= $member['sex'] === 1 ? 'checked' : '' ?>>
                         <label class="form-check-label" for="female">Жінка</label>
                     </div>
                 </div>
@@ -98,12 +99,14 @@ $member = $db->getRowById($id);
                 <div class="mb-3">
                     <label for="status">Статус:</label>
                     <select id="status" name="status">
-                        <option value="alive">Живий</option>
-                        <option value="deceased">Померлий</option>
+                        <option value="alive" <?= $member['status'] === 'alive' ? 'selected' : '' ?>>Живий</option>
+                        <option value="deceased" <?= $member['status'] === 'deceased' ? 'selected' : '' ?>>Померлий
+                        </option>
                     </select>
-                    <div id="death-date-field" style="display: none;">
+                    <div id="death-date-field" style="<?= $member['status'] === 'deceased' ? '' : 'display: none;' ?>">
                         <label for="death_date" class="form-label">Дата завершення життєвого шляху:</label>
-                        <input value="<?= $member['death_date']; ?>" name="death_date" class="form-control" type="date" id="death_date"">
+                        <input value="<?= $member['death_date']; ?>" name="death_date" class="form-control" type="date"
+                               id="death_date"">
                     </div>
                 </div>
 
@@ -127,6 +130,14 @@ $member = $db->getRowById($id);
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
+        //показуємо чи ховаємо поле "дати смерті" при завантаженні сторінки
+        if ($('#status').val() === 'deceased') {
+            $('#death-date-field').show();
+        } else {
+            $('#death-date-field').hide();
+        }
+
+        // обробка зміни статусу
         $('#status').change(function () {
             if ($(this).val() === 'deceased') {
                 $('#death-date-field').show();
@@ -135,6 +146,7 @@ $member = $db->getRowById($id);
             }
         });
     });
+
 </script>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
