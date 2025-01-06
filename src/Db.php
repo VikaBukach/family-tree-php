@@ -49,7 +49,7 @@ class Db
         $backtrace = debug_backtrace();
         if (isset($backtrace[1])) {
             $parentFunctionName = $backtrace[1]['function'];
-            $arg = $backtrace[1]['args'][0];
+            $arg = $backtrace[1]['args'][0] ?? null;
         }
 
         if (isset(self::$cache[$parentFunctionName][$arg])) {
