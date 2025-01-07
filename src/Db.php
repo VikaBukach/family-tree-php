@@ -460,13 +460,13 @@ class Db
     {
         $this->beforeFunction();
 
-        $this->sql = "INSERT INTO users (username, userlastname, login, password) VALUES (:username, :userlastname, :login, :password)";
+        $this->sql = "INSERT INTO users (userlastname, username, login, password) VALUES (:userlastname, :username,  :login, :password)";
 
         $stmt = $this->connection->prepare($this->sql);
 
         $this->params = [
-            ':username' => $username,
             ':userlastname' => $userlastname,
+            ':username' => $username,
             ':login' => $login,
             ':password' => $password,
 
@@ -474,9 +474,14 @@ class Db
 
         $stmt->execute($this->params);
 
+        header('Location: /views/auth/login.php');
+
         $this->afterFunction();
 
     }
+
+
+
 
     public static function getInstance()
     {
