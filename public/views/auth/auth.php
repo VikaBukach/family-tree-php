@@ -1,7 +1,15 @@
 <?php
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
+session_start();
 
+if (isset($_GET['error']) && $_GET['error'] === 'auth_exists') {
+    echo "<p style='color: red;'>Цей логін вже використовується. Будь ласка, виберіть інший.</p>";
+}
+
+if (isset($_GET['success']) && $_GET['success'] === 'registered') {
+    echo "<p style='color: green;'>Реєстрація успішна. Увійдіть у систему.</p>";
+}
 ?>
 
 <!doctype html>

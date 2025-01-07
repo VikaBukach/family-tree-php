@@ -460,6 +460,29 @@ class Db
     {
         $this->beforeFunction();
 
+        //перевірка унікальності логіна:
+
+        $this->sql = "SELECT COUNT(*) FROM users WHERE login =:login";
+
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
+            ':login' => $login,
+        ];
+
+        $stmt->execute($this->params);
+
+        $exists = $stmt->fetchColumn(); // Повертає кількість записів
+
+        if ($exists > 0) { // не дає створити дублюючий запис user у бд
+            $this->afterFunction();
+
+             header('Location: /views/auth/auth.php?error=auth_exists');
+//            return;
+        }
+
+        // Якщо не існує - продовжуємо вставку
+
         $this->sql = "INSERT INTO users (userlastname, username, login, password) VALUES (:userlastname, :username,  :login, :password)";
 
         $stmt = $this->connection->prepare($this->sql);
@@ -469,12 +492,11 @@ class Db
             ':username' => $username,
             ':login' => $login,
             ':password' => $password,
-
         ];
 
         $stmt->execute($this->params);
 
-        header('Location: /views/auth/login.php');
+        header('Location: /views/auth/login.php?success=registered');
 
         $this->afterFunction();
 
