@@ -456,6 +456,28 @@ class Db
         return $res;
     }
 
+    public function createUser($username, $userlastname, $login, $password)
+    {
+        $this->beforeFunction();
+
+        $this->sql = "INSERT INTO users (username, userlastname, login, password) VALUES (:username, :userlastname, :login, :password)";
+
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
+            ':username' => $username,
+            ':userlastname' => $userlastname,
+            ':login' => $login,
+            ':password' => $password,
+
+        ];
+
+        $stmt->execute($this->params);
+
+        $this->afterFunction();
+
+    }
+
     public static function getInstance()
     {
         if (is_null(self::$instance)) {

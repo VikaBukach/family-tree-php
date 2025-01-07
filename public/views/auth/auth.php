@@ -1,11 +1,6 @@
 <?php
 
-use FamilyTree\helpers\GenerateTreeHelper;
-
 require_once __DIR__ . '/../../../vendor/autoload.php';
-session_start();
-
-//$_SESSION['user_id'] = 35;
 
 ?>
 
@@ -26,33 +21,34 @@ session_start();
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
-            <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Авторизація</h1>
+            <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Реєстрація користувача</h1>
 
-            <form action="/controllers/AuthController.php?action=createUser" method="POST" class="form-control d-block p-2">
+            <form action="/controllers/AuthController.php?action=createUser" method="POST"
+                  class="form-control d-block p-2">
                 <div class="row">
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Прізвище" aria-label="First name">
+                        <input type="text" name="username" class="form-control" placeholder="Прізвище" aria-label="first name">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="По-батькові" aria-label="Last name">
+                        <input type="text" name="userlastname" class="form-control" placeholder="Імʼя" aria-label="last name">
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" name="email" id="email" class="form-control">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col">
+                        <input type="text" name="login" class="form-control" placeholder="Логін" aria-label="login">
+                    </div>
+                    <div class="col">
+                        <input type="password" name="password" class="form-control" placeholder="Пароль" id="password">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Пароль:</label>
-                    <input type="password" name="password" id="password" class="form-control">
+                <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Зареєструватися</button>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Створити користувача</button>
             </form>
         </div>
     </div>
 </div>
 <body>
-
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
