@@ -5,15 +5,6 @@ use FamilyTree\helpers\GenerateTreeHelper;
 require_once __DIR__ . '/../../../vendor/autoload.php';
 session_start();
 
-//if (!isset($_SESSION['user_id'])) {
-//    header('Location: /views/auth/login.php');
-//    exit;
-//}
-
-
-
-//$_SESSION['user_id'] = 35;
-
 ?>
 
 <!doctype html>

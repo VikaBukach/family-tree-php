@@ -4,11 +4,15 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use FamilyTree\Db;
 
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /views/auth/login.php');
+    exit;
+}
+
 $db = Db::getInstance();
 $allRows = $db->getAllRows();
-
-
-//$searchResults = $db->getRelativesByNames($query);
 
 $fg = 'dd'
 ?>
