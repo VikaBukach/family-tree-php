@@ -22,6 +22,22 @@ class AuthController extends BaseController
         }
     }
 
+    public function actionLoginUser()
+    {
+        if($_POST){
+
+            $login = $_POST['login'] ?? '';
+            $password = $_POST['password'] ?? '';
+
+            if(empty($login) || empty($password)){
+                die('Заповніть логін та пароль');
+            }
+
+            $this->db->loginUser($login, $password);
+        }
+
+    }
+
 }
 
 $controller = new AuthController();

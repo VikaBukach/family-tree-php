@@ -5,6 +5,11 @@ use FamilyTree\helpers\GenerateTreeHelper;
 require_once __DIR__ . '/../../../vendor/autoload.php';
 session_start();
 
+//if (!isset($_SESSION['user_id'])) {
+//    header('Location: /views/auth/login.php');
+//    exit;
+//}
+
 
 
 //$_SESSION['user_id'] = 35;
@@ -30,13 +35,13 @@ session_start();
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Авторизація</h1>
 
-            <form action="/controllers/AuthController.php?action=###" method="POST" class="form-control d-block p-2">
+            <form action="/controllers/AuthController.php?action=loginUser" method="POST" class="form-control d-block p-2">
                 <div class="row" style="margin-top: 20px;">
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Логін" aria-label="login">
+                        <input type="text" name="login" class="form-control" placeholder="Логін" aria-label="login">
                     </div>
                     <div class="col">
-                        <input type="password" class="form-control" placeholder="Пароль" id="password">
+                        <input type="password" name="password" class="form-control" placeholder="Пароль" id="password">
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">

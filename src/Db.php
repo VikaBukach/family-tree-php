@@ -3,6 +3,7 @@
 namespace FamilyTree;
 
 use DateTime;
+use Exception;
 use FamilyTree\structures\FamilyRelationshipsStructure;
 use PDO;
 use PDOException;
@@ -460,18 +461,14 @@ class Db
     {
         $this->beforeFunction();
 
-        //1 перевірка унікальності логіна:
-
+        // перевірка унікальності логіна:
         $this->sql = "SELECT COUNT(*) FROM users WHERE login =:login";
-
         $stmt = $this->connection->prepare($this->sql);
-
         $this->params = [
             ':login' => $login,
         ];
 
         $stmt->execute($this->params);
-
         $exists = $stmt->fetchColumn(); // Повертає кількість записів
 
         if ($exists > 0) { // не дає створити дублюючий запис user у бд
@@ -480,7 +477,7 @@ class Db
              header('Location: /views/auth/auth.php?error=auth_exists');
         }
 
-        //2 перевірка наявності в табл family_memb
+        // перевірка наявності в табл family_memb
         $this->sql = "SELECT id FROM family_members WHERE surname =:surname AND name =:name";
         $stmt = $this->connection->prepare($this->sql);
         $this->params = [
@@ -491,29 +488,25 @@ class Db
         $stmt->execute($this->params);
         $familyMember = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-        //3хеш пароля
+        //хеш пароля
         $passwHash = password_hash($password, PASSWORD_BCRYPT);
 
-        // 4 вставка нов користува в табл users
-
+        // вставка нов користува в табл users
         $this->sql = "INSERT INTO users (surname, name, login, password) VALUES (:surname, :name,  :login, :password)";
-
         $stmt = $this->connection->prepare($this->sql);
 
         $this->params = [
             ':surname' => $surname,
             ':name' => $name,
             ':login' => $login,
-            ':password' => $password,
+            ':password' => $passwHash,
         ];
         $stmt->execute($this->params);
 
-        //5 отримання ID створен користувача
+        // отримання ID створен користувача
         $userId = $this->connection->lastInsertId();
 
-        //6 якщо знайдено члена сімʼї оновлюємо поле user_id
-
+        //якщо знайдено члена сімʼї оновлюємо поле user_id
         if($familyMember){
             $stmt = $this->connection->prepare("UPDATE family_members SET user_id = :user_id WHERE id =:id");
             $this->params = [
@@ -527,6 +520,33 @@ class Db
 
         $this->afterFunction();
 
+    }
+
+    public function loginUser($login, $password)
+    {
+        $this->beforeFunction();
+
+        $this->sql = "SELECT * FROM users WHERE login =:login";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [':login' => $login];
+
+        $stmt->execute($this->params);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if(!$user || !password_verify($password, $user['password'])){
+            throw new Exception("Невірний логін або пароль");
+        }
+
+        //починаємо сессію і зберігаємо користувача
+        session_start();
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['role'] = $user['role'];
+
+        $this->afterFunction();
+
+        header('Location: /');
     }
 
 
