@@ -456,11 +456,11 @@ class Db
         return $res;
     }
 
-    public function createUser($username, $userlastname, $login, $password)
+    public function createUser($surname, $name, $login, $password)
     {
         $this->beforeFunction();
 
-        //перевірка унікальності логіна:
+        //1 перевірка унікальності логіна:
 
         $this->sql = "SELECT COUNT(*) FROM users WHERE login =:login";
 
@@ -478,23 +478,50 @@ class Db
             $this->afterFunction();
 
              header('Location: /views/auth/auth.php?error=auth_exists');
-//            return;
         }
 
-        // Якщо не існує - продовжуємо вставку
+        //2 перевірка наявності в табл family_memb
+        $this->sql = "SELECT id FROM family_members WHERE surname =:surname AND name =:name";
+        $stmt = $this->connection->prepare($this->sql);
+        $this->params = [
+            ':surname' => $surname,
+            ':name' => $name
+        ];
 
-        $this->sql = "INSERT INTO users (userlastname, username, login, password) VALUES (:userlastname, :username,  :login, :password)";
+        $stmt->execute($this->params);
+        $familyMember = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+        //3хеш пароля
+        $passwHash = password_hash($password, PASSWORD_BCRYPT);
+
+        // 4 вставка нов користува в табл users
+
+        $this->sql = "INSERT INTO users (surname, name, login, password) VALUES (:surname, :name,  :login, :password)";
 
         $stmt = $this->connection->prepare($this->sql);
 
         $this->params = [
-            ':userlastname' => $userlastname,
-            ':username' => $username,
+            ':surname' => $surname,
+            ':name' => $name,
             ':login' => $login,
             ':password' => $password,
         ];
-
         $stmt->execute($this->params);
+
+        //5 отримання ID створен користувача
+        $userId = $this->connection->lastInsertId();
+
+        //6 якщо знайдено члена сімʼї оновлюємо поле user_id
+
+        if($familyMember){
+            $stmt = $this->connection->prepare("UPDATE family_members SET user_id = :user_id WHERE id =:id");
+            $this->params = [
+                'user_id' => $userId,
+                'id' => $familyMember['id'],
+            ];
+            $stmt->execute($this->params);
+        }
 
         header('Location: /views/auth/login.php?success=registered');
 

@@ -9,16 +9,16 @@ class AuthController extends BaseController
     public function actionCreateUser()
     {
         if($_POST){
-            $userlastname = trim($_POST['userlastname'] ?? '');
-            $username = trim($_POST['username'] ?? '');
+            $surname = trim($_POST['surname'] ?? '');
+            $name = trim($_POST['name'] ?? '');
             $login = trim($_POST['login'] ?? '');
-            $password = trim(password_hash($_POST['password'], PASSWORD_BCRYPT));
+            $password = trim($_POST['password']);
 
-            if(empty($username) || empty($userlastname) || empty($login) ||empty($password)){
+            if(empty($surname) || empty($name) || empty($login) ||empty($password)){
                 die('Всі поля обовʼязкові до заповнення');
             }
 
-            $this->db->createUser($userlastname, $username, $login, $password);
+            $this->db->createUser($surname, $name, $login, $password);
         }
     }
 

@@ -35,10 +35,10 @@ if (isset($_GET['success']) && $_GET['success'] === 'registered') {
                   class="form-control d-block p-2">
                 <div class="row">
                     <div class="col">
-                        <input type="text" name="userlastname" class="form-control" placeholder="Прізвище" aria-label="first name">
+                        <input type="text" name="surname" class="form-control" placeholder="Прізвище" aria-label="surname">
                     </div>
                     <div class="col">
-                        <input type="text" name="username" class="form-control" placeholder="Імʼя" aria-label="last name">
+                        <input type="text" name="name" class="form-control" placeholder="Імʼя" aria-label="name">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 20px;">

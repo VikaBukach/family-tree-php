@@ -42,8 +42,8 @@ create table users
 (
     id           int auto_increment
         primary key,
-    username     varchar(55)                           not null,
-    userlastname varchar(55)                           not null,
+    surname     varchar(55)                           not null,
+    name        varchar(55)                           not null,
     login        varchar(55)                           not null,
     password     varchar(55)                           not null,
     created_at   timestamp   default CURRENT_TIMESTAMP null,
