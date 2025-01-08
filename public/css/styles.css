@@ -82,7 +82,13 @@ body {
     color: #b9a141;
 }
 
+.svg:hover {
+    transition: stroke 0.3s ease;
+}
 
+.svg:hover {
+    stroke: #FFD700;
+}
 
 .btn-outline-success:hover {
     color: #FFD700;
@@ -179,16 +185,18 @@ main {
     align-items: flex-end;
 }
 
-.parallax {
-    /*background-image: url('/img/f5.jpg');*/
-    /*background-image: url('/img/tr6.jpg');*/
 
-    /*background-image: url('/img/h3.jpg');*/
 
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+/*.parallax {*/
+/*    !*background-image: url('/img/f5.jpg');*!*/
+/*    !*background-image: url('/img/tr6.jpg');*!*/
 
-}
+/*    !*background-image: url('/img/h3.jpg');*!*/
+
+/*    background-attachment: fixed;*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+
+/*}*/
 

@@ -62,6 +62,13 @@ $fg = 'dd'
                            aria-label="Search" required>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <svg class="svg" width="30px" height="30px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.5 7.5L10.5 10.75M13.5 7.5L10.5 4.5M13.5 7.5L4 7.5M8 13.5H1.5L1.5 1.5L8 1.5"
+                          stroke="#b9a141" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="13.5" cy="7.5" r="0.5" fill="#b9a141"/>
+                    <circle cx="10.5" cy="4.5" r="0.4" fill="#b9a141"/>
+                    <circle cx="10.5" cy="10.75" r="0.4" fill="#b9a141"/>
+                </svg>
             </div>
         </div>
     </nav>
