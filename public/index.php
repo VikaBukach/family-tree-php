@@ -126,12 +126,8 @@ $fg = 'dd'
         </div>
     </div>
 
-    <!------------------FORM ---------------------->
-
-    <!------------LIST RELATIVES ---------------------->
-
 </main>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script>
   $(document).ready(function (){
       $('#logoutButton').on('click', function (){
@@ -143,7 +139,6 @@ $fg = 'dd'
       });
   });
 </script>
-
 <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
