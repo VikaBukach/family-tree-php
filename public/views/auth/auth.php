@@ -27,9 +27,9 @@ if (isset($_GET['success']) && $_GET['success'] === 'registered') {
     <title>Family tree</title>
 </head>
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-xl-6 col-lg-6 mt-5 mb-5">
-            <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Реєстрація користувача</h1>
+    <div class="row justify-content-center login-form">
+        <div class="col-xl-6 col-lg-6 mt-5 mb-5 login-content">
+            <h1 class="text-center fs-4 mt-2 mb-4 brand-text">Реєстрація користувача</h1>
 
             <form action="/controllers/AuthController.php?action=createUser" method="POST"
                   class="form-control d-block p-2">

@@ -73,7 +73,7 @@ $fg = 'dd'
         </div>
     </nav>
 </header>
-<main class="container-fluid parallax">
+<main class="container-fluid">
     <div class="text-center">
         <h1 class="fw-bolder lh-sm fs-3 text mt-3 mb-3" style="max-width: 1200px; margin: 0 auto;">
             Родинне дерево — це не просто перелік імен чи дат, це жива історія, яка об’єднує минуле,

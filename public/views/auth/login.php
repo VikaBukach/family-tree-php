@@ -21,10 +21,10 @@ session_start();
     <link rel="stylesheet" href="/css/styles.css">
     <title>Family tree</title>
 </head>
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-xl-6 col-lg-6 mt-5 mb-5">
-            <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Авторизація</h1>
+<div class="container-fluid ">
+    <div class="row justify-content-center login-form">
+        <div class="col-xl-6 col-lg-6 mt-5 mb-5 login-content">
+            <h1 class="text-center fs-4 mt-2 mb-4 brand-text">Authorization</h1>
 
             <form action="/controllers/AuthController.php?action=loginUser" method="POST" class="form-control d-block p-2">
                 <div class="row" style="margin-top: 20px;">
@@ -39,7 +39,7 @@ session_start();
                     <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Увійти</button>
                 </div>
             </form>
-                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/views/auth/auth.php">Зареєструватися</a>
+                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-primary " href="/views/auth/auth.php">Зареєструватися</a>
         </div>
     </div>
 </div>
