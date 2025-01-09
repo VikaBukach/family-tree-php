@@ -23,12 +23,14 @@ $member = $db->getRowById($id);
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Cormorant+Unicase:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
-            <h1 class="text-center fs-4 mt-2 mb-4 text-primary">Форма редагування члена сімʼї</h1>
+            <h1 class="text-center fs-4 mt-2 mb-4 t-h1">Форма редагування члена сімʼї</h1>
 
             <form class="d-block p-2" action="/controllers/MembersController.php?action=update" method="POST"
                   enctype="multipart/form-data">
@@ -116,11 +118,11 @@ $member = $db->getRowById($id);
                     <textarea class="form-control" name="history" id="history" rows="3"
                               placeholder="опис життєвих подій..."><?= $member['history']; ?></textarea>
                 </div>
-                <button type="submit" class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg">
+                <button type="submit" class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primar btn-lg">
                     Зберегти зміни
                 </button>
             </form>
-            <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/views/members/gallery.php">
+            <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primar btn-lg" href="/views/members/gallery.php">
                 Повернутись до списку
             </a>
         </div>

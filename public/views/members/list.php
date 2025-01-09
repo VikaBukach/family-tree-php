@@ -16,6 +16,7 @@ $allRows = $db->getAllRows();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 <!------------------LIST RELATIVES ---------------------->

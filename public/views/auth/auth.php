@@ -50,7 +50,7 @@ if (isset($_GET['success']) && $_GET['success'] === 'registered') {
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Зареєструватися</button>
+                    <button type="submit" class="btn btn-primar" style="margin-top: 20px;">Зареєструватися</button>
                 </div>
             </form>
         </div>

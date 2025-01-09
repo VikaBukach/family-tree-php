@@ -36,10 +36,10 @@ session_start();
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Увійти</button>
+                    <button type="submit" class="btn btn-primar" style="margin-top: 20px;">Увійти</button>
                 </div>
             </form>
-                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-primary " href="/views/auth/auth.php">Зареєструватися</a>
+                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-primar " href="/views/auth/auth.php">Зареєструватися</a>
         </div>
     </div>
 </div>

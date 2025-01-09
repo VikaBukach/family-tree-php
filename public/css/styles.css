@@ -1,30 +1,18 @@
 body {
-     /*font-family: 'Cormorant Garamond', serif;*/
-    /*font-size: 16px; !* Базовий розмір шрифту *!*/
-    /*line-height: 1.5; !* Зручне міжрядкове відступлення *!*/
+    font-family: "Cormorant Unicase", serif;
+    font-size: 16px; /* Базовий розмір шрифту */
+    line-height: 1.5; /* Зручне міжрядкове відступлення */
 }
 
-/* Додаткові стилі для заголовків */
-/*h1, h2, h3, h4, h5, h6 {*/
-/*    font-family: 'Cormorant Garamond', serif;*/
-/*    font-weight: 700;*/
-/*    color: black;*/
-/*}*/
-
-/*!* Посилання *!*/
-/*a {*/
-/*    font-family: 'Cormorant Garamond', serif;*/
-/*    color: black;*/
-/*    text-decoration: none;*/
-/*    transition: color 0.3s ease;*/
-/*}*/
-
-/*a:hover {*/
-/*    color: rgba(255, 215, 0, 0.88);*/
-/*}*/
+.t-h1{
+    font-family: "Cormorant Unicase", serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #8b7e4e;
+}
 
 
-/* Оновлення шрифту для всіх компонентів Bootstrap */
+ /*Оновлення шрифту для всіх компонентів Bootstrap */
 .navbar, .btn, .form-control, .dropdown-item, .table, .card {
     font-family: 'Cormorant Garamond', serif;
 }
@@ -52,10 +40,6 @@ body {
     font-weight: bold;
     color: #b9a141;
 }
-
-/*.navbar-nav{*/
-/*    margin-left: 100px;*/
-/*}*/
 
 .navbar-nav .nav-item {
     margin-right: 30px;
@@ -163,17 +147,31 @@ main {
     border-bottom: 1px solid rgba(185, 161, 65, 0.5);
 }
 
-.btn-primary {
+.btn-primar {
     background-color: #b9a141;
     border-color: #8b7e4e;
     color: #2e2e2e;
 }
 
-.btn-primary:hover {
+.btn-primar:hover {
     border-color: #8b7e4e;
     background-color: #8b7e4e;
     color: #fff;
 }
+
+.btn-outline-primar {
+    border-color: #8b7e4e; /* Колір рамки */
+    color: #8b7e4e; /* Колір тексту */
+}
+
+.btn-outline-primar:hover {
+    background-color: #8b7e4e; /* Колір фону при наведенні */
+    color: white; /* Колір тексту при наведенні */
+    border-color: #8b7e4e; /* Колір рамки при наведенні */
+}
+
+
+
 
 .card-body {
     display: flex;
@@ -219,5 +217,9 @@ main {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
+.form-check-input:checked {
+    background-color: #8b7e4e;
+    border-color: #b9a141;
+}
 
 

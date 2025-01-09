@@ -118,7 +118,7 @@ $fg = 'dd'
 
                     </ul>
                     <div class="card-body">
-                        <a href="/views/members/gallery.php?id=<?= $row['id'] ?>" class="btn btn-primary">Більше
+                        <a href="/views/members/gallery.php?id=<?= $row['id'] ?>" class="btn btn-primar">Більше
                             інформаціїї</a>
                     </div>
                 </div>
