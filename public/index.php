@@ -62,7 +62,7 @@ $fg = 'dd'
                            aria-label="Search" required>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <svg class="svg" width="30px" height="30px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg id="logoutButton" class="svg" width="30px" height="30px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.5 7.5L10.5 10.75M13.5 7.5L10.5 4.5M13.5 7.5L4 7.5M8 13.5H1.5L1.5 1.5L8 1.5"
                           stroke="#b9a141" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
                     <circle cx="13.5" cy="7.5" r="0.5" fill="#b9a141"/>
@@ -131,7 +131,18 @@ $fg = 'dd'
     <!------------LIST RELATIVES ---------------------->
 
 </main>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function (){
+      $('#logoutButton').on('click', function (){
+          $.post('/views/auth/logout.php', function (response){
+              window.location.href = '/views/auth/login.php';
+          }).fail(function (){
+              alert('Не вдалося виконати вихід');
+          });
+      });
+  });
+</script>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
