@@ -465,7 +465,7 @@ class Db
 
         $this->sql = "SELECT fm.*
                         FROM family_members as fm
-                        WHERE id not in (SELECT fm.id
+                        WHERE fm.id not in (SELECT fm.id
                                 FROM family_members as fm
                                      LEFT JOIN relationships as r ON related_member_id = fm.id
                                 WHERE r.relationship_type = :relationship_type
@@ -486,7 +486,34 @@ class Db
         return $res;
     }
 
+    public function getAvailableMembersAsPartner($memberId)
+    {
+        if($member = $this->beforeFunction()) {
+            return $member;
+        }
 
+        $this->sql = "SELECT fm.* FROM family_members as fm
+                        WHERE fm.id not in 
+                              (SELECT case when member_id = :member_id then related_member_id else member_id end as partner_id
+                                    FROM relationships
+                                        WHERE (member_id = :member_id or related_member_id = :member_id)
+                                    and relationship_type = :relationship_type)
+                        AND fm.id <> :member_id";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
+            ':member_id' => $memberId,
+            ':relationship_type' => RoleRelationships::PARTNER,
+        ];
+
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->afterFunction(true, $res);
+
+        return $res;
+    }
 
 
     public function createUser($surname, $name, $login, $password)
