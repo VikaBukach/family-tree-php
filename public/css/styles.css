@@ -170,9 +170,6 @@ main {
     border-color: #8b7e4e; /* Колір рамки при наведенні */
 }
 
-
-
-
 .card-body {
     display: flex;
     justify-content: space-between;
@@ -222,4 +219,11 @@ main {
     border-color: #b9a141;
 }
 
+.option-styles {
+    background-color: #f9f9f9;
+    border: 1px solid #8b7e4e;
+    color: #2e2e2e;
+    font-family: 'Cormorant', serif;
+    padding: 5px;
+}
 
