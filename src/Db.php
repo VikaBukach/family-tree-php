@@ -457,7 +457,7 @@ class Db
         return $res;
     }
 
-    public function getAvailableMembersForType($memberId, $type)
+    public function getAvailableMembersAsParent($memberId)
     {
         if($member = $this->beforeFunction()) {
             return $member;
@@ -475,7 +475,7 @@ class Db
 
         $this->params = [
             ':member_id' => $memberId,
-            ':relationship_type' => $type,
+            ':relationship_type' => RoleRelationships::PARENT,
         ];
 
         $stmt->execute($this->params);

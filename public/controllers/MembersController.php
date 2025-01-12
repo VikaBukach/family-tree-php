@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use FamilyTree\BaseController;
+use FamilyTree\RoleRelationships;
 
 class MembersController extends BaseController
 {
@@ -84,7 +85,14 @@ class MembersController extends BaseController
             $memberId = $_GET['memberId'];
             $type = $_GET['type'];
 
-            echo json_encode([$memberId, $type]);
+            $res = [];
+            if ($type === RoleRelationships::PARENT) {
+                $res = $this->db->getAvailableMembersAsParent($memberId);
+            } else if ($type === RoleRelationships::PARTNER) {
+                $res = $this->db->getAvailableMembersAsPartner($memberId);
+            }
+
+            echo json_encode($res);
         }
     }
 

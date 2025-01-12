@@ -12,7 +12,7 @@ $id = $_GET['id'];
 $db = Db::getInstance();
 $member = $db->getRowById($id);
 
-$otherRelatives = $db->getAvailableMembersForType($member['id'], RoleRelationships::PARENT);
+$otherRelatives = $db->getAvailableMembersAsParent($member['id']);
 
 
 ?>
