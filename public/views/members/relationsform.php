@@ -56,7 +56,7 @@ $otherRelatives = $db->getAvailableMembersForType($member['id'], RoleRelationshi
 
                 <div class="mb-3">
                     <label for="member_id" class="t-h1">Член родини:</label>
-                    <select name="member_id" class="form-select mt-3 mb-3" id="member-id"
+                    <select name="member_id" class="form-select mt-3 mb-3" id="member_id"
                             aria-label="Default select example">
                         <option value="<?= $member['id'] ?>"
                                 selected><?= $member['name'] . ' ' . $member['surname'] ?></option>
@@ -140,11 +140,24 @@ $otherRelatives = $db->getAvailableMembersForType($member['id'], RoleRelationshi
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    $('#relations-form').on('submit', function (e) {
-        //e.preventDefault();
+    $('#relationship_type').on('change', function (e) {
+        e.preventDefault();
 
         var relatType = $('#relationship_type').val();
+        var relatMembId = $('#member_id').val();
         console.log(relatType)
+
+        $.ajax({
+            type: 'GET',
+            url: '/controllers/MembersController.php?action=getMembersByType&memberId=' + relatMembId + '&type=' + relatType,
+            success: function (response){
+                console.log(response)
+            },
+            error: function (){
+                alert('Помилка');
+            }
+        })
+
 
     })
 

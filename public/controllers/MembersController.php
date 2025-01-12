@@ -78,11 +78,13 @@ class MembersController extends BaseController
         $this->db->deleteRow($id);
     }
 
-    public function actionSearchRelative()
+    public function actionGetMembersByType()
     {
-        if ($_POST) {
-            $query = $_POST['query'] ?? '';
-            $searchResults = $this->db->getRelativesByNames($query);
+        if (!empty($_GET['memberId']) && !empty($_GET['type'])) {
+            $memberId = $_GET['memberId'];
+            $type = $_GET['type'];
+
+            echo json_encode([$memberId, $type]);
         }
     }
 
