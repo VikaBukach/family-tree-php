@@ -11,8 +11,8 @@ $id = $_GET['id'];
 
 $db = Db::getInstance();
 $member = $db->getRowById($id);
-$allRows = $db->getAllRows();
-$allRoles = RoleRelationships::getAllRoles();
+
+$otherRelatives = $db->getAvailableMembersForType($member['id'], RoleRelationships::PARENT);
 
 ?>
 
@@ -68,7 +68,7 @@ $allRoles = RoleRelationships::getAllRoles();
                             aria-label="Default select example">
                         <option selected value="">Oберіть іншого члена родини щоб повʼязати звязок:</option>
 
-                        <?php foreach ($allRows as $row) : ?>
+                        <?php foreach ($otherRelatives as $row) : ?>
 
                             <option value="<?= $row['id'] ?>"><?= $row['name'] . ' ' . $row['surname'] ?></option>
 
@@ -80,8 +80,6 @@ $allRoles = RoleRelationships::getAllRoles();
                     <label for="relationship_type" class="t-h1">Тип звʼязку(роль):</label>
                     <select name="relationship_type" id="relationship_type" class="form-select mt-3 mb-3"
                             aria-label="Default select example">
-
-                        <option selected value="">Oберіть роль:</option>
 
                         <?php foreach (RoleRelationships::getAllRoles() as $roleKey => $roleName): ?>
 
@@ -142,7 +140,7 @@ $allRoles = RoleRelationships::getAllRoles();
 
 <script>
     $('#relations-form').on('submit', function (e) {
-        e.preventDefault();
+        //e.preventDefault();
 
         var relatType = $('#relationship_type').val();
         console.log(relatType)
