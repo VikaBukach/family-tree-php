@@ -67,7 +67,6 @@ $otherRelatives = $db->getAvailableMembersAsParent($member['id']);
                     <label for="related_member_id" class="t-h1">Повʼязаний член родини:</label>
                     <select name="related_member_id" id="related_member_id" class="form-select mt-3 mb-3"
                             aria-label="Default select example">
-                        <option selected value="">Oберіть іншого члена родини щоб повʼязати звязок:</option>
 
                         <?php foreach ($otherRelatives as $row) : ?>
 
@@ -145,13 +144,17 @@ $otherRelatives = $db->getAvailableMembersAsParent($member['id']);
 
         var relatType = $('#relationship_type').val();
         var relatMembId = $('#member_id').val();
-        console.log(relatType)
 
         $.ajax({
             type: 'GET',
             url: '/controllers/MembersController.php?action=getMembersByType&memberId=' + relatMembId + '&type=' + relatType,
             success: function (response){
-                console.log(response)
+                var res = '';
+                for(let row of response) {
+                    res += `<option value="${row.id}">${row.surname} ${row.name}</option>`;
+                }
+
+                $('#related_member_id').html(res)
             },
             error: function (){
                 alert('Помилка');

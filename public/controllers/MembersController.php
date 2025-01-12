@@ -92,6 +92,7 @@ class MembersController extends BaseController
                 $res = $this->db->getAvailableMembersAsPartner($memberId);
             }
 
+            header('Content-Type: application/json; charset=utf-8');
             echo json_encode($res);
         }
     }
