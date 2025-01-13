@@ -330,18 +330,22 @@ class Db
                fm.name as memeber_name,
                fm.surname as memeber_surname,
                fm.avatar_path as memeber_avatar,
-               r.relationship_type AS role_type,
+               case when related_member_id = :member_id and r.relationship_type = :PARENT then :CHILD else r.relationship_type end as role_type,
                fm2.name as related_name,
                fm2.surname as related_surname,
                fm2.avatar_path as related_avatar
             FROM family_members fm
-                left join relationships r ON r.member_id = fm.id
-                left join family_members fm2 ON r.related_member_id = fm2.id
-            WHERE fm.id = :member_id";
+                left join relationships r ON r.member_id = fm.id or r.related_member_id = fm.id
+                left join family_members fm2 ON r.related_member_id = fm2.id or r.member_id = fm2.id
+            WHERE fm.id = :member_id and fm2.id <> :member_id";
 
         $stmt = $this->connection->prepare($this->sql);
 
-        $this->params = [':member_id' => $member_id];
+        $this->params = [
+            ':member_id' => $member_id,
+            ':PARENT' => RoleRelationships::PARENT,
+            ':CHILD' => RoleRelationships::CHILD,
+        ];
 
         $stmt->execute($this->params);
         $dataResult = $stmt->fetchAll(PDO::FETCH_ASSOC);

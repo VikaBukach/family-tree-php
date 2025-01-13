@@ -13,8 +13,8 @@ $db = Db::getInstance();
 $member = $db->getRowById($id);
 
 $otherRelatives = $db->getAvailableMembersAsParent($member['id']);
-
-
+// Отримуємо відносини для конкретного члена родини:
+$relationships = $db->getFamilyRelationships($id);
 ?>
 
 <!doctype html>
@@ -67,24 +67,17 @@ $otherRelatives = $db->getAvailableMembersAsParent($member['id']);
                     <label for="related_member_id" class="t-h1">Повʼязаний член родини:</label>
                     <select name="related_member_id" id="related_member_id" class="form-select mt-3 mb-3"
                             aria-label="Default select example">
-
                         <?php foreach ($otherRelatives as $row) : ?>
-
                             <option value="<?= $row['id'] ?>"><?= $row['name'] . ' ' . $row['surname'] ?></option>
-
                         <?php endforeach; ?>
                     </select>
                 </div>
-
                 <div class="mb-3">
                     <label for="relationship_type" class="t-h1">Тип звʼязку(роль):</label>
                     <select name="relationship_type" id="relationship_type" class="form-select mt-3 mb-3"
                             aria-label="Default select example">
-
                         <?php foreach (RoleRelationships::getAllRoles() as $roleKey => $roleName): ?>
-
                             <option value="<?= $roleKey ?>"><?= $roleName ?></option>
-
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -97,26 +90,26 @@ $otherRelatives = $db->getAvailableMembersAsParent($member['id']);
     </div>
     <div class="container">
         <h2 class="text-center mb-4 mt-4">Родинні зв’язки</h2>
+
         <div class="relationships" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-
-            <ul class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-
-
-                <li class="card"
-                    style="width: 150px; height: 180px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 5px;">
-                    <img src="" alt="фото"
-                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;">
-                    <h6 style="margin-bottom: 5px; display: flex; text-align: center;">
-
-                    </h6>
-                    <p style="font-size: 14px; color: #555;">
-
-                    </p>
-
-                </li>
-
-            </ul>
-
+            <?php if (is_array($relationships) && count($relationships) > 0): ?>
+                <ul class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                    <?php foreach ($relationships as $relation): ?>
+                        <?php if (!empty($relation->related_avatar) && !empty($relation->related_name) && !empty($relation->related_surname) && !empty($relation->role_type)): ?>
+                            <li class="card"
+                                style="width: 150px; height: 180px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 5px;">
+                                <img src="<?= $relation->related_avatar ?>" alt="фото" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;">
+                                <h6 style="margin-bottom: 5px; display: flex; text-align: center;">
+                                    <?= $relation->related_surname . ' ' . $relation->related_name ?>:
+                                </h6>
+                                <p style="font-size: 14px; color: #555;">
+                                    <?= RoleRelationships::getNameByKey($relation->role_type) ?>
+                                </p>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto mt-3">
             <a class="btn btn-outline-primar btn-lg" href="/">Повернутись на головну</a>
@@ -160,8 +153,6 @@ $otherRelatives = $db->getAvailableMembersAsParent($member['id']);
                 alert('Помилка');
             }
         })
-
-
     })
 
 </script>
