@@ -35,7 +35,7 @@ $memberCards = $db->getAllCardByIdMember($id);
 <div class="container-fluid">
 
     <div class="text-center mt-5 mb-3">
-        <h1 class="text-center mt-2 mb-4 t-h1" style="max-width: 1000px; margin: 0 auto;">
+        <h1 class="text-center mb-4 mt-4" style="max-width: 1000px; margin: 0 auto;">
             Галерея спогадів
         </h1>
     </div>

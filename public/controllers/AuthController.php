@@ -32,13 +32,24 @@ class AuthController extends BaseController
             if(empty($login) || empty($password)){
                 die('Заповніть логін та пароль');
             }
+            try {
+                $user = $this->db->loginUser($login, $password);
 
-            $this->db->loginUser($login, $password);
+                //починаємо сессію і зберігаємо користувача
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['name'] = $user['name'];
+                $_SESSION['role'] = $user['role'];
+
+                header('Location: /');
+            }catch (Exception $exception){
+                die($exception->getMessage());
+            }
         }
-
     }
 
 }
 
 $controller = new AuthController();
 $controller->runAction($_GET['action'] ?? '');
+

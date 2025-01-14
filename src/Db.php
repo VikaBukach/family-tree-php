@@ -601,19 +601,10 @@ class Db
             throw new Exception("Невірний логін або пароль");
         }
 
-        //починаємо сессію і зберігаємо користувача
-        session_start();
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['name'] = $user['name'];
-        $_SESSION['role'] = $user['role'];
-
         $this->afterFunction();
 
-        header('Location: /');
+        return $user;
     }
-
-
-
 
     public static function getInstance()
     {
