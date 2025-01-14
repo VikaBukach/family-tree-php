@@ -34,6 +34,7 @@ $member = $db->getRowById($id);
 
             <form class="d-block p-2" action="/controllers/MembersController.php?action=update" method="POST"
                   enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id']) ?>">
                 <!--radiobutt male/femail -->
                 <div class="mb-3">
                     <div class="form-check">

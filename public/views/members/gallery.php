@@ -90,6 +90,8 @@ $memberCards = $db->getAllCardByIdMember($id);
             <div class="card-body"><?= $familyMember['history'] ?></div>
         </div>
 
+        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primar btn-lg" href="/views/members/relationsform.php?id=<?= $id ?>">Додати звʼязок з родиною</a>
+
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primar btn-lg" href="/" style="margin-bottom: 30px;">
             Повернутись на головну
         </a>
