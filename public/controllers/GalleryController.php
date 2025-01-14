@@ -8,6 +8,8 @@ class GalleryController extends BaseController
 {
     public function actionCreateCard()
     {
+        $this->checkAccess('create');
+
         if($_POST) {
 
             $image_path = '';

@@ -8,6 +8,8 @@ class RelationshipsController extends BaseController
 {
     public function actionCreateRelation()
     {
+        $this->checkAccess('create');
+
         if($_POST) {
            $member_id = $_POST['member_id'] ?? '';
            $related_member_id = $_POST['related_member_id'] ?? '';

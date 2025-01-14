@@ -8,6 +8,8 @@ class MembersController extends BaseController
 {
     public function actionCreate()
     {
+        $this->checkAccess('create');
+
         if ($_POST) {
             // Обробка аватара
             $avatar_path = '';
@@ -41,6 +43,8 @@ class MembersController extends BaseController
 
     public function actionUpdate()
     {
+        $this->checkAccess('update');
+
         if ($_POST) {
 
             $avatar_path = $_POST['avatar_path'] ?? '';
@@ -72,6 +76,8 @@ class MembersController extends BaseController
 
     public function actionDelete()
     {
+        $this->checkAccess('delete');
+
         if ($_POST) {
             $id = $_POST['id'];
         }
