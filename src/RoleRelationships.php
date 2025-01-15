@@ -13,7 +13,7 @@ class RoleRelationships
         return [
             self::PARENT => 'Один з батьків',
             self::PARTNER => 'Партнер',
-            self::CHILD => 'Дитина',
+            self::CHILD => 'Нащадок',
         ];
     }
 
