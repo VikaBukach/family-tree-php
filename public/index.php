@@ -14,7 +14,6 @@ if (!isset($_SESSION['user_id'])) {
 $db = Db::getInstance();
 $allRows = $db->getAllRows();
 
-$fg = 'dd'
 ?>
 
 <!doctype html>
@@ -29,6 +28,9 @@ $fg = 'dd'
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/js.js"></script>
+
     <title>Family tree</title>
 </head>
 <body>
@@ -55,11 +57,10 @@ $fg = 'dd'
                         <a class="nav-link" href="/views/members/list.php">List of family members</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search" style="" method="POST"
-                      action="/controllers/MembersController.php?action=searchRelative">
-                    <input class="form-control me-2" name="query" type="search" placeholder="Введіть прізвище"
+                <form id="search-form" class="d-flex" role="search">
+                    <input id="search-surname" class="form-control me-2" name="surname" type="search" placeholder="Введіть прізвище"
                            aria-label="Search" required>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-success" type="submit">Шукати</button>
                 </form>
 
                 <svg id="logoutButton" class="svg" width="30px" height="30px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +86,7 @@ $fg = 'dd'
     </div>
 
     <!------------------Card of member ---------------------->
-    <div class="container mt-4 parallax-content">
+    <div class="container mt-4">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
 
             <?php foreach ($allRows as $row): ?>
@@ -128,6 +129,7 @@ $fg = 'dd'
 
 </main>
 <script src="js/jquery.min.js"></script>
+
 <script>
   $(document).ready(function (){
       $('#logoutButton').on('click', function (){
@@ -139,6 +141,6 @@ $fg = 'dd'
       });
   });
 </script>
-<script src="/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
