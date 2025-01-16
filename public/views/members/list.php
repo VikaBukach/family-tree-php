@@ -16,7 +16,8 @@ $allRows = $db->getAllRows();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <!------------------LIST RELATIVES ---------------------->
@@ -56,8 +57,9 @@ $allRows = $db->getAllRows();
                     <td><?= $row["death_date"] ?></td>
                     <td><?= $row["history"] ?></td>
                     <td>
-                            <a class="btn btn-outline-secondary" href="/views/members/edit.php?id=<?= $row['id'] ?>">Редагувати</a>
-<!--                            <a class="btn btn-outline-secondary" href="/views/members/relationsform.php?id=--><?php //= $row['id'] ?><!--">Додати звʼязок</a>-->
+                        <a class="btn btn-outline-secondary" href="/views/members/edit.php?id=<?= $row['id'] ?>">Редагувати</a>
+                        <!--                            <a class="btn btn-outline-secondary" href="/views/members/relationsform.php?id=-->
+                        <?php //= $row['id'] ?><!--">Додати звʼязок</a>-->
                     </td>
                     <td>
                         <form action="/controllers/MembersController.php?action=delete" method="POST">
@@ -69,13 +71,10 @@ $allRows = $db->getAllRows();
             <?php endforeach; ?>
             </tbody>
         </table>
-        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primary btn-lg" href="/" style="margin-bottom: 30px">
+        <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-primar" href="/" style="margin-bottom: 30px">
             Повернутись на головну
         </a>
     </div>
 </div>
-
-
-<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

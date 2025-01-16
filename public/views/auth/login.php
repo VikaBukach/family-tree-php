@@ -39,7 +39,7 @@ session_start();
                     <button type="submit" class="btn btn-primar" style="margin-top: 20px;">Увійти</button>
                 </div>
             </form>
-                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-primar " href="/views/auth/auth.php">Зареєструватися</a>
+                <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-primar" href="/views/auth/auth.php">Зареєструватися</a>
         </div>
     </div>
 </div>
