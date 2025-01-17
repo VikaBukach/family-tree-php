@@ -1,7 +1,7 @@
 body {
     font-family: "Cormorant Unicase", serif;
-    font-size: 16px; /* Базовий розмір шрифту */
-    line-height: 1.5; /* Зручне міжрядкове відступлення */
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 .t-h1{
@@ -10,7 +10,6 @@ body {
     font-style: normal;
     color: #8b7e4e;
 }
-
 
  /*Оновлення шрифту для всіх компонентів Bootstrap */
 .navbar, .btn, .form-control, .dropdown-item, .table, .card {
@@ -111,6 +110,7 @@ main {
     border: 5px solid white;
     border-radius: 8px;
 }
+
 /* -----------Card of member  ------------*/
 .custom-card {
     background: linear-gradient(145deg, #4c4c4c, #2e2e2e);
@@ -233,4 +233,3 @@ main {
     font-family: 'Cormorant', serif;
     padding: 5px;
 }
-
