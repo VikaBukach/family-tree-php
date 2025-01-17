@@ -41,6 +41,13 @@ body {
     color: #b9a141;
 }
 
+.s-tex {
+    font-family: 'Cinzel', serif;
+    color: rgba(255, 215, 0, 0.88);
+    font-size: 14px;
+    margin-right: 5px;
+}
+
 .navbar-nav .nav-item {
     margin-right: 30px;
 }

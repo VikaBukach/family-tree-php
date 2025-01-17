@@ -11,6 +11,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$username = $_SESSION['name'] ?? null;
+
 $db = Db::getInstance();
 $allRows = $db->getAllRows();
 
@@ -38,10 +40,10 @@ $allRows = $db->getAllRows();
 <header>
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand align-items-center" href="#">
+            <div class="navbar-brand align-items-center">
                 <img src="/img/tree.png" class="logo-img" alt="tree" >
                 <span class="brand-text">Family Tree</span>
-            </a>
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -62,14 +64,22 @@ $allRows = $db->getAllRows();
                            aria-label="Search" required>
                     <button class="btn btn-outline-success" type="submit">Шукати</button>
                 </form>
+                <div>
+                    <?php if($username): ?>
+                        <span class="s-tex">Hello, <?= htmlspecialchars($username)?></span>
+                    <?php endif; ?>
+                    <svg id="logoutButton" class="svg" width="30px" height="30px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 7.5L10.5 10.75M13.5 7.5L10.5 4.5M13.5 7.5L4 7.5M8 13.5H1.5L1.5 1.5L8 1.5"
+                              stroke="#b9a141" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="13.5" cy="7.5" r="0.5" fill="#b9a141"/>
+                        <circle cx="10.5" cy="4.5" r="0.4" fill="#b9a141"/>
+                        <circle cx="10.5" cy="10.75" r="0.4" fill="#b9a141"/>
+                    </svg>
 
-                <svg id="logoutButton" class="svg" width="30px" height="30px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.5 7.5L10.5 10.75M13.5 7.5L10.5 4.5M13.5 7.5L4 7.5M8 13.5H1.5L1.5 1.5L8 1.5"
-                          stroke="#b9a141" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="13.5" cy="7.5" r="0.5" fill="#b9a141"/>
-                    <circle cx="10.5" cy="4.5" r="0.4" fill="#b9a141"/>
-                    <circle cx="10.5" cy="10.75" r="0.4" fill="#b9a141"/>
-                </svg>
+                </div>
+
+
+
             </div>
         </div>
     </nav>
