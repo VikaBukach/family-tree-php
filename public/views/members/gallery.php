@@ -60,13 +60,13 @@ $memberCards = $db->getAllCardByIdMember($id);
 
         <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
             <?php foreach ($memberCards as $card) : ?>
-                <!------------------створення карточки---------------------->
+                <!------------------створення карточки---img-object-fit: cover------------------>
                 <div class="card"
                      style="width: 400px; height: 500px; border: 1px solid #8b7e4e; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;">
-                    <div style="width: 100%; height: 75%; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
+                    <div style="width: 100%; height: 75%; display: flex; justify-content: center; align-items: center;">
                         <?php if (!empty ($card['image_path'])) : ?>
                             <img src="<?= htmlspecialchars($card['image_path']) ?>" class="card-img-top" alt="фото"
-                                 style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                 style="max-width: 100%; max-height: 100%; object-fit: contain;">
                         <?php else: ?>
                             <span>Відсутне фото</span>
                         <?php endif; ?>
