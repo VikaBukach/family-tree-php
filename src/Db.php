@@ -256,6 +256,47 @@ class Db
         header('Location: /');
     }
 
+    function getCardById($id) //отримання card для редагування, отримання конкретного запису з БД для подальшого внесення змін.
+    {
+        $this->beforeFunction();
+
+        $this->sql = "SELECT * FROM cards WHERE id =:id";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
+            ':id' => $id,
+        ];
+
+        $stmt->execute($this->params);
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->afterFunction(true, $res);
+
+        return $res;
+    }
+
+    function updateCard($card_id, $family_member_id, $image_path, $title, $description)
+    {
+        $this->beforeFunction();
+
+        $this->sql = "UPDATE cards SET family_member_id = :family_member_id, image_path = :image_path, title = :title, description = :description WHERE id = :id"; //оновлення card
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [
+            ':id' => $card_id,
+            ':family_member_id' => $family_member_id,
+            ':image_path' => $image_path,
+            ':title' => $title,
+            ':description' => $description,
+        ];
+
+        $stmt->execute($this->params);
+        $this->afterFunction();
+
+        return true;
+    }
+
     function getAllCards() //отримання усіх карток
     {
         if($member = $this->beforeFunction()) {
