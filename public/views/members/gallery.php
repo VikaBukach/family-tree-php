@@ -60,6 +60,7 @@ $memberCards = $db->getAllCardByIdMember($id);
 
 
         <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+
             <?php foreach ($memberCards as $card) : ?>
                 <!------------------створення карточки---img-object-fit: cover------------------>
                 <div class="card"
@@ -100,6 +101,7 @@ $memberCards = $db->getAllCardByIdMember($id);
 <!--                    </svg>-->
                 </div>
             <?php endforeach; ?>
+
         </div>
 
         <!--Модальне віккно для перегляду збільшенного зображення -->
@@ -112,6 +114,7 @@ $memberCards = $db->getAllCardByIdMember($id);
         <div class="card" style="margin-top: 50px; margin-bottom: 50px; border: 1px solid #8b7e4e">
             <div class="card-body"><?= $familyMember['history'] ?></div>
         </div>
+
 
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primar btn-lg" href="/views/members/relationsform.php?id=<?= $id ?>">Додати звʼязок з родиною</a>
 

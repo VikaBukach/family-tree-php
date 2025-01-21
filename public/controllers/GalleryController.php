@@ -90,7 +90,7 @@ class GalleryController extends BaseController
 
             $this->db->updateCard($card_id, $family_member_id, $image_path, $title, $description);
 
-            header("Location: /views/members/gallery.php?id=$family_member_id&updated=" . time());
+            header("Location: /views/members/gallery.php?id=$family_member_id");
             exit();
         }
 
