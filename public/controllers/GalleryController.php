@@ -93,8 +93,21 @@ class GalleryController extends BaseController
             header("Location: /views/members/gallery.php?id=$family_member_id");
             exit();
         }
-
     }
+        public function actionDeleteCard()
+    {
+        $this->checkAccess('update');
+
+        if($_POST) {
+            $id = $_POST['id'];
+        }
+
+        $this->db->deleteCard($id);
+
+        header("Location: /views/members/gallery.php?id=<?= $id ?>");
+    }
+
+
 
 }
 

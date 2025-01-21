@@ -332,6 +332,20 @@ class Db
         return $res;
     }
 
+    function deleteCard($id)
+    {
+        $this->beforeFunction();
+
+        $this->sql = "DELETE FROM cards WHERE id = :id";
+        $stmt = $this->connection->prepare($this->sql);
+
+        $this->params = [':id' => $id];
+
+        $stmt->execute($this->params);
+
+        $this->afterFunction();
+    }
+
     function getMemberById($id)
     {
         if($member = $this->beforeFunction()) {
