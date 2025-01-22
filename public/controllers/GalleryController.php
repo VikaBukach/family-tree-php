@@ -104,10 +104,9 @@ class GalleryController extends BaseController
 
         $this->db->deleteCard($id);
 
-        header("Location: /views/members/gallery.php?id=$id");
+        header("Location: {$_SERVER ['HTTP_REFERER']}");
+        exit;
     }
-
-
 
 }
 
