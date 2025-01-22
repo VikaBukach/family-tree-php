@@ -29,8 +29,8 @@ $memberCards = $db->getAllCardByIdMember($id);
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Cormorant+Unicase:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
-
 
 </head>
 <body>
@@ -59,7 +59,6 @@ $memberCards = $db->getAllCardByIdMember($id);
             <a href="/views/members/connections.php?id=<?= $id ?>" class="btn btn-primar">Родинні звʼязки</a>
         </div>
 
-
         <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
 
             <?php foreach ($memberCards as $card) : ?>
@@ -77,32 +76,39 @@ $memberCards = $db->getAllCardByIdMember($id);
                     <div class="card-body"
                          style="padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <h5 class="card-title"
-                            style="font-size: 18px; margin-bottom: 10px; text-align: center;"><?= $card['title'] ?></h5>
+                            style="font-size: 20px; margin-bottom: 10px; text-align: center;"><?= $card['title'] ?></h5>
                         <p class="card-text"
-                           style="font-size: 14px; color: #555; text-align: center;"><?= $card['description'] ?></p>
+                           style="font-size: 16px; color: #555; text-align: center;"><?= $card['description'] ?></p>
                     </div>
+
+                    <div style="display: flex; justify-content: space-between">
+                        <!-- Edit иконка -->
+                        <a href="/views/members/formcardgalleryEdit.php?id=<?= $card['id'] ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e2e2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.24 4.24a2.5 2.5 0 0 0-3.54 0L9 11.93V15h3.07l7.7-7.7a2.5 2.5 0 0 0 0-3.54z"></path>
+                                <path d="M7 20h10"></path>
+                                <path d="M16 8L9 15"></path>
+                            </svg>
+                            <span style="margin-left: 5px;">Редагувати</span>
+                        </a>
+
                     <!-- Delete иконка -->
                     <form action="/controllers/GalleryController.php?action=deleteCard" method="POST">
                         <input type="hidden" name="id" value="<?= $card['id'] ?>">
-                        <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer; position: absolute; top: 6px; right: 40px;">
+                        <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e2e2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"></path>
                                 <path d="M10 11v6"></path>
                                 <path d="M14 11v6"></path>
                             </svg>
+                            <span style="margin-left: 5px;">Видалити</span>
 
                         </button>
                     </form>
 
-                    <!-- Edit иконка -->
-                    <a href="/views/members/formcardgalleryEdit.php?id=<?= $card['id'] ?>">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e2e2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; top: 10px; right: 10px; cursor: pointer;">
-                            <path d="M20.24 4.24a2.5 2.5 0 0 0-3.54 0L9 11.93V15h3.07l7.7-7.7a2.5 2.5 0 0 0 0-3.54z"></path>
-                            <path d="M7 20h10"></path>
-                            <path d="M16 8L9 15"></path>
-                        </svg>
-                    </a>
+
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -115,7 +121,7 @@ $memberCards = $db->getAllCardByIdMember($id);
         </div>
         <!------------------створення біографіі(виводиться з дискрипшина) ---------------------->
         <div class="card" style="margin-top: 50px; margin-bottom: 50px; border: 1px solid #8b7e4e">
-            <div class="card-body"><?= $familyMember['history'] ?></div>
+            <div class="card-body" style="font-size: 18px;"><?= $familyMember['history'] ?></div>
         </div>
 
         <a class="d-grid gap-2 col-6 mx-auto mt-3 btn btn-outline-primar btn-lg"
