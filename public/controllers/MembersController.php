@@ -83,6 +83,8 @@ class MembersController extends BaseController
         }
 
         $this->db->deleteRow($id);
+
+        header('Location: /');
     }
 
     public function actionGetMembersByType()

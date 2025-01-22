@@ -7,8 +7,9 @@ if (isset($_GET['error']) && $_GET['error'] === 'auth_exists') {
     echo "<p style='color: red;'>Цей логін вже використовується. Будь ласка, виберіть інший.</p>";
 }
 
-if (isset($_GET['success']) && $_GET['success'] === 'registered') {
-    echo "<p style='color: green;'>Реєстрація успішна. Увійдіть у систему.</p>";
+if (isset($_SESSION['error_message'])) {
+    echo "<p style='color: red;'>{$_SESSION['error_message']}</p>";
+    unset($_SESSION['error_message']);
 }
 ?>
 

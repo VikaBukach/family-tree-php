@@ -16,6 +16,8 @@ class RelationshipsController extends BaseController
            $relationship_type = $_POST['relationship_type'] ?? '';
 
            $this->db->createReletionship($member_id, $related_member_id, $relationship_type);
+
+            header('Location: /');
         }
     }
 

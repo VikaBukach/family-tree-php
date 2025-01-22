@@ -213,8 +213,6 @@ class Db
         $stmt->execute($this->params);
 
         $this->afterFunction();
-
-        header('Location: /');
     }
 
     function createReletionship($member_id, $related_member_id, $relationship_type)
@@ -233,8 +231,6 @@ class Db
         $stmt->execute($this->params);
 
         $this->afterFunction();
-
-        header('Location: /');
     }
 
     function createCard($family_member_id, $image_path, $title, $description)
@@ -252,8 +248,6 @@ class Db
         $stmt->execute($this->params);
 
         $this->afterFunction();
-
-        header('Location: /');
     }
 
     function getCardById($id) //отримання card для редагування, отримання конкретного запису з БД для подальшого внесення змін.
@@ -574,7 +568,6 @@ class Db
         return $res;
     }
 
-
     public function createUser($surname, $name, $login, $password)
     {
         $this->beforeFunction();
@@ -633,8 +626,6 @@ class Db
             ];
             $stmt->execute($this->params);
         }
-
-        header('Location: /views/auth/login.php?success=registered');
 
         $this->afterFunction();
 

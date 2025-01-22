@@ -5,6 +5,11 @@ use FamilyTree\helpers\GenerateTreeHelper;
 require_once __DIR__ . '/../../../vendor/autoload.php';
 session_start();
 
+if (isset($_SESSION['success_message'])) {
+    echo "<p style='color: green;'>{$_SESSION['success_message']}</p>";
+    // Видаляємо повідомлення після відображення
+    unset($_SESSION['success_message']);
+}
 ?>
 
 <!doctype html>
