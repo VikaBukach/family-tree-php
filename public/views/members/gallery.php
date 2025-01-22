@@ -74,9 +74,9 @@ $memberCards = $db->getAllCardByIdMember($id);
                         <?php endif; ?>
                     </div>
                     <div class="card-body"
-                         style="padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                         style="padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <h5 class="card-title"
-                            style="font-size: 20px; margin-bottom: 10px; text-align: center;"><?= $card['title'] ?></h5>
+                            style="font-size: 18px; margin-bottom: 5px; text-align: center;"><?= $card['title'] ?></h5>
                         <p class="card-text"
                            style="font-size: 16px; color: #555; text-align: center;"><?= $card['description'] ?></p>
                     </div>
