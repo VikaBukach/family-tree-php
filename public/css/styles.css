@@ -82,6 +82,11 @@ body {
     border-color: #b9a141;
 }
 
+/* ------для екрану 320px------------*/
+.navbar-toggler {
+        background-color: #b9a141;
+}
+
 /* ------------main ------------*/
 main {
     font-family: 'Cormorant Garamond', serif;
