@@ -12,7 +12,8 @@ class MembersController extends BaseController
 
         if ($_POST) {
             // Обробка аватара
-            $avatar_path = '';
+            $defoltAvatarPath = '/../img/nofoto.jpg';
+            $avatar_path = $defoltAvatarPath;
 
             if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = __DIR__ . '/../img/';   // Директорія для збереження аватарів
@@ -20,7 +21,7 @@ class MembersController extends BaseController
                 $filePath = $uploadDir . $fileName;
 
                 if (move_uploaded_file($_FILES['avatar']['tmp_name'], $filePath)) {
-                    $avatar_path = '/../img/' . $fileName; // Шлях до аватара
+                    $avatar_path = '/../img/' . $fileName; // Шлях до завантаженого аватара
                 }
             }
 
