@@ -53,7 +53,7 @@ $dataAsJson = json_encode($membersForTree);
         template: 'john',
         nodeBinding: {
             field_0: "name", //name
-            field_1: "title", //role
+            field_1: "title", //name
             img_0: "img", //avatar
         }
     });

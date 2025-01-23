@@ -49,14 +49,20 @@ class MembersController extends BaseController
 
             $avatar_path = $_POST['avatar_path'] ?? '';
 
+            // Перевірка та завантаження нового файлу
             if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = __DIR__ . '/../img/';   // Директорія для збереження аватарів
                 $fileName = uniqid() . '-' . basename($_FILES['avatar']['name']);
                 $filePath = $uploadDir . $fileName;
 
                 if (move_uploaded_file($_FILES['avatar']['tmp_name'], $filePath)) {
-                    $avatar_path = '/../img/' . $fileName; // Шлях до аватара
+                    // Видалення старого аватара
+                  if(!empty($avatar_path) && file_exists(__DIR__ . $avatar_path)){
+                      unlink(__DIR__ . $avatar_path);
+                  }
                 }
+
+                $avatar_path = '/../img/' . $fileName; // Шлях до аватара
             }
 
             $surname = $_POST['surname'];
