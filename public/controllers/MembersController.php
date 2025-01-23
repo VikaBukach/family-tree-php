@@ -79,6 +79,7 @@ class MembersController extends BaseController
 
             $this->db->updateRow($id, $avatar_path, $surname, $maiden_name, $name, $fatherly, $birth_date, $history, $status, $death_date, $sex);
         }
+        header('Location: /views/members/list.php');
     }
 
     public function actionDelete()
