@@ -41,8 +41,10 @@ $allRows = $db->getAllRows();
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
             <div class="navbar-brand align-items-center">
+                <a class="nav-link active" aria-current="page" href="/">
                 <img src="/img/tree.png" class="logo-img" alt="tree" >
                 <span class="brand-text">Family Tree</span>
+                </a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -50,13 +52,13 @@ $allRows = $db->getAllRows();
             <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: space-evenly">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/views/members/formcreate.php">Add family member</a>
+                        <a class="nav-link" href="/views/members/formcreate.php">Додати члена родини</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/views/members/list.php">List of family members</a>
+                        <a class="nav-link" href="/views/members/list.php">Список членів родини</a>
                     </li>
                 </ul>
                 <form id="search-form" class="d-flex" role="search">
