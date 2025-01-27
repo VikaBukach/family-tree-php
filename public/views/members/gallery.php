@@ -67,7 +67,7 @@ $memberCards = $db->getAllCardByIdMember($id);
                      style="width: 400px; height: 500px; border: 1px solid #8b7e4e; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;">
                     <div style="width: 100%; height: 75%; display: flex; justify-content: center; align-items: center;">
                         <?php if (!empty ($card['image_path'])) : ?>
-                            <img src="<?= htmlspecialchars($card['image_path']) ?>" id="photo" class="card-img-top" alt="фото"
+                            <img src="<?= htmlspecialchars($card['image_path']) ?>" class="card-img-top" alt="фото"
                                  style="max-width: 100%; max-height: 100%; object-fit: contain;">
                         <?php else: ?>
                             <span>Відсутне фото</span>
@@ -81,7 +81,7 @@ $memberCards = $db->getAllCardByIdMember($id);
                            style="font-size: 16px; color: #555; text-align: center;"><?= $card['description'] ?></p>
                     </div>
 
-                    <div class="card-actions" style="display: flex; justify-content: space-between">
+                    <div style="display: flex; justify-content: space-between">
                         <!-- Edit иконка -->
                         <a href="/views/members/formcardgalleryEdit.php?id=<?= $card['id'] ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e2e2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -106,6 +106,8 @@ $memberCards = $db->getAllCardByIdMember($id);
 
                         </button>
                     </form>
+
+
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -151,9 +153,6 @@ $memberCards = $db->getAllCardByIdMember($id);
             })
         })
     </script>
-
-
-
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/jquery.min.js"></script>
 </body>

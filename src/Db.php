@@ -233,39 +233,21 @@ class Db
         $this->afterFunction();
     }
 
-    function insertCard($familyMemberId, $image_path, $title, $description)
+    function createCard($family_member_id, $image_path, $title, $description)
     {
         $this->beforeFunction();
 
         $this->sql = "INSERT INTO cards (family_member_id, image_path, title, description) VALUES (:family_member_id, :image_path, :title, :description)";
         $stmt = $this->connection->prepare($this->sql);
         $this->params = [
-            ':family_member_id' => $familyMemberId,
+            ':family_member_id' => $family_member_id,
             ':image_path' => $image_path,
             ':title' => $title,
             ':description' => $description
         ];
         $stmt->execute($this->params);
 
-        return $this->connection->lastInsertId();
-
-//        $this->afterFunction();
-    }
-
-    function insertCardMember($cardId, $memberId)
-    {
-        $this->beforeFunction();
-
-        $this->sql="INSERT INTO card_members(card_id, family_member_id) VALUES (:card_id, :family_member_id)";
-        $stmt = $this->connection->prepare($this->sql);
-        $this->params = [
-            ':card_id' => $cardId,
-            ':family_member_id' => $memberId,
-        ];
-        $stmt->execute($this->params);
-
         $this->afterFunction();
-
     }
 
     function getCardById($id) //отримання card для редагування, отримання конкретного запису з БД для подальшого внесення змін.

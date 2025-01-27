@@ -6,7 +6,7 @@ use FamilyTree\BaseController;
 
 class GalleryController extends BaseController
 {
-    public function actionInsertCard()
+    public function actionCreateCard()
     {
         $this->checkAccess('create');
 
@@ -15,11 +15,11 @@ class GalleryController extends BaseController
             $image_path = '';
 
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $familyMemberId = $_POST['family_member_id'] ?? '';
+                $family_member_id = $_POST['family_member_id'] ?? '';
                 $uploadBaseDir = __DIR__ . '/../img/'; // Базова Директорія для збереження фото
 
                 //назва папки для конкретної людини
-                $memberFolder = $uploadBaseDir . $familyMemberId;
+                $memberFolder = $uploadBaseDir . $family_member_id;
 
                 // Перевіряємо, чи існує папка. Якщо ні — створюємо її
                 if (!is_dir($memberFolder)) {
@@ -32,7 +32,7 @@ class GalleryController extends BaseController
 
                 // Переміщуємо файл у папку
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $filePath)) {
-                    $image_path = '/../img/' . $familyMemberId . '/' . $fileName; // Шлях до фото відносно веб-сервера
+                    $image_path = '/../img/' . $family_member_id . '/' . $fileName; // Шлях до фото відносно веб-сервера
                 } else {
                     die('Не вдалося завантажити файл');
                 }
@@ -40,17 +40,10 @@ class GalleryController extends BaseController
 
             $title = $_POST['title'] ?? '';
             $description = $_POST['description'] ?? '';
-            $relatedMembers = $_POST['family_members'] ?? []; // Люди, які є на фотографії
 
-            // Додати запис у таблицю `cards`
-            $cardId = $this->db->insertCard($familyMemberId, $image_path, $title, $description);
+            $this->db->createCard($family_member_id, $image_path, $title, $description);
 
-            // Додати зв'язки в таблицю `card_members`
-            foreach ($relatedMembers as $memberId){
-                $this->db->insertCardMember($cardId, $memberId);
-            }
-
-            header("Location: /views/members/gallery.php?id=$familyMemberId");
+            header("Location: /views/members/gallery.php?id=$family_member_id");
             exit();
 
         }
