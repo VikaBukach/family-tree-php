@@ -11,6 +11,7 @@ if (empty($_GET['id'])) {
 $id = $_GET['id'];
 $db = Db::getInstance();
 
+$family_members = $db->getAllRows();
 ?>
 
 <!doctype html>
@@ -30,13 +31,22 @@ $db = Db::getInstance();
         <div class="col-xl-6 col-lg-6 mt-5 mb-5">
             <h1 class="text-center mt-2 mb-4 t-h1">Форма додавання картки спогадів </h1>
 
-            <form action="/controllers/GalleryController.php?action=createCard" method="POST" class="d-block p-2" enctype="multipart/form-data">
+            <form action="/controllers/GalleryController.php?action=insertCard" method="POST" class="d-block p-2" enctype="multipart/form-data">
                 <div class="mb-3">
                     <input type="hidden" name="family_member_id" value="<?= $id ?>">
                     <label for="image" class="form-label">Зображення:</label>
                     <input type="file" name="image" id="image" class="form-control" accept="image/png, image/jpeg">
                     <input type="hidden" name="image_path" value="">
-                    <!-- Тут зберігається шлях до фото -->
+                </div>
+
+                <!--для вибору людей на фотографії -->
+                <div class="mb-3">
+                    <label for="members">Люди на фотографії:</label>
+                    <select name="family_members[]" id="members" multiple>
+                        <?php foreach ($family_members as $member): ?>
+                             <option value="<?= $member['id'] ?>"><?= $member['name'] ?> <?= $member['surname'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <div class="mb-3">
