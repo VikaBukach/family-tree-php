@@ -24,6 +24,7 @@ $card = $db->getCardById($id);
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Cormorant+Unicase:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
+
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -74,5 +75,8 @@ $card = $db->getCardById($id);
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/jquery.min.js"></script>
+
+
+
 </body>
 </html>

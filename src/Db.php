@@ -247,6 +247,23 @@ class Db
         ];
         $stmt->execute($this->params);
 
+        return $this->connection->lastInsertId();
+
+//        $this->afterFunction();
+    }
+
+    public function addMembersToFoto($cardId, $memberId)
+    {
+        $this->beforeFunction();
+
+        $this->sql = "INSERT INTO card_members (card_id, family_member_id) VALUES (:card_id, :member_id)";
+        $stmt = $this->connection->prepare($this->sql);
+        $this->params = ([
+            ':card_id' => $cardId,
+            ':member_id' => $memberId
+        ]);
+        $stmt->execute($this->params);
+
         $this->afterFunction();
     }
 

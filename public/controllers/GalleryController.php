@@ -41,7 +41,14 @@ class GalleryController extends BaseController
             $title = $_POST['title'] ?? '';
             $description = $_POST['description'] ?? '';
 
-            $this->db->createCard($family_member_id, $image_path, $title, $description);
+            $cardId = $this->db->createCard($family_member_id, $image_path, $title, $description);
+
+            // Збереження зв'язків між карткою і людьми в таблицю `card_members`
+            if(!empty($_POST['family_members']) && is_array($_POST['family_members'])){
+                foreach ($_POST['family_members'] as $memberId) {
+                    $this->db->addMembersToFoto($cardId, $memberId);
+                }
+            }
 
             header("Location: /views/members/gallery.php?id=$family_member_id");
             exit();
