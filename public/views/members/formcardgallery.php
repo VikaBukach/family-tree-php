@@ -64,8 +64,6 @@ $family_members = $db->getAllRows();
                     </select>
                 </div>
 
-
-
                 <div class="mb-3">
                     <label for="title" class="form-label">Заголовок:</label>
                     <input type="text" name="title" id="title" class="form-control">
@@ -98,6 +96,20 @@ $family_members = $db->getAllRows();
             dropdownCssClass: "select2--small",
             placeholder: "Oберіть членів родини",
             allowClear: true
+        });
+
+        $('#members').on('change', function (){
+            let selectedNames = $(this).find(':selected').map(function(){
+                return $(this).text();
+            }).get();
+
+            let descriptionField = $('#description');
+
+            if(selectedNames.length > 0){
+                descriptionField.val('На цьому фото є: ' + selectedNames.join(', '));
+            } else {
+                descriptionField.val('');
+            }
         });
 
 </script>
