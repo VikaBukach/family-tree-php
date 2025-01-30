@@ -330,7 +330,16 @@ class Db
             return $member;
         }
 
-        $this->sql = "SELECT * FROM cards WHERE family_member_id = :id";
+        // SQL-запит для отримання карток, які безпосередньо належать мемберу (cards)
+        $sql1 = "SELECT * FROM cards WHERE family_member_id = :id";
+
+        // SQL-запит для отримання карток, у яких мембер є в таблиці card_members
+        $sql2 = "SELECT c.* FROM cards c
+                    JOIN card_members cm ON c.id = cm.card_id
+                    WHERE cm.family_member_id = :id";
+
+        $this->sql = "($sql1) UNION ($sql2)";
+
         $stmt = $this->connection->prepare($this->sql);
 
         $this->params = [':id' => $id];
