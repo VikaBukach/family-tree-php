@@ -594,7 +594,23 @@ class Db
         return $res;
     }
 
-    public function createUser($surname, $name, $login, $password)
+    public function checkFamilyMember($surname, $name)
+    {
+        $this->beforeFunction();
+
+        $this->sql = "SELECT id FROM family_members WHERE surname =:surname AND name =:name";
+        $stmt = $this->connection->prepare($this->sql);
+        $this->params = [
+            ':surname' => $surname,
+            ':name' => $name
+        ];
+
+        $stmt->execute($this->params);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function createUser($surname, $name, $login, $password, $familyMemberId = null)
     {
         $this->beforeFunction();
 
@@ -613,17 +629,6 @@ class Db
 
              header('Location: /views/auth/auth.php?error=auth_exists');
         }
-
-        // перевірка наявності в табл family_memb
-        $this->sql = "SELECT id FROM family_members WHERE surname =:surname AND name =:name";
-        $stmt = $this->connection->prepare($this->sql);
-        $this->params = [
-            ':surname' => $surname,
-            ':name' => $name
-        ];
-
-        $stmt->execute($this->params);
-        $familyMember = $stmt->fetch(PDO::FETCH_ASSOC);
 
         //хеш пароля
         $passwHash = password_hash($password, PASSWORD_BCRYPT);
@@ -644,11 +649,11 @@ class Db
         $userId = $this->connection->lastInsertId();
 
         //якщо знайдено члена сімʼї оновлюємо поле user_id
-        if($familyMember){
-            $stmt = $this->connection->prepare("UPDATE family_members SET user_id = :user_id WHERE id =:id");
+        if($familyMemberId){
+            $stmt = $this->connection->prepare("UPDATE family_members SET user_id = :user_id WHERE id = :id");
             $this->params = [
-                'user_id' => $userId,
-                'id' => $familyMember['id'],
+                ':user_id' => $userId,
+                ':id' => $familyMemberId,
             ];
             $stmt->execute($this->params);
         }

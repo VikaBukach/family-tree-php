@@ -8,7 +8,7 @@ class AuthController extends BaseController
 
     public function actionCreateUser()
     {
-        session_start(); // Ініціалізація сесії на початку методу
+        session_start(); // Ініціалізація сесії
 
         if($_POST){
             $surname = trim($_POST['surname'] ?? '');
@@ -22,7 +22,16 @@ class AuthController extends BaseController
                 exit;
             }
 
-            $this->db->createUser($surname, $name, $login, $password);
+            //перевірка наявності у табл family_members
+            $familyMember = $this->db->checkFamilyMember($surname, $name);
+
+            if(!$familyMember){
+                $_SESSION['error_message'] = 'Відмовлено в доступі';
+                header('Location: /views/auth/auth.php');
+                exit;
+            }
+
+            $this->db->createUser($surname, $name, $login, $password, $familyMember['id']);
 
             // Успішна реєстрація
             $_SESSION['success_message'] = 'Реєстрація успішна. Увійдіть у систему.';
