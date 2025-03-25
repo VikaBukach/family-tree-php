@@ -1,0 +1,48 @@
+Genealogy Tree "FamilyTree"
+Project Description:
+FamilyTree is a web application built using pure PHP with an object-oriented approach (OOP) and MySQL as the database. 
+The application allows users to create their own family trees, add and edit information about family members, and store important moments in the Memory Gallery section.
+
+Key Features:
+User Registration and Authentication: Each user has a personal account with access to manage their genealogy tree.
+
+Creating and Editing Family Members: Users can add new family members, define relationships between them, and edit personal details such as name, date of birth, and place of residence.
+
+Memory Gallery: Users can upload photos of individuals with descriptions and tag other family members who appear in the picture. The Select2 library is integrated to facilitate easy searching and selection of people. 
+The uploaded photo is automatically linked to all tagged individuals.
+
+Dynamic Family Tree Visualization: Using the FamilyTree library, the tree is dynamically built based on the selected person, displaying relationships interactively.
+
+Technical Details:
+Programming Languages: PHP, JavaScript (for Select2 integration).
+
+Database: MySQL for storing user data and family relationships.
+
+Libraries & Tools: FamilyTree for building the genealogy tree, Select2 for advanced person selection, and HTML/CSS for UI development.
+
+This project showcases my expertise in web application development using PHP, database management, and integrating external libraries to create interactive interfaces.
+======================================================================================================================================================================================
+
+Генеалогічне дерево "FamilyTree"
+Опис проекту:
+Генеалогічне дерево "FamilyTree" - це веб-додаток, написаний на чистому PHP з використанням об'єктно-орієнтованого підходу (OOP) та бази даних MySQL. 
+Додаток дозволяє користувачам створювати свої сімейні дерева, додавати та редагувати інформацію про членів родини, а також зберігати важливі моменти в розділі "Галерея пам'яті".
+
+Основні функціональні можливості:
+Реєстрація та авторизація користувачів: Кожен користувач має особистий обліковий запис з можливістю управління своїм генеалогічним деревом.
+
+Створення та редагування членів родини: Користувачі можуть додавати нових членів родини, вказувати зв'язки між ними та редагувати їх особисті дані (ім'я, дата народження, місце проживання тощо).
+
+Галерея пам'яті: У розділі галереї користувачі можуть завантажувати фотографії окремих осіб з описом та вказанням інших членів родини, які також присутні на зображенні. 
+Для вибору осіб на фото використовується інтеграція з бібліотекою Select2 для зручного пошуку та вибору.
+
+Побудова родинного дерева: За допомогою бібліотеки FamilyTree дерево будується динамічно, відображаючи зв'язки між членами родини в залежності від особи, яку переглядають.
+
+Технічні деталі:
+Мови програмування: PHP, JavaScript (для інтеграції Select2).
+
+База даних: MySQL для зберігання інформації про користувачів та їх сімейні зв'язки.
+
+Бібліотеки та інструменти: FamilyTree для побудови дерева, Select2 для вибору осіб на фото, HTML/CSS для створення інтерфейсу.
+
+Цей проект демонструє мої навички у розробці веб-додатків з використанням PHP, роботу з базами даних та інтеграцію зовнішніх бібліотек для створення інтерактивних інтерфейсів.
